@@ -1,50 +1,53 @@
-# Welcome to your Expo app 👋
+# Aplikasi Quran - Expo SDK 54
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplikasi Al-Quran mobile untuk Android dengan fitur reading, bookmark, dan tracking progress. Semua data disimpan secara lokal untuk akses offline.
 
-## Get started
+## 🚀 Fitur Utama
 
-1. Install dependencies
+- **Baca Alquran**: Jelajahi 114 surah dengan layout yang indah
+- **Terakhir Baca**: Otomatis melacak progress bacaan
+- **Bookmark**: Tandai ayat-ayat penting dengan catatan pribadi
 
-   ```bash
-   npm install
-   ```
+## 📦 Quick Start
 
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
+### Install & Run
 ```bash
-npm run reset-project
+# Install dependencies
+npm install
+
+# Run di Android
+npm run android
+
+# Atau dengan expo start
+expo start  # pilih 'a' untuk Android
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Build APK
+```bash
+eas build --platform android
+```
 
-## Learn more
+## 🏗️ Struktur
+- `app/(tabs)/index.tsx` - Home screen dengan 3 menu
+- `app/(tabs)/read.tsx` - Baca Quran Surah by Surah
+- `app/(tabs)/bookmark.tsx` - Daftar bookmark dengan catatan
+- `services/` - API & Storage services
+- `hooks/use-quran.tsx` - Global Quran context
+- `types/quran.ts` - Data types
 
-To learn more about developing your project with Expo, look at the following resources:
+## 🌐 Data Source
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Data Quran dari **Al-Quran Cloud API** (gratis, no auth needed):
+- 114 Surah lengkap
+- Semua ayat dengan translations
+- Disimpan lokal di device via AsyncStorage
 
-## Join the community
+## 📚 Dokumentasi Detail
 
-Join our community of developers creating universal apps.
+Lihat [SETUP.md](./SETUP.md) untuk dokumentasi lengkap, troubleshooting, dan enhancement ideas.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 📖 Learn More
+
+- [Expo Documentation](https://docs.expo.dev)
+- [Expo Router](https://docs.expo.dev/routing/introduction/)
+- [React Native](https://reactnative.dev)

@@ -1,98 +1,223 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
+import { useEffect, useState } from 'react';
+import { StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
+import { useRouter } from 'expo-router';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import { useQuran } from '@/hooks/use-quran';
+import { useColorScheme } from '@/hooks/use-color-scheme';
+import { Colors } from '@/constants/theme';
+import { IconSymbol } from '@/components/ui/icon-symbol';
 
 export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+  const router = useRouter();
+  const colorScheme = useColorScheme();
+  const { initializeQuran, isLoading, error, lastReadProgress, bookmarks } = useQuran();
+  const [showError, setShowError] = useState(false);
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
+  const colors = Colors[colorScheme ?? 'light'];
+
+  useEffect(() => {
+    initializeQuran();
+  }, [initializeQuran]);
+
+  useEffect(() => {
+    if (error) {
+      setShowError(true);
+    }
+  }, [error]);
+
+  const handleMenuPress = (route: string) => {
+    if (isLoading) return;
+    router.push(route as any);
+  };
+
+  const handleRetry = () => {
+    setShowError(false);
+    initializeQuran();
+  };
+
+  if (showError && error) {
+    return (
+      <ThemedView style={styles.container}>
+        <ThemedView style={styles.errorContainer}>
+          <IconSymbol name="exclamationmark.circle" size={48} color={colors.icon} />
+          <ThemedText type="title" style={{ marginTop: 16, textAlign: 'center' }}>
+            Error
+          </ThemedText>
+          <ThemedText style={{ marginTop: 8, textAlign: 'center', marginHorizontal: 16 }}>
+            {error}
+          </ThemedText>
+          <TouchableOpacity
+            style={[styles.retryButton, { backgroundColor: colors.tint }]}
+            onPress={handleRetry}
+            disabled={isLoading}>
+            {isLoading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <ThemedText style={{ color: '#fff', fontWeight: '600' }}>Retry</ThemedText>
+            )}
+          </TouchableOpacity>
+        </ThemedView>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
+    );
+  }
+
+  return (
+    <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
+      <ThemedView style={styles.container}>
+        {/* Header */}
+        <ThemedView style={styles.headerSection}>
+          <ThemedText type="title" style={{ fontSize: 32 }}>
+            Quran
+          </ThemedText>
+          <ThemedText type="subtitle" style={{ marginTop: 8, opacity: 0.7 }}>
+            Baca dan pelajari Al-Quran dengan tajweed
+          </ThemedText>
+        </ThemedView>
+
+        {/* Loading Indicator */}
+        {isLoading && (
+          <ThemedView style={styles.loadingContainer}>
+            <ActivityIndicator
+              size="large"
+              color={colors.tint}
+              style={{ marginVertical: 20 }}
+            />
+            <ThemedText style={{ textAlign: 'center' }}>
+              Loading Quran data...
+            </ThemedText>
+          </ThemedView>
+        )}
+
+        {/* Menu Items */}
+        {!isLoading && (
+          <ThemedView style={styles.menuContainer}>
+            {/* Baca Alquran */}
+            <TouchableOpacity
+              style={[styles.menuCard, { borderColor: colors.tint }]}
+              onPress={() => handleMenuPress('/(tabs)/read')}
+              activeOpacity={0.7}>
+              <ThemedView style={styles.menuCardHeader}>
+                <IconSymbol
+                  name="book.fill"
+                  size={32}
+                  color={colors.tint}
+                  style={styles.menuIcon}
+                />
+              </ThemedView>
+              <ThemedText type="subtitle" style={{ marginTop: 12 }}>
+                Baca Alquran
+              </ThemedText>
+              <ThemedText style={{ marginTop: 6, opacity: 0.7, fontSize: 13 }}>
+                Mulai membaca Al-Quran dari awal atau surah pilihan Anda
+              </ThemedText>
+            </TouchableOpacity>
+
+            {/* Terakhir Baca */}
+            <TouchableOpacity
+              style={[styles.menuCard, { borderColor: colors.tint }]}
+              onPress={() => {
+                if (lastReadProgress) {
+                  handleMenuPress(
+                    `/(tabs)/read?surah=${lastReadProgress.surahNumber}&verse=${lastReadProgress.verseNumber}`
+                  );
+                } else {
+                  Alert.alert(
+                    'No History',
+                    'You have not read anything yet. Start reading to track your progress.'
+                  );
+                }
+              }}
+              activeOpacity={0.7}>
+              <ThemedView style={styles.menuCardHeader}>
+                <IconSymbol
+                  name="clock.fill"
+                  size={32}
+                  color={colors.tint}
+                  style={styles.menuIcon}
+                />
+              </ThemedView>
+              <ThemedText type="subtitle" style={{ marginTop: 12 }}>
+                Terakhir Baca
+              </ThemedText>
+              <ThemedText style={{ marginTop: 6, opacity: 0.7, fontSize: 13 }}>
+                {lastReadProgress
+                  ? `Surah ke-${lastReadProgress.surahNumber}, Ayat ${lastReadProgress.verseNumber}`
+                  : 'Belum ada history bacaan'}
+              </ThemedText>
+            </TouchableOpacity>
+
+            {/* Bookmark */}
+            <TouchableOpacity
+              style={[styles.menuCard, { borderColor: colors.tint }]}
+              onPress={() => handleMenuPress('/(tabs)/bookmark')}
+              activeOpacity={0.7}>
+              <ThemedView style={styles.menuCardHeader}>
+                <IconSymbol
+                  name="bookmark.fill"
+                  size={32}
+                  color={colors.tint}
+                  style={styles.menuIcon}
+                />
+              </ThemedView>
+              <ThemedText type="subtitle" style={{ marginTop: 12 }}>
+                Bookmark
+              </ThemedText>
+              <ThemedText style={{ marginTop: 6, opacity: 0.7, fontSize: 13 }}>
+                {bookmarks.length > 0
+                  ? `Anda memiliki ${bookmarks.length} bookmark`
+                  : 'Belum ada bookmark'}
+              </ThemedText>
+            </TouchableOpacity>
+          </ThemedView>
+        )}
       </ThemedView>
-    </ParallaxScrollView>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
+  container: {
+    flex: 1,
+    padding: 16,
+  },
+  headerSection: {
+    marginTop: 20,
+    marginBottom: 32,
+  },
+  loadingContainer: {
+    justifyContent: 'center',
     alignItems: 'center',
-    gap: 8,
+    paddingVertical: 40,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 16,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  retryButton: {
+    marginTop: 24,
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 8,
+    minWidth: 120,
+    alignItems: 'center',
+  },
+  menuContainer: {
+    gap: 16,
+    marginBottom: 32,
+  },
+  menuCard: {
+    padding: 16,
+    borderRadius: 12,
+    borderWidth: 2,
+    paddingVertical: 20,
+  },
+  menuCardHeader: {
+    alignItems: 'flex-start',
+  },
+  menuIcon: {
+    marginBottom: 4,
   },
 });
