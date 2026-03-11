@@ -4,9 +4,11 @@ import {
   TouchableOpacity,
   Alert,
   SectionList,
+  View,
 } from 'react-native';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { TajwidDisplay } from '@/components/tajweed-display';
 import { useQuran } from '@/hooks/use-quran';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Colors } from '@/constants/theme';
@@ -75,17 +77,13 @@ export default function BookmarkScreen() {
           <ThemedText style={{ fontSize: 12, opacity: 0.7 }}>
             Ayat {item.verseNumber}
           </ThemedText>
-          <ThemedText
-            style={{
-              fontSize: 16,
-              marginTop: 8,
-              lineHeight: 26,
-              textAlign: 'right',
-              fontWeight: '500',
-            }}
-            numberOfLines={3}>
-            {item.text}
-          </ThemedText>
+          <View style={{ marginTop: 8 }}>
+            <TajwidDisplay 
+              text={item.text} 
+              fontSize={16}
+              lineHeight={26}
+            />
+          </View>
           {item.note && (
             <ThemedView style={{ marginTop: 12, paddingTop: 12, borderTopWidth: 1, borderTopColor: colors.icon }}>
               <ThemedText style={{ fontSize: 12, opacity: 0.7 }}>Note:</ThemedText>
@@ -113,10 +111,10 @@ export default function BookmarkScreen() {
 
   const renderSectionHeader = ({ section }: { section: BookmarkSection }) => (
     <ThemedView style={[styles.sectionHeader, { backgroundColor: colors.tint }]}>
-      <ThemedText style={{ color: '#fff', fontWeight: '600' }}>
+      <ThemedText style={{ color: colors.background, fontWeight: '600' }}>
         {section.title}
       </ThemedText>
-      <ThemedText style={{ color: '#fff', fontSize: 12, marginTop: 2, opacity: 0.8 }}>
+      <ThemedText style={{ color: colors.background, fontSize: 12, marginTop: 2, opacity: 0.8 }}>
         {section.data.length} {section.data.length === 1 ? 'bookmark' : 'bookmarks'}
       </ThemedText>
     </ThemedView>

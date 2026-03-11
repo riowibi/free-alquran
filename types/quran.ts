@@ -14,6 +14,9 @@ export interface QuranVerse {
   sajdah: boolean | null;
   tajweedKind?: string;
   colorCode?: string; // Hex color for tajweed
+  transliteration?: string; // Latin/romanized text
+  englishTranslation?: string; // English translation
+  indonesianTranslation?: string; // Indonesian translation
 }
 
 export interface QuranSurah {

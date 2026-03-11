@@ -1,28 +1,32 @@
 /**
  * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
+ * Eye-friendly palette for comfortable reading (ages 25-50+)
+ * Warm tones with reduced eye strain
  */
 
 import { Platform } from 'react-native';
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+// Eye-friendly tint colors
+const tintColorLight = '#B8860B'; // Golden brown - warm and professional
+const tintColorDark = '#D4AF85'; // Soft gold - warm and elegant
 
 export const Colors = {
   light: {
-    text: '#11181C',
-    background: '#fff',
+    // Light mode: Warm cream/beige background with dark text
+    text: '#3E2723', // Very dark brown (not pure black)
+    background: '#F5F1ED', // Warm cream/off-white (like aged paper)
     tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
+    icon: '#A1887F', // Warm taupe
+    tabIconDefault: '#A1887F',
     tabIconSelected: tintColorLight,
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#151718',
+    // Dark mode: Warm dark tan background with soft text
+    text: '#E8DDD5', // Warm light beige (not pure white)
+    background: '#0f0f0f', // Deep warm brown (not pure black)
     tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
+    icon: '#8B7355', // Warm medium brown
+    tabIconDefault: '#8B7355',
     tabIconSelected: tintColorDark,
   },
 };

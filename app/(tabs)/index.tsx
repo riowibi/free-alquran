@@ -52,9 +52,9 @@ export default function HomeScreen() {
             onPress={handleRetry}
             disabled={isLoading}>
             {isLoading ? (
-              <ActivityIndicator color="#fff" />
+              <ActivityIndicator color={colors.background} />
             ) : (
-              <ThemedText style={{ color: '#fff', fontWeight: '600' }}>Retry</ThemedText>
+              <ThemedText style={{ color: colors.background, fontWeight: '600' }}>Retry</ThemedText>
             )}
           </TouchableOpacity>
         </ThemedView>
