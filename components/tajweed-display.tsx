@@ -108,44 +108,70 @@ export function TajwidDisplay({
   // Split text into characters for processing
   const chars = Array.from(text);
 
-  return (
-    <View style={{ direction: 'rtl' }}>
-      <Text
-        style={{
-          fontSize,
-          lineHeight,
-          textAlign: 'right',
-          fontWeight: '600',
-          color: colors.text,
-          fontFamily: Platform.select({
-            ios: 'Arabic Typesetting',
-            default: 'serif',
-            web: 'Dubai, Scheherazade, Amiri, serif',
-          }),
-          letterSpacing: 0.5, // Better spacing for Arabic
-        }}>
-        {chars.map((char, idx) => {
-          const nextChar = idx < chars.length - 1 ? chars[idx + 1] : null;
-          const prevChar = idx > 0 ? chars[idx - 1] : null;
-          const charColor = getCharacterColor(char, nextChar, prevChar);
+  // Group consecutive characters with same color to preserve Arabic shaping & ligatures
+  const colorGroups: { color: string; text: string }[] = [];
+  let currentGroup = { color: '', text: '' };
 
-          return (
-            <Text
-              key={idx}
-              style={{
-                color: charColor,
-                fontSize,
-                fontFamily: Platform.select({
-                  ios: 'Arabic Typesetting',
-                  default: 'serif',
-                  web: 'Dubai, Scheherazade, Amiri, serif',
-                }),
-              }}>
-              {char}
-            </Text>
-          );
-        })}
-      </Text>
-    </View>
+  chars.forEach((char, idx) => {
+    const nextChar = idx < chars.length - 1 ? chars[idx + 1] : null;
+    const prevChar = idx > 0 ? chars[idx - 1] : null;
+    const charColor = getCharacterColor(char, nextChar, prevChar);
+
+    if (charColor === currentGroup.color) {
+      // Same color as current group, accumulate
+      currentGroup.text += char;
+    } else {
+      // Different color, save current group and start new one
+      if (currentGroup.text) {
+        colorGroups.push({ ...currentGroup });
+      }
+      currentGroup = { color: charColor, text: char };
+    }
+  });
+
+  // Add last group
+  if (currentGroup.text) {
+    colorGroups.push(currentGroup);
+  }
+
+  const fontFamily = Platform.select({
+    ios: 'KFGQPC Uthman Taha Naskh',
+    // Android: Try system fonts first, then fallback kalu expo go
+    android: 'Noto Sans Arabic, Droid Naskh Arabic, sans-serif',
+    default: 'serif',
+    web: '"KFGQPC Uthman Taha Naskh", "Noto Sans Arabic", serif',
+  });
+
+  const baseStyle = {
+    fontSize,
+    lineHeight,
+    fontFamily,
+  };
+
+  return (
+    <Text
+      style={{
+        fontSize,
+        lineHeight,
+        textAlign: 'right',
+        fontWeight: '400',
+        color: colors.text,
+        direction: 'rtl',
+        writingDirection: 'rtl',
+        fontFamily,
+        letterSpacing: 0.5,
+        // allowFontScaling: false,
+      }}>
+      {colorGroups.map((group, idx) => (
+        <Text
+          key={idx}
+          style={{
+            color: group.color,
+            ...baseStyle,
+          }}>
+          {group.text}
+        </Text>
+      ))}
+    </Text>
   );
 }

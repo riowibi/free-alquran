@@ -1,0 +1,900 @@
+{
+  "juzNumber": 24,
+  "surahRange": [
+    60,
+    66
+  ],
+  "totalSurahs": 7,
+  "scrapedAt": "2026-03-12T18:05:09.576Z",
+  "surahs": [
+    {
+      "number": 60,
+      "name": "الممتحنة",
+      "englishName": "Al-Mumtahanah",
+      "englishNameTranslation": "Wanita Yang Diuji",
+      "numberOfAyahs": 13,
+      "revelationType": "Medinan",
+      "verses": [
+        {
+          "number": 1,
+          "text": "يٰٓاَيُّهَا الَّذِيْنَ اٰمَنُوْا لَا تَتَّخِذُوْا عَدُوِّيْ وَعَدُوَّكُمْ اَوْلِيَاۤءَ تُلْقُوْنَ اِلَيْهِمْ بِالْمَوَدَّةِ وَقَدْ كَفَرُوْا بِمَا جَاۤءَكُمْ مِّنَ الْحَقِّۚ  يُخْرِجُوْنَ الرَّسُوْلَ وَاِيَّاكُمْ اَنْ تُؤْمِنُوْا بِاللّٰهِ رَبِّكُمْۗ اِنْ كُنْتُمْ خَرَجْتُمْ جِهَادًا فِيْ سَبِيْلِيْ وَابْتِغَاۤءَ مَرْضَاتِيْ تُسِرُّوْنَ اِلَيْهِمْ بِالْمَوَدَّةِ وَاَنَا۠ اَعْلَمُ بِمَآ اَخْفَيْتُمْ وَمَآ اَعْلَنْتُمْۗ وَمَنْ يَّفْعَلْهُ مِنْكُمْ فَقَدْ ضَلَّ سَوَاۤءَ السَّبِيْلِ ",
+          "transliteration": "Yā ayyuhal-lażīna āmanū lā tattakhiżū ‘aduwwī wa ‘aduwwakum auliyā'a tulqūna ilaihim bil-mawaddati wa qad kafarū bimā jā'akum minal-ḥaqq(i), yukhrijūnar-rasūla wa iyyākum an tu'minū billāhi rabbikum, in kuntum kharajtum jihādan fī sabīlī wabtigā'a marḍātī tusirrūna ilaihim bil-mawaddah(ti), wa ana a‘lamu bimā akhfaitum wa mā a‘lantum, wa may yaf‘alhu minkum faqad ḍalla sawā'as-sabīl(i).",
+          "indonesianTranslation": "Wahai orang-orang yang beriman. Janganlah kamu menjadikan musuh-Ku dan musuhmu sebagai teman setia. Kamu sampaikan kepada mereka (hal-hal yang seharusnya dirahasiakan) karena rasa kasih sayang (kamu kepada mereka). Padahal, mereka telah mengingkari kebenaran yang datang kepadamu. Mereka mengusir Rasul dan kamu (dari Makkah) karena kamu beriman kepada Allah, Tuhanmu. Jika kamu keluar untuk berjihad pada jalan-Ku dan mencari keridaan-Ku, (janganlah kamu berbuat demikian). Kamu memberitahukan secara rahasia (hal-hal yang seharusnya dirahasiakan) kepada mereka karena rasa kasih sayang. Aku lebih tahu tentang apa yang kamu sembunyikan dan apa yang kamu nyatakan. Siapa di antara kamu yang melakukannya sungguh telah tersesat dari jalan yang lurus.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 2,
+          "text": "اِنْ يَّثْقَفُوْكُمْ يَكُوْنُوْا لَكُمْ اَعْدَاۤءً وَّيَبْسُطُوْٓا اِلَيْكُمْ اَيْدِيَهُمْ وَاَلْسِنَتَهُمْ بِالسُّوْۤءِ وَوَدُّوْا لَوْ تَكْفُرُوْنَۗ ",
+          "transliteration": "Iy yaṡqafūkum yakūnū lakum a‘dā'aw wa yabsuṭū ilaikum aidiyahum wa alsinatahum bis-sū'i wa waddū lau takfurūn(a).",
+          "indonesianTranslation": "Jika (suatu saat) mereka menangkapmu, niscaya mereka bertindak sebagai musuh bagimu. Lalu, mereka melepaskan tangan dan lidahnya kepadamu untuk menyakiti dan mereka ingin agar kamu (kembali) kafir.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 3,
+          "text": "لَنْ تَنْفَعَكُمْ اَرْحَامُكُمْ وَلَآ اَوْلَادُكُمْ ۛيَوْمَ الْقِيٰمَةِ ۛيَفْصِلُ بَيْنَكُمْۗ وَاللّٰهُ بِمَا تَعْمَلُوْنَ بَصِيْرٌ ",
+          "transliteration": "Lan tanfa‘akum arḥāmukum wa lā aulādukum yaumal-qiyāmati yafṣilu bainakum, wallāhu bimā ta‘malūna baṣīr(un).",
+          "indonesianTranslation": "Kaum kerabatmu dan anak-anakmu tidak akan bermanfaat bagimu pada hari Kiamat. Kelak Dia akan memisahkan antara kamu. Allah Maha Melihat apa yang kamu kerjakan.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 4,
+          "text": "قَدْ كَانَتْ لَكُمْ اُسْوَةٌ حَسَنَةٌ فِيْٓ اِبْرٰهِيْمَ وَالَّذِيْنَ مَعَهٗۚ اِذْ قَالُوْا لِقَوْمِهِمْ اِنَّا بُرَءٰۤؤُا مِنْكُمْ وَمِمَّا تَعْبُدُوْنَ مِنْ دُوْنِ اللّٰهِ ۖ كَفَرْنَا بِكُمْ وَبَدَا بَيْنَنَا وَبَيْنَكُمُ الْعَدَاوَةُ وَالْبَغْضَاۤءُ اَبَدًا حَتّٰى تُؤْمِنُوْا بِاللّٰهِ وَحْدَهٗٓ اِلَّا قَوْلَ اِبْرٰهِيْمَ لِاَبِيْهِ لَاَسْتَغْفِرَنَّ لَكَ وَمَآ اَمْلِكُ لَكَ مِنَ اللّٰهِ مِنْ شَيْءٍۗ رَبَّنَا عَلَيْكَ تَوَكَّلْنَا وَاِلَيْكَ اَنَبْنَا وَاِلَيْكَ الْمَصِيْرُ ",
+          "transliteration": "Qad kānat lakum uswatun ḥasanatun fī ibrāhīma wal-lażīna ma‘ah(ū), iż qālū liqaumihim innā bura'ā'u minkum wa mimmā ta‘budūna min dūnillāh(i), kafarnā bikum wa badā bainanā wa bainakumul-‘adāwatu wal-bagḍā'u abadan ḥattā tu'minū billāhi waḥdahū illā qaula ibrāhīma li'abīhi la'astagfiranna laka wa mā amliku laka minallāhi min syai'(in), rabbanā ‘alaika tawakkalnā wa ilaika anabnā wa ilaikal-maṣīr(u).",
+          "indonesianTranslation": "Sungguh, benar-benar ada suri teladan yang baik bagimu pada (diri) Ibrahim dan orang-orang yang bersama dengannya ketika mereka berkata kepada kaumnya, “Sesungguhnya kami berlepas diri dari kamu dan dari apa yang kamu sembah selain Allah. Kami mengingkari (kekufuran)-mu dan telah nyata antara kami dan kamu ada permusuhan dan kebencian untuk selama-lamanya sampai kamu beriman kepada Allah saja.” Akan tetapi, (janganlah engkau teladani) perkataan Ibrahim kepada ayahnya, “Sungguh, aku akan memohonkan ampunan bagimu, tetapi aku sama sekali tidak dapat menolak (siksaan) Allah terhadapmu.” (Ibrahim berkata,) “Ya Tuhan kami, hanya kepada Engkau kami bertawakal, hanya kepada Engkau kami bertobat, dan hanya kepada Engkaulah kami kembali.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 5,
+          "text": "رَبَّنَا لَا تَجْعَلْنَا فِتْنَةً لِّلَّذِيْنَ كَفَرُوْا وَاغْفِرْ لَنَا رَبَّنَاۚ اِنَّكَ اَنْتَ الْعَزِيْزُ الْحَكِيْمُ ",
+          "transliteration": "Rabbanā lā taj‘alnā fitnatal lil-lażīna kafarū wagfir lanā rabbanā, innaka antal-‘azīzul-ḥakīm(u).",
+          "indonesianTranslation": "Ya Tuhan kami, janganlah Engkau jadikan kami (sasaran) fitnah bagi orang-orang kafir. Ampunilah kami, ya Tuhan kami. Sesungguhnya Engkau Yang Maha Perkasa lagi Maha Bijaksana.”",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 6,
+          "text": "لَقَدْ كَانَ لَكُمْ فِيْهِمْ اُسْوَةٌ حَسَنَةٌ لِّمَنْ كَانَ يَرْجُوا اللّٰهَ وَالْيَوْمَ الْاٰخِرَۗ وَمَنْ يَّتَوَلَّ فَاِنَّ اللّٰهَ هُوَ الْغَنِيُّ الْحَمِيْدُ ࣖ ",
+          "transliteration": "Laqad kāna lakum fīhim uswatun ḥasanatul liman kāna yarjullāha wal-yaumal-ākhir(a), wa may yatawalla fa'innallāha huwal-ganiyyul-ḥamīd(u).",
+          "indonesianTranslation": "Sungguh pada mereka itu (Ibrahim dan umatnya) benar-benar terdapat suri teladan yang baik bagimu, (yaitu) bagi orang yang mengharap (pahala) Allah dan (keselamatan pada) hari Kemudian. Siapa yang berpaling, sesungguhnya Allah, Dialah Yang Maha Kaya lagi Maha Terpuji.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 7,
+          "text": "۞ عَسَى اللّٰهُ اَنْ يَّجْعَلَ بَيْنَكُمْ وَبَيْنَ الَّذِيْنَ عَادَيْتُمْ مِّنْهُمْ مَّوَدَّةًۗ وَاللّٰهُ قَدِيْرٌۗ وَاللّٰهُ غَفُوْرٌ رَّحِيْمٌ ",
+          "transliteration": "‘Asallāhu ay yaj‘ala bainakum wa bainal-lażīna ‘ādaitum minhum mawaddah(tan), wallāhu qadīr(un), wallāhu gafūrur raḥīm(un).",
+          "indonesianTranslation": "Mudah-mudahan Allah menimbulkan kasih sayang di antara kamu dengan orang-orang yang pernah kamu musuhi di antara mereka. Allah Maha Kuasa dan Allah Maha Pengampun lagi Maha Penyayang.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 8,
+          "text": "لَا يَنْهٰىكُمُ اللّٰهُ عَنِ الَّذِيْنَ لَمْ يُقَاتِلُوْكُمْ فِى الدِّيْنِ وَلَمْ يُخْرِجُوْكُمْ مِّنْ دِيَارِكُمْ اَنْ تَبَرُّوْهُمْ وَتُقْسِطُوْٓا اِلَيْهِمْۗ اِنَّ اللّٰهَ يُحِبُّ الْمُقْسِطِيْنَ ",
+          "transliteration": "Lā yanhākumullāhu ‘anil-lażīna lam yuqātilūkum fid-dīni wa lam yukhrijūkum min diyārikum an tabarrūhum wa tuqsiṭū ilaihim, innallāha yuḥibbul-muqsiṭīn(a).",
+          "indonesianTranslation": "Allah tidak melarang kamu berbuat baik dan berlaku adil terhadap orang-orang yang tidak memerangimu dalam urusan agama dan tidak mengusir kamu dari kampung halamanmu. Sesungguhnya Allah mencintai orang-orang yang berlaku adil.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 9,
+          "text": "اِنَّمَا يَنْهٰىكُمُ اللّٰهُ عَنِ الَّذِيْنَ قَاتَلُوْكُمْ فِى الدِّيْنِ وَاَخْرَجُوْكُمْ مِّنْ دِيَارِكُمْ وَظَاهَرُوْا عَلٰٓى اِخْرَاجِكُمْ اَنْ تَوَلَّوْهُمْۚ وَمَنْ يَّتَوَلَّهُمْ فَاُولٰۤىِٕكَ هُمُ الظّٰلِمُوْنَ ",
+          "transliteration": "Innamā yanhākumullāhu ‘anil-lażīna qātalūkum fid-dīni wa akhrajūkum min diyārikum wa ẓāharū ‘alā ikhrājikum an tawallauhum, wa may yatawallahum fa'ulā'ika humuẓ-ẓālimūn(a).",
+          "indonesianTranslation": "Sesungguhnya Allah hanya melarangmu (berteman akrab) dengan orang-orang yang memerangimu dalam urusan agama, mengusirmu dari kampung halamanmu, dan membantu (orang lain) dalam mengusirmu. Siapa yang menjadikan mereka sebagai teman akrab, mereka itulah orang-orang yang zalim.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 10,
+          "text": "يٰٓاَيُّهَا الَّذِيْنَ اٰمَنُوْٓا اِذَا جَاۤءَكُمُ الْمُؤْمِنٰتُ مُهٰجِرٰتٍ فَامْتَحِنُوْهُنَّۗ  اَللّٰهُ اَعْلَمُ بِاِيْمَانِهِنَّ فَاِنْ عَلِمْتُمُوْهُنَّ مُؤْمِنٰتٍ فَلَا تَرْجِعُوْهُنَّ اِلَى الْكُفَّارِۗ  لَا هُنَّ حِلٌّ لَّهُمْ وَلَا هُمْ يَحِلُّوْنَ لَهُنَّۗ وَاٰتُوْهُمْ مَّآ اَنْفَقُوْاۗ وَلَا جُنَاحَ عَلَيْكُمْ اَنْ تَنْكِحُوْهُنَّ اِذَآ اٰتَيْتُمُوْهُنَّ اُجُوْرَهُنَّۗ وَلَا تُمْسِكُوْا بِعِصَمِ الْكَوَافِرِ وَسْـَٔلُوْا مَآ اَنْفَقْتُمْ وَلْيَسْـَٔلُوْا مَآ اَنْفَقُوْاۗ ذٰلِكُمْ حُكْمُ اللّٰهِ ۗيَحْكُمُ بَيْنَكُمْۗ وَاللّٰهُ عَلِيْمٌ حَكِيْمٌ ",
+          "transliteration": "Yā ayyuhal-lażīna āmanū iżā jā'akumul-mu'minātu muhājirātin famtaḥinūhunn(a), allāhu a‘lamu bi'īmānihinna fa'in ‘alimtumūhunna mu'minātin falā tarji‘ūhunna ilal-kuffār(i), lā hunna ḥillul lahum wa lā hum yaḥillūna lahunn(a), wa ātūhum mā anfaqū, wa lā junāḥa ‘alaikum an tankiḥūhunna iżā ātaitumūhunna ujūrahunn(a), wa lā tumsikū bi‘iṣamil-kawāfiri was'alū mā anfaqū, żālikum ḥukmullāh(i), yaḥkumu bainakum, wallāhu ‘alīmun ḥakīm(un).",
+          "indonesianTranslation": "Wahai orang-orang yang beriman, apabila perempuan-perempuan mukmin datang berhijrah kepadamu, hendaklah kamu uji (keimanan) mereka. Allah lebih tahu tentang keimanan mereka. Jika kamu telah mengetahui (keadaan) mereka bahwa mereka (benar-benar sebagai) perempuan-perempuan mukmin, janganlah kamu kembalikan mereka kepada orang-orang kafir (suami mereka). Mereka tidak halal bagi orang-orang kafir itu dan orang-orang kafir itu tidak halal pula bagi mereka. Berikanlah kepada (suami) mereka mahar yang telah mereka berikan. Tidak ada dosa bagimu menikahi mereka apabila kamu membayar mahar kepada mereka. Janganlah kamu tetap berpegang pada tali (pernikahan) dengan perempuan-perempuan kafir. Hendaklah kamu meminta kembali (dari orang-orang kafir) mahar yang telah kamu berikan (kepada istri yang kembali kafir). Hendaklah mereka (orang-orang kafir) meminta kembali mahar yang telah mereka bayar (kepada mantan istrinya yang telah beriman). Demikianlah hukum Allah yang ditetapkan-Nya di antara kamu. Allah Maha Mengetahui lagi Maha Bijaksana.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 11,
+          "text": "وَاِنْ فَاتَكُمْ شَيْءٌ مِّنْ اَزْوَاجِكُمْ اِلَى الْكُفَّارِ فَعَاقَبْتُمْ فَاٰتُوا الَّذِيْنَ ذَهَبَتْ اَزْوَاجُهُمْ مِّثْلَ مَآ اَنْفَقُوْاۗ وَاتَّقُوا اللّٰهَ الَّذِيْٓ اَنْتُمْ بِهٖ مُؤْمِنُوْنَ ",
+          "transliteration": "Wa in fātakum syai'um min azwājikum ilal-kuffāri fa‘āqabtum fa'ātul-lażīna żahabat azwājuhum miṡla mā anfaqū, wattaqullāhal-lażī antum bihī mu'minūn(a).",
+          "indonesianTranslation": "Jika ada sesuatu (pengembalian mahar) yang belum kamu selesaikan dari istri-istrimu yang lari kepada orang-orang kafir, lalu kamu dapat mengalahkan mereka, berikanlah (dari harta rampasan) kepada orang-orang yang istrinya lari itu sebanyak mahar yang telah mereka berikan. Bertakwalah kepada Allah yang kepada-Nya kamu beriman.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 12,
+          "text": "يٰٓاَيُّهَا النَّبِيُّ اِذَا جَاۤءَكَ الْمُؤْمِنٰتُ يُبَايِعْنَكَ عَلٰٓى اَنْ لَّا يُشْرِكْنَ بِاللّٰهِ شَيْـًٔا وَّلَا يَسْرِقْنَ وَلَا يَزْنِيْنَ وَلَا يَقْتُلْنَ اَوْلَادَهُنَّ وَلَا يَأْتِيْنَ بِبُهْتَانٍ يَّفْتَرِيْنَهٗ بَيْنَ اَيْدِيْهِنَّ وَاَرْجُلِهِنَّ وَلَا يَعْصِيْنَكَ فِيْ مَعْرُوْفٍ فَبَايِعْهُنَّ وَاسْتَغْفِرْ لَهُنَّ اللّٰهَ ۗاِنَّ اللّٰهَ غَفُوْرٌ رَّحِيْمٌ ",
+          "transliteration": "Yā ayyuhan-nabiyyu iżā jā'akal-mu'minātu yubāyi‘naka ‘alā allā yusyrikna billāhi syai'aw wa lā yasriqna wa lā yaznīna wa lā yaqtulna aulādahunna wa lā ya'tīna bibuhtāniy yaftarīnahū baina aidīhinna wa arjulihinna wa lā ya‘ṣīnaka fī ma‘rūfin fabāyi‘hunna wastagfir lahunnallāh(a), innallāha gafūrur raḥīm(un).",
+          "indonesianTranslation": "Wahai Nabi, apabila perempuan-perempuan mukmin datang kepadamu untuk mengadakan baiat (janji setia) bahwa mereka tidak akan mempersekutukan sesuatu apa pun dengan Allah, tidak akan mencuri, tidak akan berzina, tidak akan membunuh anak-anaknya, tidak akan berbuat dusta yang mereka ada-adakan antara tangan dan kaki mereka dan tidak akan mendurhakaimu dalam urusan yang baik, terimalah baiat mereka dan mohonkanlah ampunan untuk mereka kepada Allah. Sesungguhnya Allah Maha Pengampun lagi Maha Penyayang.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 13,
+          "text": "يٰٓاَيُّهَا الَّذِيْنَ اٰمَنُوْا لَا تَتَوَلَّوْا قَوْمًا غَضِبَ اللّٰهُ عَلَيْهِمْ قَدْ يَىِٕسُوْا مِنَ الْاٰخِرَةِ كَمَا يَىِٕسَ الْكُفَّارُ مِنْ اَصْحٰبِ الْقُبُوْرِ ࣖ ",
+          "transliteration": "Yā ayyuhal-lażīna āmanū lā tatawallau qauman gaḍiballāhu ‘alaihim qad ya'isū minal-ākhirati kamā ya'isal-kuffāru min aṣḥābil-qubūr(i).",
+          "indonesianTranslation": "Wahai orang-orang yang beriman, janganlah kamu jadikan kaum yang dimurkai Allah sebagai teman-teman akrab. Sungguh, mereka telah putus asa terhadap akhirat sebagaimana orang-orang kafir yang telah berada dalam kubur juga berputus asa (dari rahmat Allah di akhirat).",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        }
+      ]
+    },
+    {
+      "number": 61,
+      "name": "الصّفّ",
+      "englishName": "As-Saff",
+      "englishNameTranslation": "Barisan",
+      "numberOfAyahs": 14,
+      "revelationType": "Medinan",
+      "verses": [
+        {
+          "number": 1,
+          "text": "سَبَّحَ لِلّٰهِ مَا فِى السَّمٰوٰتِ وَمَا فِى الْاَرْضِۚ وَهُوَ الْعَزِيْزُ الْحَكِيْمُ ",
+          "transliteration": "Sabbaḥa lillāhi mā fis-samāwāti wa mā fil-arḍ(i), wa huwal-‘azīzul-ḥakīm(u).",
+          "indonesianTranslation": "Apa yang ada di langit dan apa yang ada di bumi bertasbih kepada Allah. Dialah Yang Maha Perkasa lagi Maha Bijaksana.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 2,
+          "text": "يٰٓاَيُّهَا الَّذِيْنَ اٰمَنُوْا لِمَ تَقُوْلُوْنَ مَا لَا تَفْعَلُوْنَ ",
+          "transliteration": "Yā ayyuhal-lażīna āmanū lima taqūlūna mā lā taf‘alūn(a).",
+          "indonesianTranslation": "Wahai orang-orang yang beriman, mengapa kamu mengatakan sesuatu yang tidak kamu kerjakan?",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 3,
+          "text": "كَبُرَ مَقْتًا عِنْدَ اللّٰهِ اَنْ تَقُوْلُوْا مَا لَا تَفْعَلُوْنَ ",
+          "transliteration": "Kabura maqtan ‘indallāhi an taqūlū mā lā taf‘alūn(a).",
+          "indonesianTranslation": "Sangat besarlah kemurkaan di sisi Allah bahwa kamu mengatakan apa yang tidak kamu kerjakan.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 4,
+          "text": "اِنَّ اللّٰهَ يُحِبُّ الَّذِيْنَ يُقَاتِلُوْنَ فِيْ سَبِيْلِهٖ صَفًّا كَاَنَّهُمْ بُنْيَانٌ مَّرْصُوْصٌ",
+          "transliteration": "Innallāha yuḥibbul-lażīna yuqātilūna fī sabīlihī ṣaffan ka'annahum bun-yānum marṣūṣ(un).",
+          "indonesianTranslation": "Sesungguhnya Allah mencintai orang-orang yang berperang di jalan-Nya dalam satu barisan, seakan-akan mereka suatu bangunan yang tersusun kukuh.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 5,
+          "text": "وَاِذْ قَالَ مُوْسٰى لِقَوْمِهٖ يٰقَوْمِ لِمَ تُؤْذُوْنَنِيْ وَقَدْ تَّعْلَمُوْنَ اَنِّيْ رَسُوْلُ اللّٰهِ اِلَيْكُمْۗ فَلَمَّا زَاغُوْٓا اَزَاغَ اللّٰهُ قُلُوْبَهُمْۗ وَاللّٰهُ لَا يَهْدِى الْقَوْمَ الْفٰسِقِيْنَ ",
+          "transliteration": "Wa iż qāla mūsā liqaumihī yā qaumi lima tu'żūnanī wa qad ta‘lamūna annī rasūlullāhi ilaikum, falammā zāgū azāgallāhu qulūbahum, wallāhu lā yahdil-qaumal-fāsiqīn(a).",
+          "indonesianTranslation": "(Ingatlah) ketika Musa berkata kepada kaumnya, “Wahai kaumku, mengapa kamu menyakitiku? Padahal, kamu sungguh mengetahui bahwa aku adalah utusan Allah kepadamu.” Maka, ketika mereka berpaling (dari perintah Allah), Allah memalingkan hati mereka (dari kebenaran). Allah tidak memberi petunjuk kepada kaum yang fasik.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 6,
+          "text": "وَاِذْ قَالَ عِيْسَى ابْنُ مَرْيَمَ يٰبَنِيْٓ اِسْرَاۤءِيْلَ اِنِّيْ رَسُوْلُ اللّٰهِ اِلَيْكُمْ مُّصَدِّقًا لِّمَا بَيْنَ يَدَيَّ مِنَ التَّوْرٰىةِ وَمُبَشِّرًاۢ بِرَسُوْلٍ يَّأْتِيْ مِنْۢ بَعْدِى اسْمُهٗٓ اَحْمَدُۗ فَلَمَّا جَاۤءَهُمْ بِالْبَيِّنٰتِ قَالُوْا هٰذَا سِحْرٌ مُّبِيْنٌ ",
+          "transliteration": "Wa iż qāla ‘īsabnu maryama yā banī isrā'īla innī rasūlullāhi ilaikum muṣaddiqal limā baina yadayya minat-taurāti wa mubasysyiram birasūliy ya'tī mim ba‘dismuhū aḥmad(u), falammā jā'ahum bil-bayyināti qālū hāżā siḥrum mubīn(un).",
+          "indonesianTranslation": "(Ingatlah) ketika Isa putra Maryam berkata, “Wahai Bani Israil, sesungguhnya aku adalah utusan Allah kepadamu untuk membenarkan kitab (yang turun) sebelumku, yaitu Taurat, dan memberi kabar gembira tentang seorang utusan Allah yang akan datang setelahku yang namanya Ahmad (Nabi Muhammad).” Akan tetapi, ketika utusan itu datang kepada mereka dengan membawa bukti-bukti yang nyata, mereka berkata, “Ini adalah sihir yang nyata.”",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 7,
+          "text": "وَمَنْ اَظْلَمُ مِمَّنِ افْتَرٰى عَلَى اللّٰهِ الْكَذِبَ وَهُوَ يُدْعٰىٓ اِلَى الْاِسْلَامِۗ وَاللّٰهُ لَا يَهْدِى الْقَوْمَ الظّٰلِمِيْنَ ",
+          "transliteration": "Wa man aẓlamu mimmaniftarā ‘alallāhil-każiba wa huwa yud‘ā ilal-islām(i), wallāhu lā yahdil-qaumaẓ-ẓālimīn(a).",
+          "indonesianTranslation": "Siapakah yang lebih zalim daripada orang yang mengada-adakan kebohongan terhadap Allah, padahal dia diseru kepada (agama) Islam? Allah tidak memberi petunjuk kepada kaum yang zalim.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 8,
+          "text": "يُرِيْدُوْنَ لِيُطْفِـُٔوْا نُوْرَ اللّٰهِ بِاَفْوَاهِهِمْۗ وَاللّٰهُ مُتِمُّ نُوْرِهٖ وَلَوْ كَرِهَ الْكٰفِرُوْنَ ",
+          "transliteration": "Yurīdūna liyuṭfi'ū nūrallāhi bi'afwāhihim, wallāhu mutimmu nūrihī wa lau karihal-kāfirūn(a).",
+          "indonesianTranslation": "Mereka hendak memadamkan cahaya (agama) Allah dengan mulut mereka, sedangkan Allah tetap menyempurnakan cahaya-Nya walaupun orang-orang kafir tidak menyukai.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 9,
+          "text": "هُوَ الَّذِيْٓ اَرْسَلَ رَسُوْلَهٗ بِالْهُدٰى وَدِيْنِ الْحَقِّ لِيُظْهِرَهٗ عَلَى الدِّيْنِ كُلِّهٖۙ وَلَوْ كَرِهَ الْمُشْرِكُوْنَ ࣖ ",
+          "transliteration": "Wa huwal-lażī arsala rasūlahū bil-hudā wa dīnil-ḥaqqi  liyuẓhirahū ‘alad-dīni kullih(ī), wa lau karihal-musyrikūn(a).",
+          "indonesianTranslation": "Dialah yang mengutus Rasul-Nya dengan (membawa) petunjuk dan agama yang benar agar Dia mengunggulkannya atas semua agama walaupun orang-orang musyrik tidak menyukai.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 10,
+          "text": "يٰٓاَيُّهَا الَّذِيْنَ اٰمَنُوْا هَلْ اَدُلُّكُمْ عَلٰى تِجَارَةٍ تُنْجِيْكُمْ مِّنْ عَذَابٍ اَلِيْمٍ ",
+          "transliteration": "Yā ayyuhal-lażīna āmanū hal adullukum ‘alā tijāratin tunjīkum min ‘ażābin alīm(in).",
+          "indonesianTranslation": "Wahai orang-orang yang beriman, maukah kamu Aku tunjukkan suatu perdagangan yang (dapat) menyelamatkan kamu dari azab yang pedih?",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 11,
+          "text": "تُؤْمِنُوْنَ بِاللّٰهِ وَرَسُوْلِهٖ وَتُجَاهِدُوْنَ فِيْ سَبِيْلِ اللّٰهِ بِاَمْوَالِكُمْ وَاَنْفُسِكُمْۗ ذٰلِكُمْ خَيْرٌ لَّكُمْ اِنْ كُنْتُمْ تَعْلَمُوْنَۙ ",
+          "transliteration": "Tu'minūna billāhi wa rasūlihī wa tujāhidūna fī sabīlillāhi bi'amwālikum wa anfusikum, żālikum khairul lakum in kuntum ta‘lamūn(a).",
+          "indonesianTranslation": "(Caranya) kamu beriman kepada Allah dan Rasul-Nya dan berjihad di jalan Allah dengan harta dan jiwamu. Yang demikian itu lebih baik bagimu jika kamu mengetahui.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 12,
+          "text": "يَغْفِرْ لَكُمْ ذُنُوْبَكُمْ وَيُدْخِلْكُمْ جَنّٰتٍ تَجْرِيْ مِنْ تَحْتِهَا الْاَنْهٰرُ وَمَسٰكِنَ طَيِّبَةً فِيْ جَنّٰتِ عَدْنٍۗ ذٰلِكَ الْفَوْزُ الْعَظِيْمُۙ ",
+          "transliteration": "Yagfir lakum żunūbakum wa yudkhilkum jannātin tajrī min taḥtihal-anhāru wa masākina ṭayyibatan fī jannāti ‘adn(in), żālikal-fauzul-‘aẓīm(u).",
+          "indonesianTranslation": "(Jika kamu beriman dan berjihad,) niscaya Allah mengampuni dosa-dosamu dan memasukkanmu ke dalam surga yang mengalir di bawahnya sungai-sungai dan ke tempat-tempat tinggal yang baik di dalam surga ‘Adn. Itulah kemenangan yang agung.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 13,
+          "text": "وَاُخْرٰى تُحِبُّوْنَهَاۗ نَصْرٌ مِّنَ اللّٰهِ وَفَتْحٌ قَرِيْبٌۗ وَبَشِّرِ الْمُؤْمِنِيْنَ ",
+          "transliteration": "Wa ukhrā tuḥibbūnahā, naṣrum minallāhi wa fatḥun qarīb(un), wa basysyiril-mu'minīn(a).",
+          "indonesianTranslation": "(Ada balasan) lain yang kamu sukai, (yaitu) pertolongan dari Allah dan kemenangan yang dekat (waktunya). Sampaikanlah berita gembira kepada orang-orang mukmin.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 14,
+          "text": "يٰٓاَيُّهَا الَّذِيْنَ اٰمَنُوْا كُوْنُوْٓا اَنْصَارَ اللّٰهِ كَمَا قَالَ عِيْسَى ابْنُ مَرْيَمَ لِلْحَوَارِيّٖنَ مَنْ اَنْصَارِيْٓ اِلَى اللّٰهِ ۗقَالَ الْحَوَارِيُّوْنَ نَحْنُ اَنْصَارُ اللّٰهِ فَاٰمَنَتْ طَّاۤىِٕفَةٌ مِّنْۢ بَنِيْٓ اِسْرَاۤءِيْلَ وَكَفَرَتْ طَّاۤىِٕفَةٌ ۚفَاَيَّدْنَا الَّذِيْنَ اٰمَنُوْا عَلٰى عَدُوِّهِمْ فَاَصْبَحُوْا ظٰهِرِيْنَ ࣖ ",
+          "transliteration": "Yā ayyuhal-lażīna āmanū kūnū anṣārallāhi kamā qāla ‘īsabnu maryama lil-ḥawāriyyīna man anṣārī ilallāh(i), qālal-ḥawāriyyūna naḥnu anṣārullāhi fa'āmanaṭ-ṭā'ifatum mim banī isrā'īla wa kafaraṭ-ṭā'ifah(tun), fa'ayyadnal-lażīna āmanū ‘alā ‘aduwwihim fa'aṣbaḥū ẓāhirīn(a).",
+          "indonesianTranslation": "Wahai orang-orang yang beriman, jadilah penolong-penolong (agama) Allah sebagaimana Isa putra Maryam berkata kepada pengikut-pengikutnya yang setia, “Siapakah para penolongku menuju kepada (pertolongan) Allah?” Para pengikutnya yang setia itu berkata, “Kamilah penolong-penolong (agama) Allah.” Maka, segolongan dari Bani Israil beriman dan segolongan (yang lain) kufur. Lalu, Kami menguatkan orang-orang yang beriman menghadapi musuh-musuh mereka sehingga menjadi orang-orang yang menang.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        }
+      ]
+    },
+    {
+      "number": 62,
+      "name": "الجمعة",
+      "englishName": "Al-Jumu'ah",
+      "englishNameTranslation": "Jumat",
+      "numberOfAyahs": 11,
+      "revelationType": "Medinan",
+      "verses": [
+        {
+          "number": 1,
+          "text": "يُسَبِّحُ لِلّٰهِ مَا فِى السَّمٰوٰتِ وَمَا فِى الْاَرْضِ الْمَلِكِ الْقُدُّوْسِ الْعَزِيْزِ الْحَكِيْمِ ",
+          "transliteration": "Yusabbiḥu lillāhi mā fis-samāwāti wa mā fil-arḍil-malikil-quddūsil-‘azīzil-ḥakīm(i).",
+          "indonesianTranslation": "Apa yang ada di langit dan apa yang ada di bumi senantiasa bertasbih kepada Allah Yang Maha Raja, Maha Suci, Maha Perkasa, lagi Maha Bijaksana.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 2,
+          "text": "هُوَ الَّذِيْ بَعَثَ فِى الْاُمِّيّٖنَ رَسُوْلًا مِّنْهُمْ يَتْلُوْا عَلَيْهِمْ اٰيٰتِهٖ وَيُزَكِّيْهِمْ وَيُعَلِّمُهُمُ الْكِتٰبَ وَالْحِكْمَةَ وَاِنْ كَانُوْا مِنْ قَبْلُ لَفِيْ ضَلٰلٍ مُّبِيْنٍۙ ",
+          "transliteration": "Huwal-lażī ba‘aṡa fil-ummiyyīna rasūlam minhum yatlū ‘alaihim āyātihī wa yuzakkīhim wa yu‘allimuhumul-kitāba wal-ḥikmata wa in kānū min qablu lafī ḍalālim mubīn(in).",
+          "indonesianTranslation": "Dialah yang mengutus seorang Rasul (Nabi Muhammad) kepada kaum yang buta huruf dari (kalangan) mereka sendiri, yang membacakan kepada mereka ayat-ayat-Nya, menyucikan (jiwa) mereka, serta mengajarkan kepada mereka Kitab (Al-Qur’an) dan Hikmah (sunah), meskipun sebelumnya mereka benar-benar dalam kesesatan yang nyata.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 3,
+          "text": "وَّاٰخَرِيْنَ مِنْهُمْ لَمَّا يَلْحَقُوْا بِهِمْۗ وَهُوَ الْعَزِيْزُ الْحَكِيْمُۙ ",
+          "transliteration": "Wa ākharīna minhum lammā yalḥaqū bihim, wa huwal-‘azīzul-ḥakīm(u).",
+          "indonesianTranslation": "(Allah juga mengutus Nabi Muhammad) kepada (kaum) selain mereka yang belum (datang) menyusul mereka. Dialah Yang Maha Perkasa lagi Maha Bijaksana.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 4,
+          "text": "ذٰلِكَ فَضْلُ اللّٰهِ يُؤْتِيْهِ مَنْ يَّشَاۤءُۗ وَاللّٰهُ ذُو الْفَضْلِ الْعَظِيْمِ",
+          "transliteration": "Żālika faḍlullāhi yu'tīhi may yasyā'(u), wallāhu żul-faḍlil-‘aẓīm(i).",
+          "indonesianTranslation": "Itulah karunia Allah yang dianugerahkan kepada siapa yang Dia kehendaki. Allah memiliki karunia yang besar.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 5,
+          "text": "مَثَلُ الَّذِيْنَ حُمِّلُوا التَّوْرٰىةَ ثُمَّ لَمْ يَحْمِلُوْهَا كَمَثَلِ الْحِمَارِ يَحْمِلُ اَسْفَارًاۗ بِئْسَ مَثَلُ الْقَوْمِ الَّذِيْنَ كَذَّبُوْا بِاٰيٰتِ اللّٰهِ ۗوَاللّٰهُ لَا يَهْدِى الْقَوْمَ الظّٰلِمِيْنَ ",
+          "transliteration": "Maṡalul-lażīna ḥummilut-taurāta ṡumma lam yaḥmilūhā kamaṡalil-ḥimāri yaḥmilu asfārā(n), bi'sa maṡalul-qaumil-lażīna każżabū bi'āyātillāh(i), wallāhu lā yahdil-qaumaẓ-ẓālimīn(a).",
+          "indonesianTranslation": "Perumpamaan orang-orang yang dibebani tugas mengamalkan Taurat, kemudian tidak mengamalkannya, adalah seperti keledai yang membawa kitab-kitab (tebal tanpa mengerti kandungannya). Sangat buruk perumpamaan kaum yang mendustakan ayat-ayat Allah. Allah tidak memberi petunjuk kepada kaum yang zalim.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 6,
+          "text": "قُلْ يٰٓاَيُّهَا الَّذِيْنَ هَادُوْٓا اِنْ زَعَمْتُمْ اَنَّكُمْ اَوْلِيَاۤءُ لِلّٰهِ مِنْ دُوْنِ النَّاسِ فَتَمَنَّوُا الْمَوْتَ اِنْ كُنْتُمْ صٰدِقِيْنَ ",
+          "transliteration": "Qul yā ayyuhal-lażīna hādū in za‘amtum annakum auliyā'u lillāhi min dūnin-nāsi fa tamannawul-mauta in kuntum ṣādiqīn(a).",
+          "indonesianTranslation": "Katakanlah (Nabi Muhammad), “Wahai orang-orang Yahudi, jika kamu mengira bahwa kamulah kekasih Allah (dan) bukan orang lain, harapkanlah kematianmu, jika kamu orang-orang benar.”",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 7,
+          "text": "وَلَا يَتَمَنَّوْنَهٗٓ اَبَدًاۢ بِمَا قَدَّمَتْ اَيْدِيْهِمْۗ وَاللّٰهُ عَلِيْمٌۢ بِالظّٰلِمِيْنَ ",
+          "transliteration": "Wa lā yatamannaunahū abadam bimā qaddamat aidīhim, wallāhu ‘alīmum biẓ-ẓālimīn(a).",
+          "indonesianTranslation": "Mereka tidak akan mengharapkan kematian itu selamanya disebabkan apa (keburukan) yang telah mereka perbuat dengan tangan mereka sendiri. Allah Maha Mengetahui orang-orang zalim.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 8,
+          "text": "قُلْ اِنَّ الْمَوْتَ الَّذِيْ تَفِرُّوْنَ مِنْهُ فَاِنَّهٗ مُلٰقِيْكُمْ ثُمَّ تُرَدُّوْنَ اِلٰى عَالِمِ الْغَيْبِ وَالشَّهَادَةِ فَيُنَبِّئُكُمْ بِمَا كُنْتُمْ تَعْمَلُوْنَ ࣖ ",
+          "transliteration": "Qul innal-mautal-lażī tafirrūna minhu fa innahū mulāqīkum ṡumma turaddūna ilā ‘ālimil-gaibi wasy-syahādati fa yunabbi'ukum bimā kuntum ta‘malūn(a).",
+          "indonesianTranslation": "Katakanlah, “Sesungguhnya kematian yang kamu lari darinya pasti akan menemuimu. Kamu kemudian akan dikembalikan kepada Yang Maha Mengetahui yang gaib dan yang nyata, lalu Dia beritakan kepadamu apa yang selama ini kamu kerjakan.”",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 9,
+          "text": "يٰٓاَيُّهَا الَّذِيْنَ اٰمَنُوْٓا اِذَا نُوْدِيَ لِلصَّلٰوةِ مِنْ يَّوْمِ الْجُمُعَةِ فَاسْعَوْا اِلٰى ذِكْرِ اللّٰهِ وَذَرُوا الْبَيْعَۗ ذٰلِكُمْ خَيْرٌ لَّكُمْ اِنْ كُنْتُمْ تَعْلَمُوْنَ ",
+          "transliteration": "Yā ayyuhal-lażīna āmanū iżā nūdiya liṣ-ṣalāti miy yaumil-jumu‘ati fas‘au ilā żikrillāhi wa żarul-bai‘(a), żālikum khairul lakum in kuntum ta‘lamūn(a).",
+          "indonesianTranslation": "Wahai orang-orang yang beriman, apabila (seruan) untuk melaksanakan salat pada hari Jumat telah dikumandangkan, segeralah mengingat Allah dan tinggalkanlah jual beli. Yang demikian itu lebih baik bagimu jika kamu mengetahui.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 10,
+          "text": "فَاِذَا قُضِيَتِ الصَّلٰوةُ فَانْتَشِرُوْا فِى الْاَرْضِ وَابْتَغُوْا مِنْ فَضْلِ اللّٰهِ وَاذْكُرُوا اللّٰهَ كَثِيْرًا لَّعَلَّكُمْ تُفْلِحُوْنَ ",
+          "transliteration": "Fa iżā quḍiyatiṣ-ṣalātu fantasyirū fil-arḍi wabtagū min faḍlillāhi ważkurullāha kaṡīral la‘allakum tufliḥūn(a).  ",
+          "indonesianTranslation": "Apabila salat (Jumat) telah dilaksanakan, bertebaranlah kamu di bumi, carilah karunia Allah, dan ingatlah Allah sebanyak-banyaknya agar kamu beruntung.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 11,
+          "text": "وَاِذَا رَاَوْا تِجَارَةً اَوْ لَهْوًا ۨانْفَضُّوْٓا اِلَيْهَا وَتَرَكُوْكَ قَاۤىِٕمًاۗ قُلْ مَا عِنْدَ اللّٰهِ خَيْرٌ مِّنَ اللَّهْوِ وَمِنَ التِّجَارَةِۗ وَاللّٰهُ خَيْرُ الرّٰزِقِيْنَ ࣖ ",
+          "transliteration": "Wa iżā ra'au tijāratan au lahwaninfaḍḍū ilaihā wa tarakūka qā'imā(n), qul mā ‘indallāhi khairum minal-lahwi wa minat-tijārah(ti), wallāhu khairur-rāziqīn(a).",
+          "indonesianTranslation": "Apabila (sebagian) mereka melihat perdagangan atau permainan, mereka segera berpencar (menuju) padanya dan meninggalkan engkau (Nabi Muhammad) yang sedang berdiri (berkhotbah). Katakanlah, “Apa yang ada di sisi Allah lebih baik daripada permainan dan perdagangan.” Allah pemberi rezeki yang terbaik.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        }
+      ]
+    },
+    {
+      "number": 63,
+      "name": "المنٰفقون",
+      "englishName": "Al-Munafiqun",
+      "englishNameTranslation": "Orang-Orang Munafik",
+      "numberOfAyahs": 11,
+      "revelationType": "Medinan",
+      "verses": [
+        {
+          "number": 1,
+          "text": "اِذَا جَاۤءَكَ الْمُنٰفِقُوْنَ قَالُوْا نَشْهَدُ اِنَّكَ لَرَسُوْلُ اللّٰهِ ۘوَاللّٰهُ يَعْلَمُ اِنَّكَ لَرَسُوْلُهٗ ۗوَاللّٰهُ يَشْهَدُ اِنَّ الْمُنٰفِقِيْنَ لَكٰذِبُوْنَۚ ",
+          "transliteration": "Iżā jā'akal-munāfiqūna qālū nasyhadu innaka larasūlullāh(i), wallāhu ya‘lamu innaka larasūluh(ū), wallāhu yasyhadu innal-munāfiqīna lakāżibūn(a).",
+          "indonesianTranslation": "Apabila orang-orang munafik datang kepadamu (Nabi Muhammad), mereka berkata, “Kami bersaksi bahwa engkau adalah benar-benar utusan Allah.” Allah mengetahui bahwa engkau benar-benar utusan-Nya. Allah pun bersaksi bahwa orang-orang munafik itu benar-benar para pendusta.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 2,
+          "text": "اِتَّخَذُوْٓا اَيْمَانَهُمْ جُنَّةً فَصَدُّوْا عَنْ سَبِيْلِ اللّٰهِ ۗاِنَّهُمْ سَاۤءَ مَا كَانُوْا يَعْمَلُوْنَ ",
+          "transliteration": "Ittakhażū aimānahum junnatan faṣaddū ‘an sabīlillāh(i), innahum sā'a mā kānū ya‘malūn(a).",
+          "indonesianTranslation": "Mereka menjadikan sumpah-sumpah mereka sebagai perisai lalu mereka menghalang-halangi (orang lain) dari jalan Allah. Sesungguhnya apa yang selalu mereka kerjakan itu sangatlah buruk.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 3,
+          "text": "ذٰلِكَ بِاَنَّهُمْ اٰمَنُوْا ثُمَّ كَفَرُوْا فَطُبِعَ عَلٰى قُلُوْبِهِمْ فَهُمْ لَا يَفْقَهُوْنَ ",
+          "transliteration": "Żālika bi'annahum āmanū ṡumma kafarū faṭubi‘a ‘alā qulūbihim fahum lā yafqahūn(a).",
+          "indonesianTranslation": "Yang demikian itu karena sesungguhnya mereka telah beriman, kemudian kufur. Maka, hati mereka dikunci sehingga tidak dapat mengerti.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 4,
+          "text": "۞ وَاِذَا رَاَيْتَهُمْ تُعْجِبُكَ اَجْسَامُهُمْۗ وَاِنْ يَّقُوْلُوْا تَسْمَعْ لِقَوْلِهِمْۗ  كَاَنَّهُمْ خُشُبٌ مُّسَنَّدَةٌ  ۗيَحْسَبُوْنَ كُلَّ صَيْحَةٍ عَلَيْهِمْۗ هُمُ الْعَدُوُّ فَاحْذَرْهُمْۗ قَاتَلَهُمُ اللّٰهُ ۖاَنّٰى يُؤْفَكُوْنَ",
+          "transliteration": "Wa iżā ra'aitahum tu‘jibuka ajsāmuhum, wa iy yaqūlū tasma‘ liqaulihim, ka'annahum khusyubum musannadah(tun), yaḥsabūna kulla ṣaiḥatin ‘alaihim, humul-‘aduwwu faḥżarhum, qātalahumullāh(u), annā yu'fakūn(a).",
+          "indonesianTranslation": "Apabila engkau melihat mereka, tubuhnya mengagumkanmu. Jika mereka bertutur kata, engkau mendengarkan tutur katanya (dengan saksama karena kefasihannya). Mereka bagaikan (seonggok) kayu yang tersandar. Mereka mengira bahwa setiap teriakan (kutukan) ditujukan kepada mereka. Mereka itulah musuh (yang sebenarnya). Maka, waspadalah terhadap mereka. Semoga Allah membinasakan mereka. Bagaimanakah mereka dapat dipalingkan (dari kebenaran)?",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 5,
+          "text": "وَاِذَا قِيْلَ لَهُمْ تَعَالَوْا يَسْتَغْفِرْ لَكُمْ رَسُوْلُ اللّٰهِ لَوَّوْا رُءُوْسَهُمْ وَرَاَيْتَهُمْ يَصُدُّوْنَ وَهُمْ مُّسْتَكْبِرُوْنَ ",
+          "transliteration": "Wa iżā qīla lahum ta‘ālau yastagfir lakum rasūlullāhi lawwau ru'ūsahum wa ra'aitahum yaṣuddūna wa hum mustakbirūn(a).",
+          "indonesianTranslation": "Apabila dikatakan kepada mereka, “Marilah (beriman) agar Rasulullah memohonkan ampunan bagimu,” mereka membuang muka dan engkau melihat mereka menolak (ajakan itu) sambil menyombongkan diri.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 6,
+          "text": "سَوَاۤءٌ عَلَيْهِمْ اَسْتَغْفَرْتَ لَهُمْ اَمْ لَمْ تَسْتَغْفِرْ لَهُمْۗ  لَنْ يَّغْفِرَ اللّٰهُ لَهُمْۗ اِنَّ اللّٰهَ لَا يَهْدِى الْقَوْمَ الْفٰسِقِيْنَ ",
+          "transliteration": "Sawā'un ‘alaihim astagfarta lahum am lam tastagfir lahum, lay yagfirallāhu lahum, innallāha lā yahdil-qaumal-fāsiqīn(a).",
+          "indonesianTranslation": "Sama saja bagi mereka apakah engkau (Nabi Muhammad) memohonkan ampunan untuk mereka atau tidak, Allah tidak akan mengampuni mereka. Sesungguhnya Allah tidak akan memberi petunjuk kepada kaum fasik.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 7,
+          "text": "هُمُ الَّذِيْنَ يَقُوْلُوْنَ لَا تُنْفِقُوْا عَلٰى مَنْ عِنْدَ رَسُوْلِ اللّٰهِ حَتّٰى يَنْفَضُّوْاۗ وَلِلّٰهِ خَزَاۤىِٕنُ السَّمٰوٰتِ وَالْاَرْضِۙ وَلٰكِنَّ الْمُنٰفِقِيْنَ لَا يَفْقَهُوْنَ ",
+          "transliteration": "Humul-lażīna yaqūlūna lā tunfiqū ‘alā man ‘inda rasūlillāhi ḥattā yanfaḍḍū, wa lillāhi khazā'inus-samāwāti wal-arḍ(i), wa lākinnal-munāfiqīna lā yafqahūn(a).",
+          "indonesianTranslation": "Merekalah orang-orang yang berkata (kepada kaum Ansar), “Janganlah bersedekah kepada orang-orang (Muhajirin) yang ada di sisi Rasulullah sampai mereka bubar (meninggalkan Rasulullah),” padahal milik Allahlah perbendaharaan langit dan bumi. Akan tetapi, orang-orang munafik itu tidak mengerti.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 8,
+          "text": "يَقُوْلُوْنَ لَىِٕنْ رَّجَعْنَآ اِلَى الْمَدِيْنَةِ لَيُخْرِجَنَّ الْاَعَزُّ مِنْهَا الْاَذَلَّ ۗوَلِلّٰهِ الْعِزَّةُ وَلِرَسُوْلِهٖ وَلِلْمُؤْمِنِيْنَ وَلٰكِنَّ الْمُنٰفِقِيْنَ لَا يَعْلَمُوْنَ ࣖ ",
+          "transliteration": "Yaqūlūna la'ir raja‘nā ilal-madīnati layukhrijannal-a‘azzu minhal-ażall(a), wa lillāhil-‘izzatu wa lirasūlihī wa lil-mu'minīna wa lākinnal-munāfiqīna lā ya‘lamūn(a).",
+          "indonesianTranslation": "Mereka berkata, “Sungguh, jika kita kembali ke Madinah (dari perang Bani Mustaliq), pastilah orang yang kuat akan mengusir orang-orang yang lemah dari sana,” padahal kekuatan itu hanyalah milik Allah, Rasul-Nya, dan orang-orang mukmin. Akan tetapi, orang-orang munafik itu tidak mengetahui.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 9,
+          "text": "يٰٓاَيُّهَا الَّذِيْنَ اٰمَنُوْا لَا تُلْهِكُمْ اَمْوَالُكُمْ وَلَآ اَوْلَادُكُمْ عَنْ ذِكْرِ اللّٰهِ ۚوَمَنْ يَّفْعَلْ ذٰلِكَ فَاُولٰۤىِٕكَ هُمُ الْخٰسِرُوْنَ ",
+          "transliteration": "Yā ayyuhal-lażīna āmanū lā tulhikum amwālukum wa lā aulādukum ‘an żikrillāh(i), wa may yaf‘al żālika fa ulā'ika humul-khāsirūn(a).",
+          "indonesianTranslation": "Wahai orang-orang yang beriman, janganlah harta bendamu dan anak-anakmu membuatmu lalai dari mengingat Allah. Siapa yang berbuat demikian, mereka itulah orang-orang yang merugi.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 10,
+          "text": "وَاَنْفِقُوْا مِنْ مَّا رَزَقْنٰكُمْ مِّنْ قَبْلِ اَنْ يَّأْتِيَ اَحَدَكُمُ الْمَوْتُ فَيَقُوْلَ رَبِّ لَوْلَآ اَخَّرْتَنِيْٓ اِلٰٓى اَجَلٍ قَرِيْبٍۚ فَاَصَّدَّقَ وَاَكُنْ مِّنَ الصّٰلِحِيْنَ ",
+          "transliteration": "Wa anfiqū mimmā razaqnākum min qabli ay ya'tiya aḥadakumul-mautu fa yaqūla rabbi lau lā akhkhartanī ilā ajalin qarīb(in), fa aṣṣaddaqa wa akum minaṣ-ṣāliḥīn(a).",
+          "indonesianTranslation": "Infakkanlah sebagian dari apa yang telah Kami anugerahkan kepadamu sebelum kematian datang kepada salah seorang di antaramu. Dia lalu berkata (sambil menyesal), “Ya Tuhanku, sekiranya Engkau berkenan menunda (kematian)-ku sedikit waktu lagi, aku akan dapat bersedekah dan aku akan termasuk orang-orang saleh.”",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 11,
+          "text": "وَلَنْ يُّؤَخِّرَ اللّٰهُ نَفْسًا اِذَا جَاۤءَ اَجَلُهَاۗ وَاللّٰهُ خَبِيْرٌۢ بِمَا تَعْمَلُوْنَ ࣖ ",
+          "transliteration": "Wa lay yu'akhkhirallāhu nafsan iżā jā'a ajaluhā, wallāhu khabīrum bimā ta‘malūn(a).",
+          "indonesianTranslation": "Allah tidak akan menunda (kematian) seseorang apabila waktu kematiannya telah datang. Allah Maha Teliti terhadap apa yang kamu kerjakan.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        }
+      ]
+    },
+    {
+      "number": 64,
+      "name": "التغابن",
+      "englishName": "At-Tagabun",
+      "englishNameTranslation": "Pengungkapan Kesalahan",
+      "numberOfAyahs": 18,
+      "revelationType": "Medinan",
+      "verses": [
+        {
+          "number": 1,
+          "text": "يُسَبِّحُ لِلّٰهِ مَا فِى السَّمٰوٰتِ وَمَا فِى الْاَرْضِۗ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُۖ وَهُوَ عَلٰى كُلِّ شَيْءٍ قَدِيْرٌ ",
+          "transliteration": "Yusabbiḥu lillāhi mā fis-samāwāti wa mā fil-arḍ(i), lahul-mulku wa lahul-ḥamdu wa huwa ‘alā kulli syai'in qadīr(un).",
+          "indonesianTranslation": "Apa yang ada di langit dan apa yang ada di bumi senantiasa bertasbih kepada Allah. Milik-Nyalah segala kerajaan dan segala pujian, dan Dia Maha Kuasa atas segala sesuatu.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 2,
+          "text": "هُوَ الَّذِيْ خَلَقَكُمْ فَمِنْكُمْ كَافِرٌ وَّمِنْكُمْ مُّؤْمِنٌۗ وَاللّٰهُ بِمَا تَعْمَلُوْنَ بَصِيْرٌ ",
+          "transliteration": "Huwal-lażī khalaqakum fa minkum kāfiruw wa minkum mu'min(un), wallāhu bimā ta‘malūna baṣīr(un).",
+          "indonesianTranslation": "Dialah yang menciptakan kamu, lalu di antara kamu ada yang kafir dan ada yang mukmin. Allah Maha Melihat apa yang kamu kerjakan.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 3,
+          "text": "خَلَقَ السَّمٰوٰتِ وَالْاَرْضَ بِالْحَقِّ وَصَوَّرَكُمْ فَاَحْسَنَ صُوَرَكُمْۚ وَاِلَيْهِ الْمَصِيْرُ ",
+          "transliteration": "Khalaqas-samāwāti wal-arḍa bil-ḥaqqi wa ṣawwarakum fa'aḥsana ṣuwarakum, wa ilaihil-maṣīr(u).",
+          "indonesianTranslation": "Dia menciptakan langit dan bumi dengan benar, Dia membentuk kamu lalu memperindah bentukmu, dan kepada-Nyalah kembali(-mu).",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 4,
+          "text": "يَعْلَمُ مَا فِى السَّمٰوٰتِ وَالْاَرْضِ وَيَعْلَمُ مَا تُسِرُّوْنَ وَمَا تُعْلِنُوْنَۗ وَاللّٰهُ عَلِيْمٌ ۢبِذَاتِ الصُّدُوْرِ ",
+          "transliteration": "Ya‘lamu mā fis-samāwāti wal-arḍi wa ya‘lamu mā tusirrūna wa mā tu‘linūn(a), wallāhu ‘alīmum biżātiṣ-ṣudūr(i).",
+          "indonesianTranslation": "Dia mengetahui apa yang di langit dan di bumi. Dia juga mengetahui apa yang kamu rahasiakan dan apa yang kamu tampakkan. Allah Maha Mengetahui segala isi hati.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 5,
+          "text": "اَلَمْ يَأْتِكُمْ نَبَؤُا الَّذِيْنَ كَفَرُوْا مِنْ قَبْلُ ۖفَذَاقُوْا وَبَالَ اَمْرِهِمْ وَلَهُمْ عَذَابٌ اَلِيْمٌ ",
+          "transliteration": "Alam ya'tikum naba'ul-lażīna kafarū min qabl(u), fa żāqū wabāla amrihim wa lahum ‘ażābun alīm(un).",
+          "indonesianTranslation": "Apakah belum sampai kepadamu (orang-orang kafir) berita (tentang) orang-orang yang kufur dahulu? Mereka telah merasakan akibat buruk dari perbuatannya dan bagi mereka azab yang sangat pedih.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 6,
+          "text": "ذٰلِكَ بِاَنَّهٗ كَانَتْ تَّأْتِيْهِمْ رُسُلُهُمْ بِالْبَيِّنٰتِ فَقَالُوْٓا اَبَشَرٌ يَّهْدُوْنَنَاۖ فَكَفَرُوْا وَتَوَلَّوْا وَّاسْتَغْنَى اللّٰهُ ۗوَاللّٰهُ غَنِيٌّ حَمِيْدٌ ",
+          "transliteration": "Żālika bi'annahū kānat ta'tīhim rusuluhum bil-bayyināti fa qālū abasyaruy yahdūnanā, fa kafarū wa tawallau wastagnallāh(u), wallāhu ganiyyun ḥamīd(un).",
+          "indonesianTranslation": "(Hukuman) yang demikian itu (terjadi) karena sesungguhnya telah datang kepada mereka rasul-rasul (yang membawa) keterangan-keterangan lalu mereka berkata, “Apakah (pantas jenis) manusia yang memberi petunjuk kepada kami?” Lalu mereka ingkar dan berpaling; padahal Allah tidak memerlukan (mereka). Allah Maha Kaya lagi Maha Terpuji.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 7,
+          "text": "زَعَمَ الَّذِيْنَ كَفَرُوْٓا اَنْ لَّنْ يُّبْعَثُوْاۗ قُلْ بَلٰى وَرَبِّيْ لَتُبْعَثُنَّ ثُمَّ لَتُنَبَّؤُنَّ بِمَا عَمِلْتُمْۗ وَذٰلِكَ عَلَى اللّٰهِ يَسِيْرٌ ",
+          "transliteration": "Za‘amal-lażīna kafarū allay yub‘aṡū, qul balā wa rabbī latub‘aṡunna ṡumma latunabba'unna bimā ‘amiltum, wa żālika ‘alallāhi yasīr(un).",
+          "indonesianTranslation": "Orang-orang yang kufur mengira bahwa sesungguhnya mereka tidak akan dibangkitkan. Katakanlah (Nabi Muhammad), “Tidak demikian. Demi Tuhanku, kamu pasti akan dibangkitkan, kemudian pasti akan diberitakan apa yang telah kamu kerjakan.” Yang demikian itu mudah bagi Allah.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 8,
+          "text": "فَاٰمِنُوْا بِاللّٰهِ وَرَسُوْلِهٖ وَالنُّوْرِ الَّذِيْٓ اَنْزَلْنَاۗ وَاللّٰهُ بِمَا تَعْمَلُوْنَ خَبِيْرٌ ",
+          "transliteration": "Fa āminū billāhi wa rasūlihī wan-nūril-lażī anzalnā, wallāhu bimā ta‘malūna khabīr(un).",
+          "indonesianTranslation": "(Jika demikian halnya,) berimanlah kamu kepada Allah, Rasul-Nya, dan cahaya (Al-Qur’an) yang telah Kami turunkan. Allah Maha Teliti terhadap apa yang kamu kerjakan.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 9,
+          "text": "يَوْمَ يَجْمَعُكُمْ لِيَوْمِ الْجَمْعِ ذٰلِكَ يَوْمُ التَّغَابُنِۗ وَمَنْ يُّؤْمِنْۢ بِاللّٰهِ وَيَعْمَلْ صَالِحًا يُّكَفِّرْ عَنْهُ سَيِّاٰتِهٖ وَيُدْخِلْهُ جَنّٰتٍ تَجْرِيْ مِنْ تَحْتِهَا الْاَنْهٰرُ خٰلِدِيْنَ فِيْهَآ اَبَدًاۗ ذٰلِكَ الْفَوْزُ الْعَظِيْمُ ",
+          "transliteration": "Yauma yajma‘ukum liyaumil-jam‘i żālika yaumut-tagābun(i), wa may yu'mim billāhi wa ya‘mal ṣāliḥay yukaffir ‘anhu sayyi'ātihī wa yudkhilhu jannātin tajrī min taḥtihal-anhāru khālidīna fīhā abadā(n), żālikal-fauzul-‘aẓīm(u).",
+          "indonesianTranslation": "(Ingatlah) hari (ketika) Allah mengumpulkan kamu pada hari berhimpun (hari Kiamat). Itulah hari pengungkapan kesalahan. Siapa yang beriman kepada Allah dan mengerjakan kebajikan, niscaya Dia akan menghapus kesalahan-kesalahannya dan memasukkannya ke dalam surga yang mengalir di bawahnya sungai-sungai. Mereka kekal di dalamnya selama-lamanya. Itulah kemenangan yang agung.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 10,
+          "text": "وَالَّذِيْنَ كَفَرُوْا وَكَذَّبُوْا بِاٰيٰتِنَآ اُولٰۤىِٕكَ اَصْحٰبُ النَّارِ خٰلِدِيْنَ فِيْهَاۗ وَبِئْسَ الْمَصِيْرُ ࣖ ",
+          "transliteration": "Wal-lażīna kafarū wa każżabū bi'āyātinā ulā'ika aṣḥābun-nāri khālidīna fīhā, wa bi'sal-maṣīr(u).",
+          "indonesianTranslation": "Adapun orang-orang yang kufur dan mendustakan ayat-ayat Kami, mereka itulah penghuni neraka. Mereka kekal di dalamnya. Itulah seburuk-buruk tempat kembali.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 11,
+          "text": "مَآ اَصَابَ مِنْ مُّصِيْبَةٍ اِلَّا بِاِذْنِ اللّٰهِ ۗوَمَنْ يُّؤْمِنْۢ بِاللّٰهِ يَهْدِ قَلْبَهٗ ۗوَاللّٰهُ بِكُلِّ شَيْءٍ عَلِيْمٌ ",
+          "transliteration": "Mā aṣāba mim muṣībatin illā bi'iżnillāh(i), wa may yu'mim billāhi yahdi qalbah(ū), wallāhu bikulli syai'in ‘alīm(un).",
+          "indonesianTranslation": "Tidak ada suatu musibah pun yang menimpa (seseorang), kecuali dengan izin Allah. Siapa yang beriman kepada Allah, niscaya Dia akan memberi petunjuk kepada hatinya. Allah Maha Mengetahui segala sesuatu.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 12,
+          "text": "وَاَطِيْعُوا اللّٰهَ وَاَطِيْعُوا الرَّسُوْلَۚ فَاِنْ تَوَلَّيْتُمْ فَاِنَّمَا عَلٰى رَسُوْلِنَا الْبَلٰغُ الْمُبِيْنُ ",
+          "transliteration": "Wa aṭī‘ullāha wa aṭī‘ur-rasūl(a), fa'in tawallaitum fa innamā ‘alā rasūlinal-balāgul-mubīn(u).",
+          "indonesianTranslation": "Taatlah kepada Allah dan taatlah kepada Rasul. Jika kamu berpaling, sesungguhnya kewajiban rasul Kami hanyalah menyampaikan (risalah) dengan terang.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 13,
+          "text": "اَللّٰهُ لَآ اِلٰهَ اِلَّا هُوَۗ وَعَلَى اللّٰهِ فَلْيَتَوَكَّلِ الْمُؤْمِنُوْنَ ",
+          "transliteration": "Allāhu lā ilāha illā huw(a), wa ‘alallāhi falyatawakkalil-mu'minūn(a).",
+          "indonesianTranslation": "(Dialah) Allah. Tidak ada tuhan selain Dia. Kepada Allahlah hendaknya orang-orang mukmin itu bertawakal.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 14,
+          "text": "يٰٓاَيُّهَا الَّذِيْنَ اٰمَنُوْٓا اِنَّ مِنْ اَزْوَاجِكُمْ وَاَوْلَادِكُمْ عَدُوًّا لَّكُمْ فَاحْذَرُوْهُمْۚ وَاِنْ تَعْفُوْا وَتَصْفَحُوْا وَتَغْفِرُوْا فَاِنَّ اللّٰهَ غَفُوْرٌ رَّحِيْمٌ ",
+          "transliteration": "Yā ayyuhal-lażīna āmanū inna min azwājikum wa aulādikum ‘aduwwal lakum faḥżarūhum, wa in ta‘fū wa taṣfaḥū wa tagfirū fa innallāha gafūrur raḥīm(un).",
+          "indonesianTranslation": "Wahai orang-orang yang beriman, sesungguhnya di antara istri-istrimu dan anak-anakmu ada yang menjadi musuh bagimu. Maka, berhati-hatilah kamu terhadap mereka. Jika kamu memaafkan, menyantuni, dan mengampuni (mereka), sesungguhnya Allah Maha Pengampun lagi Maha Penyayang.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 15,
+          "text": "اِنَّمَآ اَمْوَالُكُمْ وَاَوْلَادُكُمْ فِتْنَةٌ  ۗوَاللّٰهُ عِنْدَهٗٓ اَجْرٌ عَظِيْمٌ ",
+          "transliteration": "Innamā amwālukum wa aulādukum fitnah(tun), wallāhu ‘indahū ajrun ‘aẓīm(un).",
+          "indonesianTranslation": "Sesungguhnya hartamu dan anak-anakmu hanyalah cobaan (bagimu). Di sisi Allahlah (ada) pahala yang besar.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 16,
+          "text": "فَاتَّقُوا اللّٰهَ مَا اسْتَطَعْتُمْ وَاسْمَعُوْا وَاَطِيْعُوْا وَاَنْفِقُوْا خَيْرًا لِّاَنْفُسِكُمْۗ وَمَنْ يُّوْقَ شُحَّ نَفْسِهٖ فَاُولٰۤىِٕكَ هُمُ الْمُفْلِحُوْنَ ",
+          "transliteration": "Fattaqullāha mastaṭa‘tum wasma‘ū wa aṭī‘ū wa anfiqū khairal li'anfusikum, wa may yūqa syuḥḥa nafsihī fa ulā'ika humul-mufliḥūn(a).",
+          "indonesianTranslation": "Bertakwalah kamu kepada Allah sekuat kemampuanmu! Dengarkanlah, taatlah, dan infakkanlah harta yang baik untuk dirimu! Siapa yang dijaga dirinya dari kekikiran, mereka itulah orang-orang yang beruntung.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 17,
+          "text": "اِنْ تُقْرِضُوا اللّٰهَ قَرْضًا حَسَنًا يُّضٰعِفْهُ لَكُمْ وَيَغْفِرْ لَكُمْۗ وَاللّٰهُ شَكُوْرٌ حَلِيْمٌۙ ",
+          "transliteration": "In tuqriḍullāha qarḍan ḥasanay yuḍā‘ifhu lakum wa yagfir lakum, wallāhu syakūrun ḥalīm(un).",
+          "indonesianTranslation": "Jika kamu meminjamkan kepada Allah pinjaman yang baik, niscaya Dia akan melipatgandakan (balasan) untukmu dan mengampunimu. Allah Maha Mensyukuri lagi Maha Penyantun.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 18,
+          "text": "عٰلِمُ الْغَيْبِ وَالشَّهَادَةِ الْعَزِيْزُ الْحَكِيْمُ ࣖ ",
+          "transliteration": "‘Ālimul-gaibi wasy-syahādatil-‘azīzul-ḥakīm(u).",
+          "indonesianTranslation": "Dialah yang mengetahui semua yang gaib dan yang nyata. (Dialah) Yang Maha Perkasa lagi Maha Bijaksana.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        }
+      ]
+    },
+    {
+      "number": 65,
+      "name": "الطلاق",
+      "englishName": "At-Talaq",
+      "englishNameTranslation": "Talak",
+      "numberOfAyahs": 12,
+      "revelationType": "Medinan",
+      "verses": [
+        {
+          "number": 1,
+          "text": "يٰٓاَيُّهَا النَّبِيُّ اِذَا طَلَّقْتُمُ النِّسَاۤءَ فَطَلِّقُوْهُنَّ لِعِدَّتِهِنَّ وَاَحْصُوا الْعِدَّةَۚ وَاتَّقُوا اللّٰهَ رَبَّكُمْۚ  لَا تُخْرِجُوْهُنَّ مِنْۢ بُيُوْتِهِنَّ وَلَا يَخْرُجْنَ اِلَّآ اَنْ يَّأْتِيْنَ بِفَاحِشَةٍ مُّبَيِّنَةٍۗ وَتِلْكَ حُدُوْدُ اللّٰهِ ۗوَمَنْ يَّتَعَدَّ حُدُوْدَ اللّٰهِ فَقَدْ ظَلَمَ نَفْسَهٗ ۗ لَا تَدْرِيْ لَعَلَّ اللّٰهَ يُحْدِثُ بَعْدَ ذٰلِكَ اَمْرًا",
+          "transliteration": "Yā ayyuhan-nabiyyu iżā ṭallaqtumun-nisā'a fa ṭalliqūhunna li‘iddatihinna wa aḥṣul-‘iddah(ta), wattaqullāha rabbakum, lā tukhrijūhunna mim buyūtihinna wa lā yakhrujna illā ay ya'tīna bifāḥisyatim mubayyinah(tin), wa tilka ḥudūdullāh(i), wa may yata‘adda ḥudūdallāhi faqad ẓalama nafsah(ū), lā tadrī la‘allallāha yuḥdiṡu ba‘da żālika amrā(n).",
+          "indonesianTranslation": "Wahai Nabi, apabila kamu menceraikan istri-istrimu, hendaklah kamu ceraikan mereka pada waktu mereka dapat (menghadapi) idahnya (yang wajar), dan hitunglah waktu idah itu, serta bertakwalah kepada Allah Tuhanmu. Janganlah kamu keluarkan mereka dari rumahnya dan janganlah (diizinkan) keluar kecuali jika mereka mengerjakan perbuatan keji yang jelas. Itulah hukum-hukum Allah. Siapa melanggar hukum-hukum Allah, maka sungguh, dia telah berbuat zalim terhadap dirinya sendiri. Kamu tidak mengetahui boleh jadi setelah itu Allah mengadakan suatu ketentuan yang baru.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 2,
+          "text": "فَاِذَا بَلَغْنَ اَجَلَهُنَّ فَاَمْسِكُوْهُنَّ بِمَعْرُوْفٍ اَوْ فَارِقُوْهُنَّ بِمَعْرُوْفٍ وَّاَشْهِدُوْا ذَوَيْ عَدْلٍ مِّنْكُمْ وَاَقِيْمُوا الشَّهَادَةَ لِلّٰهِ ۗذٰلِكُمْ يُوْعَظُ بِهٖ مَنْ كَانَ يُؤْمِنُ بِاللّٰهِ وَالْيَوْمِ الْاٰخِرِ ەۗ وَمَنْ يَّتَّقِ اللّٰهَ يَجْعَلْ لَّهٗ مَخْرَجًا ۙ",
+          "transliteration": "Fa iżā balagna ajalahunna fa amsikūhunna bima‘rūfin au fāriqūhunna bima‘rūfiw wa asyhidū żawai ‘adlim minkum wa aqīmusy-syahādata lillāh(i), żālikum yū‘aẓu bihī man kāna yu'minu billāhi wal-yaumil-ākhir(i), wa may yattaqillāha yaj‘al lahū makhrajā(n).",
+          "indonesianTranslation": "Apabila mereka telah mendekati akhir idahnya, rujuklah dengan mereka secara baik atau lepaskanlah mereka secara baik dan persaksikanlah dengan dua orang saksi yang adil dari kamu dan hendaklah kamu tegakkan kesaksian itu karena Allah. Yang demikian itu dinasihatkan kepada orang-orang di antara kamu yang beriman kepada Allah dan hari akhir. Siapa yang bertakwa kepada Allah, niscaya Dia akan membukakan jalan keluar baginya",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 3,
+          "text": "وَّيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُۗ وَمَنْ يَّتَوَكَّلْ عَلَى اللّٰهِ فَهُوَ حَسْبُهٗ ۗاِنَّ اللّٰهَ بَالِغُ اَمْرِهٖۗ قَدْ جَعَلَ اللّٰهُ لِكُلِّ شَيْءٍ قَدْرًا ",
+          "transliteration": "Wa yarzuqhu min ḥaiṡu lā yaḥtasib(u), wa may yatawakkal ‘alallāhi fa huwa ḥasbuh(ū), innallāha bāligu amrih(ī), qad ja‘alallāhu likulli syai'in qadrā(n).",
+          "indonesianTranslation": "dan menganugerahkan kepadanya rezeki dari arah yang tidak dia duga. Siapa yang bertawakal kepada Allah, niscaya Allah akan mencukupkan (keperluan)-nya. Sesungguhnya Allahlah yang menuntaskan urusan-Nya. Sungguh, Allah telah membuat ketentuan bagi setiap sesuatu.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 4,
+          "text": "وَالّٰۤـِٔيْ يَىِٕسْنَ مِنَ الْمَحِيْضِ مِنْ نِّسَاۤىِٕكُمْ اِنِ ارْتَبْتُمْ فَعِدَّتُهُنَّ ثَلٰثَةُ اَشْهُرٍۙ وَّالّٰۤـِٔيْ لَمْ يَحِضْنَۗ وَاُولٰتُ الْاَحْمَالِ اَجَلُهُنَّ اَنْ يَّضَعْنَ حَمْلَهُنَّۗ وَمَنْ يَّتَّقِ اللّٰهَ يَجْعَلْ لَّهٗ مِنْ اَمْرِهٖ يُسْرًا ",
+          "transliteration": "Wal-lā'ī ya'isna minal-maḥīḍi min nisā'ikum inirtabtum fa ‘iddatuhunna ṡalāṡatu asyhur(in), wal-lā'ī lam yaḥiḍn(a), wa ulātul-aḥmāli ajaluhunna ay yaḍa‘na ḥamlahunn(a), wa may yattaqillāha yaj‘al lahū min amrihī yusrā(n).",
+          "indonesianTranslation": "Perempuan-perempuan yang tidak mungkin haid lagi (menopause) di antara istri-istrimu jika kamu ragu-ragu (tentang masa idahnya) maka idahnya adalah tiga bulan. Begitu (pula) perempuan-perempuan yang tidak haid (belum dewasa). Adapun perempuan-perempuan yang hamil, waktu idah mereka adalah sampai mereka melahirkan kandungannya. Siapa yang bertakwa kepada Allah, niscaya Dia menjadikan kemudahan baginya dalam urusannya.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 5,
+          "text": "ذٰلِكَ اَمْرُ اللّٰهِ اَنْزَلَهٗٓ اِلَيْكُمْۗ وَمَنْ يَّتَّقِ اللّٰهَ يُكَفِّرْ عَنْهُ سَيِّاٰتِهٖ وَيُعْظِمْ لَهٗٓ اَجْرًا ",
+          "transliteration": "Żālika amrullāhi anzalahū ilaikum, wa may yattaqillāha yukaffir ‘anhu sayyi'ātihī wa yu‘ẓim lahū ajrā(n).",
+          "indonesianTranslation": "(Ketentuan idah) itu merupakan perintah Allah yang diturunkan-Nya kepada kamu. Siapa yang bertakwa kepada Allah, niscaya Allah akan menghapus kesalahan-kesalahannya dan akan memperbesar pahala baginya.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 6,
+          "text": "اَسْكِنُوْهُنَّ مِنْ حَيْثُ سَكَنْتُمْ مِّنْ وُّجْدِكُمْ وَلَا تُضَاۤرُّوْهُنَّ لِتُضَيِّقُوْا عَلَيْهِنَّۗ وَاِنْ كُنَّ اُولٰتِ حَمْلٍ فَاَنْفِقُوْا عَلَيْهِنَّ حَتّٰى يَضَعْنَ حَمْلَهُنَّۚ فَاِنْ اَرْضَعْنَ لَكُمْ فَاٰتُوْهُنَّ اُجُوْرَهُنَّۚ وَأْتَمِرُوْا بَيْنَكُمْ بِمَعْرُوْفٍۚ وَاِنْ تَعَاسَرْتُمْ فَسَتُرْضِعُ لَهٗٓ اُخْرٰىۗ ",
+          "transliteration": "Askinūhunna min ḥaiṡu sakantum miw wujdikum wa lā tuḍārrūhunna lituḍayyiqū ‘alaihinn(a), wa in kunna ulāti ḥamlin fa anfiqū ‘alaihinna ḥattā yaḍa‘na ḥamlahunn(a), fa in arḍa‘na lakum fa ātūhunna ujūrahunn(a), wa'tamirū bainakum bima‘rūf(in), wa in ta‘āsartum fasaturḍi‘u lahū ukhrā.",
+          "indonesianTranslation": "Tempatkanlah mereka (para istri yang dicerai) di mana kamu bertempat tinggal menurut kemampuanmu dan janganlah kamu menyusahkan mereka untuk menyempitkan (hati) mereka. Jika mereka (para istri yang dicerai) itu sedang hamil, maka berikanlah kepada mereka nafkahnya sampai mereka melahirkan, kemudian jika mereka menyusukan (anak-anak)-mu maka berikanlah imbalannya kepada mereka; dan musyawarahkanlah di antara kamu (segala sesuatu) dengan baik; dan jika kamu sama-sama menemui kesulitan (dalam hal penyusuan), maka perempuan lain boleh menyusukan (anak itu) untuknya.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 7,
+          "text": "لِيُنْفِقْ ذُوْ سَعَةٍ مِّنْ سَعَتِهٖۗ وَمَنْ قُدِرَ عَلَيْهِ رِزْقُهٗ فَلْيُنْفِقْ مِمَّآ اٰتٰىهُ اللّٰهُ ۗ لَا يُكَلِّفُ اللّٰهُ نَفْسًا اِلَّا مَآ اٰتٰىهَاۗ سَيَجْعَلُ اللّٰهُ بَعْدَ عُسْرٍ يُّسْرًا ࣖ ",
+          "transliteration": "Liyunfiq żū sa‘atim min sa‘atih(ī), wa man qudira ‘alaihi rizquhū falyunfiq mimmā ātāhullāh(u), lā yukallifullāhu nafsan illā mā ātāhā, sayaj‘alullāhu ba‘da ‘usriy yusrā(n).",
+          "indonesianTranslation": "Hendaklah orang yang lapang (rezekinya) memberi nafkah menurut kemampuannya, dan orang yang disempitkan rezekinya, hendaklah memberi nafkah dari apa (harta) yang dianugerahkan Allah kepadanya. Allah tidak membebani kepada seseorang melainkan (sesuai) dengan apa yang dianugerahkan Allah kepadanya. Allah kelak akan menganugerahkan kelapangan setelah kesempitan.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 8,
+          "text": "وَكَاَيِّنْ مِّنْ قَرْيَةٍ عَتَتْ عَنْ اَمْرِ رَبِّهَا وَرُسُلِهٖ فَحَاسَبْنٰهَا حِسَابًا شَدِيْدًاۙ وَّعَذَّبْنٰهَا عَذَابًا نُّكْرًا ",
+          "transliteration": "Wa ka'ayyim min qaryatin ‘atat ‘an amri rabbihā wa rusulihī fa ḥāsabnāhā ḥisāban syadīdā(n), wa ‘ażżabnāhā ‘ażāban nukrā(n).",
+          "indonesianTranslation": "Betapa banyak (penduduk) negeri yang mendurhakai perintah Tuhan mereka dan rasul-rasul-Nya, maka Kami buat perhitungan terhadap penduduk negeri itu dengan perhitungan yang ketat, dan Kami azab mereka dengan azab yang mengerikan.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 9,
+          "text": "فَذَاقَتْ وَبَالَ اَمْرِهَا وَكَانَ عَاقِبَةُ اَمْرِهَا خُسْرًا ",
+          "transliteration": "Fa żāqat wabāla amrihā wa kāna ‘āqibatu amrihā khusrā(n).",
+          "indonesianTranslation": "Maka, mereka telah merasakan akibat buruk dari perbuatannya, dan akibat perbuatan mereka itu adalah kerugian yang besar.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 10,
+          "text": "اَعَدَّ اللّٰهُ لَهُمْ عَذَابًا شَدِيْدًا فَاتَّقُوا اللّٰهَ يٰٓاُولِى الْاَلْبَابِۛ الَّذِيْنَ اٰمَنُوْا ۛ قَدْ اَنْزَلَ اللّٰهُ اِلَيْكُمْ ذِكْرًاۙ ",
+          "transliteration": "A‘addallāhu lahum ‘ażāban syadīdan fattaqullāha yā ulil-albāb(i) - allażīna āmanū - qad anzalallāhu ilaikum żikrā(n).",
+          "indonesianTranslation": "Allah telah menyediakan azab yang sangat pedih bagi mereka. Maka, bertakwalah kepada Allah, wahai ululalbab (orang-orang yang berakal sehat, berhati bersih, dan cerdas,) (yaitu) orang-orang yang beriman. Sungguh, Allah telah menurunkan peringatan kepadamu",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 11,
+          "text": "رَّسُوْلًا يَّتْلُوْا عَلَيْكُمْ اٰيٰتِ اللّٰهِ مُبَيِّنٰتٍ لِّيُخْرِجَ الَّذِيْنَ اٰمَنُوْا وَعَمِلُوا الصّٰلِحٰتِ مِنَ الظُّلُمٰتِ اِلَى النُّوْرِۗ وَمَنْ يُّؤْمِنْۢ بِاللّٰهِ وَيَعْمَلْ صَالِحًا يُّدْخِلْهُ جَنّٰتٍ تَجْرِيْ مِنْ تَحْتِهَا الْاَنْهٰرُ خٰلِدِيْنَ فِيْهَآ اَبَدًاۗ قَدْ اَحْسَنَ اللّٰهُ لَهٗ رِزْقًا ",
+          "transliteration": "Rasūlay yatlū ‘alaikum āyātillāhi mubayyinātil liyukhrijal-lażīna āmanū wa ‘amiluṣ-ṣāliḥāti minaẓ-ẓulumāti ilan-nūr(i), wa may yu'mim billāhi wa ya‘mal ṣāliḥay yudkhilhu jannātin tajrī min taḥtihal-anhāru khālidīna fīhā abadā(n), qad aḥsanallāhu lahū rizqā(n).",
+          "indonesianTranslation": "(berupa) seorang Rasul yang membacakan ayat-ayat Allah kepadamu yang menerangkan (bermacam-macam hukum) agar dia mengeluarkan orang-orang yang beriman dan mengerjakan kebajikan dari kegelapan kepada cahaya. Siapa yang beriman kepada Allah dan mengerjakan kebajikan, niscaya akan Dia masukkan ke dalam surga-surga yang mengalir di bawahnya sungai-sungai. Mereka kekal di dalamnya selama-lamanya. Sungguh, Allah telah menganugerahkan rezeki yang baik kepadanya.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 12,
+          "text": "اَللّٰهُ الَّذِيْ خَلَقَ سَبْعَ سَمٰوٰتٍ وَّمِنَ الْاَرْضِ مِثْلَهُنَّۗ يَتَنَزَّلُ الْاَمْرُ بَيْنَهُنَّ لِتَعْلَمُوْٓا اَنَّ اللّٰهَ عَلٰى كُلِّ شَيْءٍ قَدِيْرٌ ەۙ وَّاَنَّ اللّٰهَ قَدْ اَحَاطَ بِكُلِّ شَيْءٍ عِلْمًا ࣖ",
+          "transliteration": "Allāhul-lażī khalaqa sab‘a samāwātiw wa minal-arḍi miṡlahunn(a), yatanazzalul-amru bainahunna lita‘lamū annallāha ‘alā kulli syai'in qadīr(un), wa annallāha qad aḥāṭa bikulli syai'in ‘ilmā(n).",
+          "indonesianTranslation": "Allahlah yang menciptakan tujuh langit dan (menciptakan pula) bumi seperti itu. Perintah-Nya berlaku padanya agar kamu mengetahui bahwa Allah Maha Kuasa atas segala sesuatu dan ilmu Allah benar-benar meliputi segala sesuatu.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        }
+      ]
+    },
+    {
+      "number": 66,
+      "name": "التحريم",
+      "englishName": "At-Tahrim",
+      "englishNameTranslation": "Pengharaman",
+      "numberOfAyahs": 12,
+      "revelationType": "Medinan",
+      "verses": [
+        {
+          "number": 1,
+          "text": "يٰٓاَيُّهَا النَّبِيُّ لِمَ تُحَرِّمُ مَآ اَحَلَّ اللّٰهُ لَكَۚ تَبْتَغِيْ مَرْضَاتَ اَزْوَاجِكَۗ وَاللّٰهُ غَفُوْرٌ رَّحِيْمٌ ",
+          "transliteration": "Yā ayyuhan-nabiyyu lima tuḥarrimu mā aḥallallāhu lak(a), tabtagī marḍāta azwājik(a), wallāhu gafūrur raḥīm(un).",
+          "indonesianTranslation": "Wahai Nabi (Muhammad), mengapa engkau mengharamkan apa yang dihalalkan Allah bagimu? Engkau bermaksud menyenangkan hati istri-istrimu. Allah Maha Pengampun lagi Maha Penyayang.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 2,
+          "text": "قَدْ فَرَضَ اللّٰهُ لَكُمْ تَحِلَّةَ اَيْمَانِكُمْۚ وَاللّٰهُ مَوْلٰىكُمْۚ وَهُوَ الْعَلِيْمُ الْحَكِيْمُ ",
+          "transliteration": "Qad faraḍallāhu lakum taḥillata aimānikum, wallāhu maulākum, wa huwal-‘alīmul-ḥakīm(u).",
+          "indonesianTranslation": "Sungguh, Allah telah mensyariatkan untukmu pembebasan diri dari sumpahmu. Allah adalah pelindungmu dan Dia Maha Mengetahui lagi Maha Bijaksana.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 3,
+          "text": "وَاِذْ اَسَرَّ النَّبِيُّ اِلٰى بَعْضِ اَزْوَاجِهٖ حَدِيْثًاۚ فَلَمَّا نَبَّاَتْ بِهٖ وَاَظْهَرَهُ اللّٰهُ عَلَيْهِ عَرَّفَ بَعْضَهٗ وَاَعْرَضَ عَنْۢ بَعْضٍۚ فَلَمَّا نَبَّاَهَا بِهٖ قَالَتْ مَنْ اَنْۢبَاَكَ هٰذَاۗ قَالَ نَبَّاَنِيَ الْعَلِيْمُ الْخَبِيْرُ ",
+          "transliteration": "Wa iż asarran-nabiyyu ilā ba‘ḍi azwājihī ḥadīṡā(n), falammā nabba'at bihī wa aẓharahullāhu ‘alaihi ‘arrafa ba‘ḍahū wa a‘raḍa ‘am baḍ(in), falammā nabba'ahā bihī qālat man amba'aka hāżā, qāla nabba'aniyal-‘alīmul-khabīr(u).",
+          "indonesianTranslation": "(Ingatlah) ketika Nabi membicarakan secara rahasia suatu peristiwa kepada salah seorang istrinya (Hafsah). Kemudian, ketika dia menceritakan (peristiwa) itu (kepada Aisyah) dan Allah memberitahukannya (kejadian ini) kepadanya (Nabi), dia (Nabi) memberitahukan (kepada Hafsah) sebagian dan menyembunyikan sebagian yang lain. Ketika dia (Nabi) memberitahukan (pembicaraan) itu kepadanya (Hafsah), dia bertanya, “Siapa yang telah memberitahumu hal ini?” Nabi menjawab, “Yang memberitahuku adalah Allah Yang Maha Mengetahui lagi Maha Teliti.”",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 4,
+          "text": "اِنْ تَتُوْبَآ اِلَى اللّٰهِ فَقَدْ صَغَتْ قُلُوْبُكُمَاۚ وَاِنْ تَظٰهَرَا عَلَيْهِ فَاِنَّ اللّٰهَ هُوَ مَوْلٰىهُ وَجِبْرِيْلُ وَصَالِحُ الْمُؤْمِنِيْنَۚ وَالْمَلٰۤىِٕكَةُ بَعْدَ ذٰلِكَ ظَهِيْرٌ ",
+          "transliteration": "In tatūbā ilallāhi faqad ṣagat qulūbukumā, wa in taẓāharā ‘alaihi fa innallāha huwa maulāhu wa jibrīlu wa ṣāliḥul-mu'minīn(a), wal-malā'ikatu ba‘da żālika ẓahīr(un).                                                                                        ",
+          "indonesianTranslation": "Jika kamu berdua bertobat kepada Allah, sungguh hati kamu berdua telah condong (pada kebenaran) dan jika kamu berdua saling membantu menyusahkan dia (Nabi), sesungguhnya Allahlah pelindungnya. Demikian juga Jibril dan orang-orang mukmin yang saleh. Selain itu, malaikat-malaikat (juga ikut) menolong.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 5,
+          "text": "عَسٰى رَبُّهٗٓ اِنْ طَلَّقَكُنَّ اَنْ يُّبْدِلَهٗٓ اَزْوَاجًا خَيْرًا مِّنْكُنَّ مُسْلِمٰتٍ مُّؤْمِنٰتٍ قٰنِتٰتٍ تٰۤىِٕبٰتٍ عٰبِدٰتٍ سٰۤىِٕحٰتٍ ثَيِّبٰتٍ وَّاَبْكَارًا ",
+          "transliteration": "‘Asā rabbuhū in ṭallaqakunna ay yubdilahū azwājan khairam minkunna muslimātim mu'minātin qānitātin tā'ibātin ‘ābidātin sā'iḥātin ṡayyibātiw wa abkārā(n).",
+          "indonesianTranslation": "Jika dia (Nabi) menceraikan kamu, boleh jadi Tuhannya akan memberi ganti kepadanya istri-istri yang lebih baik daripada kamu, yang berserah diri, yang beriman, yang taat, yang bertobat, yang beribadah, dan yang berpuasa, baik yang janda maupun yang perawan.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 6,
+          "text": "يٰٓاَيُّهَا الَّذِيْنَ اٰمَنُوْا قُوْٓا اَنْفُسَكُمْ وَاَهْلِيْكُمْ نَارًا وَّقُوْدُهَا النَّاسُ وَالْحِجَارَةُ عَلَيْهَا مَلٰۤىِٕكَةٌ غِلَاظٌ شِدَادٌ لَّا يَعْصُوْنَ اللّٰهَ مَآ اَمَرَهُمْ وَيَفْعَلُوْنَ مَا يُؤْمَرُوْنَ ",
+          "transliteration": "Yā ayyuhal-lażīna āmanū qū anfusakum wa ahlīkum nāraw waqūduhan-nāsu wal-ḥijāratu ‘alaihā malā'ikatun gilāẓun syidādul lā ya‘ṣūnallāha mā amarahum wa yaf‘alūna mā yu'marūn(a).",
+          "indonesianTranslation": "Wahai orang-orang yang beriman, jagalah dirimu dan keluargamu dari api neraka yang bahan bakarnya adalah manusia dan batu. Penjaganya adalah malaikat-malaikat yang kasar dan keras. Mereka tidak durhaka kepada Allah terhadap apa yang Dia perintahkan kepadanya dan selalu mengerjakan apa yang diperintahkan.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 7,
+          "text": "يٰٓاَيُّهَا الَّذِيْنَ كَفَرُوْا لَا تَعْتَذِرُوا الْيَوْمَۗ اِنَّمَا تُجْزَوْنَ مَا كُنْتُمْ تَعْمَلُوْنَ ࣖ",
+          "transliteration": "Yā ayyuhal-lażīna kafarū lā ta‘tażīrul-yaum(a), innamā tujzauna mā kuntum ta‘malūn(a).",
+          "indonesianTranslation": "Wahai orang-orang yang kufur, janganlah kamu mencari-cari alasan pada hari ini. Sesungguhnya kamu hanya diberi balasan (sesuai dengan) apa yang selama ini kamu kerjakan.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 8,
+          "text": "يٰٓاَيُّهَا الَّذِيْنَ اٰمَنُوْا تُوْبُوْٓا اِلَى اللّٰهِ تَوْبَةً نَّصُوْحًاۗ عَسٰى رَبُّكُمْ اَنْ يُّكَفِّرَ عَنْكُمْ سَيِّاٰتِكُمْ وَيُدْخِلَكُمْ جَنّٰتٍ تَجْرِيْ مِنْ تَحْتِهَا الْاَنْهٰرُۙ يَوْمَ لَا يُخْزِى اللّٰهُ النَّبِيَّ وَالَّذِيْنَ اٰمَنُوْا مَعَهٗۚ نُوْرُهُمْ يَسْعٰى بَيْنَ اَيْدِيْهِمْ وَبِاَيْمَانِهِمْ يَقُوْلُوْنَ رَبَّنَآ اَتْمِمْ لَنَا نُوْرَنَا وَاغْفِرْ لَنَاۚ اِنَّكَ عَلٰى كُلِّ شَيْءٍ قَدِيْرٌ ",
+          "transliteration": "Yā ayyuhal-lażīna āmanū tūbū ilallāhi taubatan naṣūḥā(n), ‘asā rabbukum ay yukaffira ‘ankum sayyi'ātikum wa yudkhilakum jannātin tajrī min taḥtihal-anhār(u), yauma lā  yukhzillāhun-nabiyya wal-lażīna āmanū ma‘ah(ū), nūruhum yas‘ā baina aidīhim wa bi'aimānihim yaqūlūna rabbanā atmim lanā nūranā wagfir lanā, innaka ‘alā kulli syai'in qadīr(un). ",
+          "indonesianTranslation": "Wahai orang-orang yang beriman, bertobatlah kepada Allah dengan tobat yang semurni-murninya. Mudah-mudahan Tuhanmu akan menghapus kesalahan-kesalahanmu dan memasukkanmu ke dalam surga yang mengalir di bawahnya sungai-sungai pada hari ketika Allah tidak menghinakan Nabi dan orang-orang yang beriman bersamanya. Cahaya mereka memancar di hadapan dan di sebelah kanannya. Mereka berkata, “Ya Tuhan kami, sempurnakanlah untuk kami cahaya kami dan ampunilah kami. Sesungguhnya Engkau Maha Kuasa atas segala sesuatu.”",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 9,
+          "text": "يٰٓاَيُّهَا النَّبِيُّ جَاهِدِ الْكُفَّارَ وَالْمُنٰفِقِيْنَ وَاغْلُظْ عَلَيْهِمْۗ وَمَأْوٰىهُمْ جَهَنَّمُۗ وَبِئْسَ الْمَصِيْرُ ",
+          "transliteration": "Yā ayyuhan-nabiyyu jāhidil-kuffāra wal-munāfiqīna wagluẓ ‘alaihim, wa ma'wāhum jahannam(u), wa bi'sal-maṣīr(u).",
+          "indonesianTranslation": "Wahai Nabi, berjihadlah (melawan) orang-orang kafir dan orang-orang munafik dan bersikap keraslah terhadap mereka. Tempat mereka adalah (neraka) Jahanam dan itulah seburuk-buruk tempat kembali.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 10,
+          "text": "ضَرَبَ اللّٰهُ مَثَلًا لِّلَّذِيْنَ كَفَرُوا امْرَاَتَ نُوْحٍ وَّامْرَاَتَ لُوْطٍۗ كَانَتَا تَحْتَ عَبْدَيْنِ مِنْ عِبَادِنَا صَالِحَيْنِ فَخَانَتٰهُمَا فَلَمْ يُغْنِيَا عَنْهُمَا مِنَ اللّٰهِ شَيْـًٔا وَّقِيْلَ ادْخُلَا النَّارَ مَعَ الدّٰخِلِيْنَ ",
+          "transliteration": "Ḍaraballāhu maṡalal lil-lażīna kafarumra'ata nūḥiw wamra'ata lūṭ(in), kānatā taḥta ‘abdaini min ‘ibādinā ṣāliḥaini fa khānatāhumā falam yugniyā ‘anhumā minallāhi syai'aw wa qīladkhulan-nāra ma‘ad-dākhilīn(a).",
+          "indonesianTranslation": "Allah membuat perumpamaan bagi orang-orang yang kufur, yaitu istri Nuh dan istri Lut. Keduanya berada di bawah (tanggung jawab) dua orang hamba yang saleh di antara hamba-hamba Kami, lalu keduanya berkhianat kepada (suami-suami)-nya. Mereka (kedua suami itu) tidak dapat membantunya sedikit pun dari (siksaan) Allah, dan dikatakan (kepada kedua istri itu), “Masuklah kamu berdua ke neraka bersama orang-orang yang masuk (neraka).”",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 11,
+          "text": "وَضَرَبَ اللّٰهُ مَثَلًا لِّلَّذِيْنَ اٰمَنُوا امْرَاَتَ فِرْعَوْنَۘ اِذْ قَالَتْ رَبِّ ابْنِ لِيْ عِنْدَكَ بَيْتًا فِى الْجَنَّةِ وَنَجِّنِيْ مِنْ فِرْعَوْنَ وَعَمَلِهٖ وَنَجِّنِيْ مِنَ الْقَوْمِ الظّٰلِمِيْنَۙ ",
+          "transliteration": "Wa ḍaraballāhu maṡalal lil-lażīna āmanumra'ata fir‘aun(a), iż qālat rabbibni lī ‘indaka baitan fil jannati wa najjinī min fir‘auna  wa ‘amalihī wa najjinī minal qaumiẓ-ẓālimīn(a).",
+          "indonesianTranslation": "Allah juga membuat perumpamaan bagi orang-orang yang beriman, yaitu istri Fir‘aun, ketika dia berkata, “Ya Tuhanku, bangunkanlah untukku di sisi-Mu sebuah rumah dalam surga, selamatkanlah aku dari Fir‘aun dan perbuatannya, serta selamatkanlah aku dari kaum yang zalim.”",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        },
+        {
+          "number": 12,
+          "text": "وَمَرْيَمَ ابْنَتَ عِمْرٰنَ الَّتِيْٓ اَحْصَنَتْ فَرْجَهَا فَنَفَخْنَا فِيْهِ مِنْ رُّوْحِنَا وَصَدَّقَتْ بِكَلِمٰتِ رَبِّهَا وَكُتُبِهٖ وَكَانَتْ مِنَ الْقٰنِتِيْنَ ࣖ   ۔",
+          "transliteration": "Wa maryamabnata ‘imrānal-latī aḥṣanat farjahā fa nafakhnā fīhi mir rūḥinā wa ṣaddaqat bikalimāti rabbihā wa kutubihī wa kānat minal-qānitīn(a).",
+          "indonesianTranslation": "Demikian pula Maryam putri Imran yang memelihara kehormatannya, lalu Kami meniupkan ke dalam rahimnya sebagian dari roh (ciptaan) Kami, dan yang membenarkan kalimat-kalimat Tuhannya dan kitab-kitab-Nya, serta yang termasuk orang-orang taat.",
+          "juz": null,
+          "page": null,
+          "ruku": null
+        }
+      ]
+    }
+  ]
+}

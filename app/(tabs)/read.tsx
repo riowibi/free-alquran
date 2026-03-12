@@ -8,8 +8,9 @@ import {
   ScrollView,
   SectionList,
   View,
+  BackHandler,
 } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useFocusEffect } from 'expo-router';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { TajwidDisplay } from '@/components/tajweed-display';
@@ -48,14 +49,48 @@ export default function ReadScreen() {
     }
   }, [params.surah, surahs]);
 
-  // Group surahs by juz
+  // Handle Android back button and browser back button
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        // If we're viewing verses or juz, go back to surahs list
+        if (view !== 'surahs') {
+          setView('surahs');
+          return true; // Prevent default back action
+        }
+        // If we're already on surahs list, allow default back behavior
+        return false;
+      };
+
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () => {
+        backHandler.remove();
+      };
+    }, [view])
+  );
+
+  // Group surahs by juz with deduplication
   const juzGroups = useMemo(() => {
     const groups: { [key: number]: JuzGroup } = {};
     
+    // Iterate through all surahs and their verses to build juz groups
     surahs.forEach(surah => {
+      // Group verses by juz for this surah
+      const versesByJuz = new Map<number, QuranVerse[]>();
+      
       surah.verses.forEach(verse => {
         const juzNum = verse.juz;
-        
+        if (juzNum) {
+          if (!versesByJuz.has(juzNum)) {
+            versesByJuz.set(juzNum, []);
+          }
+          versesByJuz.get(juzNum)!.push(verse);
+        }
+      });
+      
+      // Add surah to each juz it belongs to
+      versesByJuz.forEach((verses, juzNum) => {
         if (!groups[juzNum]) {
           groups[juzNum] = {
             juzNumber: juzNum,
@@ -63,23 +98,28 @@ export default function ReadScreen() {
           };
         }
         
-        let surahInJuz = groups[juzNum].surahs.find(s => s.surahNumber === surah.number);
-        if (!surahInJuz) {
-          surahInJuz = {
+        // Check if surah already exists in this juz (deduplication)
+        const surahExists = groups[juzNum].surahs.some(s => s.surahNumber === surah.number);
+        
+        if (!surahExists) {
+          groups[juzNum].surahs.push({
             surahNumber: surah.number,
             surahName: surah.name,
-            verses: [],
-          };
-          groups[juzNum].surahs.push(surahInJuz);
-        }
-        
-        if (!surahInJuz.verses.find(v => v.number === verse.number)) {
-          surahInJuz.verses.push(verse);
+            verses: verses, // Only verses that belong to this juz
+          });
         }
       });
     });
     
-    return Object.values(groups).sort((a, b) => a.juzNumber - b.juzNumber);
+    // Sort surahs within each juz by surah number
+    Object.values(groups).forEach(group => {
+      group.surahs.sort((a, b) => a.surahNumber - b.surahNumber);
+    });
+    
+    // Return sorted juz groups (1-30)
+    const sortedGroups = Object.values(groups).sort((a, b) => a.juzNumber - b.juzNumber);
+    console.log(`✅ Loaded Juz groups: ${sortedGroups.map(g => g.juzNumber).join(', ')}`);
+    return sortedGroups;
   }, [surahs]);
 
   const handleSurahSelect = (surah: QuranSurah) => {
@@ -116,36 +156,52 @@ export default function ReadScreen() {
     [updateReadingProgress]
   );
 
-  const SurahsList = () => (
-    <FlatList
-      data={surahs}
-      keyExtractor={item => item.number.toString()}
-      renderItem={({ item }) => (
-        <TouchableOpacity
-          style={[styles.surahCard, { borderColor: colors.tint }]}
-          onPress={() => handleSurahSelect(item)}>
-          <ThemedView style={styles.surahContent}>
-            <ThemedView style={[styles.surahNumber, { backgroundColor: colors.tint }]}>
-              <ThemedText style={{ color: colors.background, fontWeight: '700' }}>
-                {item.number}
-              </ThemedText>
+  const SurahsList = () => {
+    // Deduplicate and sort surahs (1-114)
+    const uniqueSurahs = useMemo(() => {
+      const seenNumbers = new Set<number>();
+      const deduplicated = surahs.filter(surah => {
+        if (seenNumbers.has(surah.number)) {
+          return false; // Skip duplicate
+        }
+        seenNumbers.add(surah.number);
+        return true;
+      });
+      // Sort by surah number (1-114)
+      return deduplicated.sort((a, b) => a.number - b.number);
+    }, [surahs]);
+
+    return (
+      <FlatList
+        data={uniqueSurahs}
+        keyExtractor={item => item.number.toString()}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={[styles.surahCard, { borderColor: colors.tint }]}
+            onPress={() => handleSurahSelect(item)}>
+            <ThemedView style={styles.surahContent}>
+              <ThemedView style={[styles.surahNumber, { backgroundColor: colors.tint }]}>
+                <ThemedText style={{ color: colors.background, fontWeight: '700' }}>
+                  {item.number}
+                </ThemedText>
+              </ThemedView>
+              <ThemedView style={{ flex: 1, marginLeft: 12 }}>
+                {/* <ThemedText type="subtitle" numberOfLines={1}>
+                  {item.name}
+                </ThemedText> */}
+                <ThemedText style={{ marginTop: 4, opacity: 1, fontSize: 16 }}>
+                  {item.englishName} • {item.numberOfAyahs} Ayat
+                </ThemedText>
+              </ThemedView>
+              <IconSymbol name="chevron.right" size={24} color={colors.icon} />
             </ThemedView>
-            <ThemedView style={{ flex: 1, marginLeft: 12 }}>
-              {/* <ThemedText type="subtitle" numberOfLines={1}>
-                {item.name}
-              </ThemedText> */}
-              <ThemedText style={{ marginTop: 4, opacity: 1, fontSize: 16 }}>
-                {item.englishName} • {item.numberOfAyahs} Ayat
-              </ThemedText>
-            </ThemedView>
-            <IconSymbol name="chevron.right" size={24} color={colors.icon} />
-          </ThemedView>
-        </TouchableOpacity>
-      )}
-      scrollEnabled={true}
-      contentContainerStyle={styles.listContent}
-    />
-  );
+          </TouchableOpacity>
+        )}
+        scrollEnabled={true}
+        contentContainerStyle={styles.listContent}
+      />
+    );
+  };
 
   const JuzList = () => (
     <FlatList
@@ -170,7 +226,7 @@ export default function ReadScreen() {
                 {item.surahs.length > 1 && ` - ${item.surahs[item.surahs.length - 1].surahName}`}
               </ThemedText>
             </ThemedView>
-            <IconSymbol name="chevron.right" size={20} color={colors.icon} />
+            <IconSymbol name="chevron.right" size={24} color={colors.icon} />
           </ThemedView>
         </TouchableOpacity>
       )}
@@ -182,16 +238,17 @@ export default function ReadScreen() {
 
   const VersesList = () => (
     <ScrollView style={{ flex: 1 }}>
-      <ThemedView style={styles.verseHeader}>
-        <TouchableOpacity onPress={() => setView('surahs')} style={styles.backButton}>
-          <IconSymbol name="chevron.left" size={24} color={colors.text} />
-        </TouchableOpacity>
-        <ThemedView style={{ flex: 1, marginLeft: 12 }}>
-          <ThemedText type="title" style={{ fontWeight: '700', textAlign: 'center' }}>
+      <ThemedView style={[styles.verseHeader, { backgroundColor: colors.background, paddingTop: 56 }]}>
+        <ThemedView style={{ flex: 1}}>
+          <ThemedText type="title" style={{ fontWeight: '700', textAlign: 'left', color: colors.text }}>
             {selectedSurah?.englishName}
           </ThemedText>
-          <ThemedText style={{ opacity: 1, fontSize: 16, textAlign: 'center', marginTop: 4 }}>
-            Juz - {juzGroups[0]?.juzNumber}  •  {selectedSurah?.englishNameTranslation}
+          {/* <ThemedView style={{ height: 1, width: '60%', backgroundColor: colors.text, marginVertical: 12, opacity: 0.4 }} /> */}
+          <ThemedText style={{ fontSize: 18, textAlign: 'left', color: colors.text, marginTop:4, fontWeight: '600'   }}>
+            {selectedSurah?.englishNameTranslation}
+          </ThemedText>
+          <ThemedText style={{ fontSize: 14, textAlign: 'left', color: colors.text, fontStyle: 'italic', opacity: 0.8}}>
+            Juz {juzGroups[0]?.juzNumber} • Surat {selectedSurah?.number} • {selectedSurah?.numberOfAyahs} Ayat • {selectedSurah?.revelationType === 'Meccan' ? 'Makkiyah' : 'Madaniyah'}
           </ThemedText>
         </ThemedView>
       </ThemedView>
@@ -218,38 +275,30 @@ export default function ReadScreen() {
                 styles.verseCard,
                 {
                   backgroundColor: colors.background,
-                  borderColor: colors.icon,
+                  borderColor: colors.tint,
                 },
               ]}>
-              <ThemedView style={styles.verseTop}>
-                <ThemedView style={[styles.verseNumber, { backgroundColor: colors.tint }]}>
-                  <ThemedText style={{ color: colors.background, fontSize: 12, fontWeight: '600' }}>
-                    {verse.numberInSurah}
-                  </ThemedText>
-                </ThemedView>
-                {isVerseBookmarked(selectedSurah.number, verse.numberInSurah) && (
-                  <IconSymbol name="bookmark.fill" size={16} color={colors.tint} />
-                )}
-              </ThemedView>
-
-              {/* Ayat (Arabic) with Tajweed Coloring */}
-              <View style={{ marginTop: 12 }}>
+              <View style={{ marginVertical: 0 }}>
                 <TajwidDisplay 
                   text={verse.text} 
-                  fontSize={24}
-                  lineHeight={36}
+                  fontSize={26}
+                  lineHeight={40}
                 />
               </View>
+
+              {/* Decorative line below Arabic text */}
+              <ThemedView style={{ height: 1, backgroundColor: colors.tint, opacity: 0.2, marginVertical: 8 }} />
 
               {/* Indonesian Transliteration */}
               <ThemedText
                 style={{
                   fontSize: 14,
-                  marginTop: 12,
+                  marginTop: 4,
                   lineHeight: 22,
                   textAlign: 'left',
                   fontStyle: 'italic',
-                  opacity: 0.85,
+                  opacity: 0.9,
+                  color: colors.tint,
                 }}>
                 {verse.transliteration && verse.transliteration.length > 0 
                   ? TransliterationService.toSimpleIndonesian(verse.transliteration)
@@ -260,15 +309,34 @@ export default function ReadScreen() {
               <ThemedText
                 style={{
                   fontSize: 14,
-                  marginTop: 10,
-                  lineHeight: 22,
+                  marginTop: 12,
+                  lineHeight: 24,
                   textAlign: 'left',
                   opacity: 0.9,
+                  fontWeight: '500',
                 }}>
                 {verse.indonesianTranslation && verse.indonesianTranslation.length > 0 
                   ? verse.indonesianTranslation 
                   : '(Terjemahan tidak tersedia)'}
               </ThemedText>
+
+              {/* Decorative element at bottom */}
+              {idx < selectedSurah.verses.length - 1 && (
+                <ThemedView style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 16 }}>
+                  <ThemedView style={{ flex: 1, height: 1, backgroundColor: colors.tint, opacity: 0.15 }} />
+                  <ThemedText style={{ marginHorizontal: 12, fontSize: 16, opacity: 0.5 }}>
+                    <ThemedView style={[styles.verseNumber, { backgroundColor: colors.tint }]}>
+                      <ThemedText style={{ color: colors.background, fontSize: 12, fontWeight: '600' }}>
+                        {verse.numberInSurah}
+                      </ThemedText>
+                    </ThemedView>
+                    {isVerseBookmarked(selectedSurah.number, verse.numberInSurah) && (
+                      <IconSymbol name="bookmark.fill" size={16} color={colors.tint} />
+                    )}
+                  </ThemedText>
+                  <ThemedView style={{ flex: 1, height: 1, backgroundColor: colors.tint, opacity: 0.15 }} />
+                </ThemedView>
+              )}
             </TouchableOpacity>
           );
         })}
@@ -281,92 +349,110 @@ export default function ReadScreen() {
 
     return (
       <ScrollView style={{ flex: 1 }}>
-        <ThemedView style={styles.verseHeader}>
-          <TouchableOpacity onPress={() => setView('surahs')} style={styles.backButton}>
-            <IconSymbol name="chevron.left" size={24} color={colors.tint} />
-          </TouchableOpacity>
-          <ThemedView style={{ flex: 1, marginLeft: 12 }}>
-            <ThemedText type="title">Juz {selectedJuz.juzNumber}</ThemedText>
-            <ThemedText style={{ opacity: 0.7, fontSize: 12 }}>
-              Multiple Surahs
+        <ThemedView style={[styles.verseHeader, { backgroundColor: colors.background, paddingTop: 56 }]}>
+          <ThemedView style={{ flex: 1 }}>
+            <ThemedText type="title" style={{ fontWeight: '700', textAlign: 'left', color: colors.text }}>
+              Juz {selectedJuz.juzNumber}
+            </ThemedText>
+            <ThemedText style={{ fontSize: 14, textAlign: 'left', color: colors.text, fontStyle: 'italic', opacity: 0.8, marginTop: 4 }}>
+              {selectedJuz.surahs.length} Surah{selectedJuz.surahs.length > 1 ? 's' : ''} • {selectedJuz.surahs[0]?.surahName}
+              {selectedJuz.surahs.length > 1 && ` - ${selectedJuz.surahs[selectedJuz.surahs.length - 1]?.surahName}`}
             </ThemedText>
           </ThemedView>
         </ThemedView>
 
         <ThemedView style={styles.versesContainer}>
-          {selectedJuz.surahs.map(surahData =>
-            surahData.verses.map(verse => (
-              <TouchableOpacity
-                key={verse.number}
-                onPress={() => handleVersePress(surahData.surahNumber, verse.numberInSurah)}
-                onLongPress={() => handleVerseLongPress(verse.numberInSurah, verse.text, surahData.surahNumber)}
-                activeOpacity={0.7}
-                style={[
-                  styles.verseCard,
-                  {
-                    backgroundColor: colors.background,
-                    borderColor: colors.icon,
-                  },
-                ]}>
-                <ThemedView style={styles.verseTop}>
-                  <ThemedView style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                    <ThemedView style={[styles.verseNumber, { backgroundColor: colors.tint }]}>
-                      <ThemedText style={{ color: '#fff', fontSize: 12, fontWeight: '600' }}>
-                        {verse.numberInSurah}
-                      </ThemedText>
-                    </ThemedView>
-                    <ThemedText style={{ fontSize: 12, opacity: 0.7 }}>
+          {selectedJuz.surahs.map((surahData, surahIdx) => (
+            <View key={surahData.surahNumber}>
+              {/* Surah Header in Juz View */}
+              {surahIdx > 0 && (
+                <ThemedView style={{ marginBottom: 16, marginTop: 20 }}>
+                  <ThemedView style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
+                    <ThemedView style={{ flex: 1, height: 1, backgroundColor: colors.tint, opacity: 0.3 }} />
+                    <ThemedText style={{ fontSize: 13, fontWeight: '600', color: colors.tint, opacity: 0.8 }}>
                       {surahData.surahName}
                     </ThemedText>
+                    <ThemedView style={{ flex: 1, height: 1, backgroundColor: colors.tint, opacity: 0.3 }} />
                   </ThemedView>
-                  {isVerseBookmarked(surahData.surahNumber, verse.numberInSurah) && (
-                    <IconSymbol name="bookmark.fill" size={16} color={colors.tint} />
-                  )}
                 </ThemedView>
+              )}
 
-                {/* Ayat (Arabic) */}
-                <ThemedText
-                  style={{
-                    fontSize: 20,
-                    marginTop: 12,
-                    lineHeight: 32,
-                    textAlign: 'right',
-                    fontWeight: '600',
-                  }}>
-                  {verse.text}
-                </ThemedText>
+              {surahData.verses.map((verse, verseIdx) => (
+                <TouchableOpacity
+                  key={verse.number}
+                  onPress={() => handleVersePress(surahData.surahNumber, verse.numberInSurah)}
+                  onLongPress={() => handleVerseLongPress(verse.numberInSurah, verse.text, surahData.surahNumber)}
+                  activeOpacity={0.7}
+                  style={[
+                    styles.verseCard,
+                    {
+                      backgroundColor: colors.background,
+                      borderColor: colors.tint,
+                    },
+                  ]}>
+                  <View style={{ marginVertical: 0 }}>
+                    <TajwidDisplay 
+                      text={verse.text} 
+                      fontSize={26}
+                      lineHeight={40}
+                    />
+                  </View>
 
-                {/* Latin Ayat */}
-                <ThemedText
-                  style={{
-                    fontSize: 14,
-                    marginTop: 10,
-                    lineHeight: 22,
-                    textAlign: 'left',
-                    fontStyle: 'italic',
-                    opacity: 0.8,
-                  }}>
-                  {verse.transliteration && verse.transliteration.length > 0 
-                    ? verse.transliteration 
-                    : '(Transliteration not available)'}
-                </ThemedText>
+                  {/* Decorative line below Arabic text */}
+                  <ThemedView style={{ height: 1, backgroundColor: colors.tint, opacity: 0.2, marginVertical: 8 }} />
 
-                {/* Artinya (Indonesian Translation) */}
-                <ThemedText
-                  style={{
-                    fontSize: 14,
-                    marginTop: 10,
-                    lineHeight: 22,
-                    textAlign: 'left',
-                    opacity: 0.9,
-                  }}>
-                  {verse.indonesianTranslation && verse.indonesianTranslation.length > 0 
-                    ? verse.indonesianTranslation 
-                    : '(Terjemahan tidak tersedia)'}
-                </ThemedText>
-              </TouchableOpacity>
-            ))
-          )}
+                  {/* Indonesian Transliteration */}
+                  <ThemedText
+                    style={{
+                      fontSize: 14,
+                      marginTop: 4,
+                      lineHeight: 22,
+                      textAlign: 'left',
+                      fontStyle: 'italic',
+                      opacity: 0.9,
+                      color: colors.tint,
+                    }}>
+                    {verse.transliteration && verse.transliteration.length > 0 
+                      ? TransliterationService.toSimpleIndonesian(verse.transliteration)
+                      : '(Transliterasi tidak tersedia)'}
+                  </ThemedText>
+
+                  {/* Artinya (Indonesian Translation) */}
+                  <ThemedText
+                    style={{
+                      fontSize: 14,
+                      marginTop: 12,
+                      lineHeight: 24,
+                      textAlign: 'left',
+                      opacity: 0.9,
+                      fontWeight: '500',
+                    }}>
+                    {verse.indonesianTranslation && verse.indonesianTranslation.length > 0 
+                      ? verse.indonesianTranslation 
+                      : '(Terjemahan tidak tersedia)'}
+                  </ThemedText>
+
+                  {/* Decorative element at bottom */}
+                  {verseIdx < surahData.verses.length - 1 && (
+                    <ThemedView style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 16 }}>
+                      <ThemedView style={{ flex: 1, height: 1, backgroundColor: colors.tint, opacity: 0.15 }} />
+                      <ThemedText style={{ marginHorizontal: 12, fontSize: 16, opacity: 0.5 }}>
+                        <ThemedView style={[styles.verseNumber, { backgroundColor: colors.tint }]}>
+                          <ThemedText style={{ color: colors.background, fontSize: 12, fontWeight: '600' }}>
+                            {verse.numberInSurah}
+                          </ThemedText>
+                        </ThemedView>
+                        {isVerseBookmarked(surahData.surahNumber, verse.numberInSurah) && (
+                          <IconSymbol name="bookmark.fill" size={16} color={colors.tint} />
+                        )}
+                      </ThemedText>
+                      <ThemedView style={{ flex: 1, height: 1, backgroundColor: colors.tint, opacity: 0.15 }} />
+                    </ThemedView>
+                  )}
+                </TouchableOpacity>
+              ))}
+            </View>
+          ))}
         </ThemedView>
       </ScrollView>
     );
@@ -380,7 +466,7 @@ export default function ReadScreen() {
         </ThemedView>
       ) : view === 'surahs' ? (
         <>
-          <ThemedView style={styles.header}>
+          <ThemedView style={[styles.header, { marginTop: 56 }]}>
             <ThemedView style={styles.headerTop}>
               <ThemedText type="title">Baca Alquran</ThemedText>
               <ThemedText style={{ marginTop: 8, opacity: 0.7 }}>
@@ -466,13 +552,18 @@ const styles = StyleSheet.create({
   },
   listContent: {
     paddingHorizontal: 16,
-    paddingVertical: 16,
+    paddingVertical: 20,
   },
   surahCard: {
-    borderWidth: 1,
-    borderRadius: 12,
-    padding: 12,
+    borderWidth: 2,
+    borderRadius: 14,
+    padding: 16,
     marginBottom: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    elevation: 3,
   },
   surahContent: {
     flexDirection: 'row',
@@ -486,10 +577,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   juzCard: {
-    borderWidth: 1,
-    borderRadius: 12,
-    padding: 12,
+    borderWidth: 2,
+    borderRadius: 14,
+    padding: 16,
     marginBottom: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    elevation: 3,
   },
   juzContent: {
     flexDirection: 'row',
@@ -510,18 +606,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   backButton: {
-    padding: 8,
-    marginLeft: -8,
+    padding: 10,
+    borderRadius: 10,
+    marginLeft: 0,
   },
   versesContainer: {
     paddingHorizontal: 16,
+    paddingVertical: 20,
     paddingBottom: 32,
   },
   verseCard: {
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 16,
-    borderWidth: 1,
+    padding: 20,
+    borderRadius: 16,
+    marginBottom: 20,
+    borderWidth: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    elevation: 3,
   },
   verseTop: {
     flexDirection: 'row',

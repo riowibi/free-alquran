@@ -64,11 +64,11 @@ export default function HomeScreen() {
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.background }}>
-      <ThemedView style={styles.container}>
+      <ThemedView style={[styles.container, { marginTop: 40 }]}>
         {/* Header */}
         <ThemedView style={styles.headerSection}>
           <ThemedText type="title" style={{ fontSize: 32 }}>
-            Quran
+            Al-Quran Saku
           </ThemedText>
           <ThemedText type="subtitle" style={{ marginTop: 8, opacity: 0.7 }}>
             Baca dan pelajari Al-Quran dengan tajweed
@@ -105,7 +105,7 @@ export default function HomeScreen() {
                   style={styles.menuIcon}
                 />
               </ThemedView>
-              <ThemedText type="subtitle" style={{ marginTop: 12 }}>
+              <ThemedText type="subtitle" style={{ marginTop: 0 }}>
                 Baca Alquran
               </ThemedText>
               <ThemedText style={{ marginTop: 6, opacity: 0.7, fontSize: 13 }}>
@@ -137,7 +137,7 @@ export default function HomeScreen() {
                   style={styles.menuIcon}
                 />
               </ThemedView>
-              <ThemedText type="subtitle" style={{ marginTop: 12 }}>
+              <ThemedText type="subtitle" style={{ marginTop: 0 }}>
                 Terakhir Baca
               </ThemedText>
               <ThemedText style={{ marginTop: 6, opacity: 0.7, fontSize: 13 }}>
@@ -160,7 +160,7 @@ export default function HomeScreen() {
                   style={styles.menuIcon}
                 />
               </ThemedView>
-              <ThemedText type="subtitle" style={{ marginTop: 12 }}>
+              <ThemedText type="subtitle" style={{ marginTop: 0 }}>
                 Bookmark
               </ThemedText>
               <ThemedText style={{ marginTop: 6, opacity: 0.7, fontSize: 13 }}>
