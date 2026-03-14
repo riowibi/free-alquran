@@ -47,6 +47,11 @@ export interface Bookmark {
   note?: string;
 }
 
+export interface JuzGroup {
+  juzNumber: number;
+  surahs: { surahNumber: number; surahName: string; verses: QuranVerse[] }[];
+}
+
 export interface QuranData {
   surah: QuranSurah[];
   lastReadProgress?: ReadingProgress;
