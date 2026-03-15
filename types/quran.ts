@@ -36,6 +36,9 @@ export interface ReadingProgress {
   surahNumber: number;
   verseNumber: number;
   timestamp: Date;
+  readType?: 'surah' | 'juz'; // Type bacanya: Surah atau Juz
+  scrollPosition?: number; // Margin Height/Scroll position
+  juzNumber?: number; // Juz number jika dari Juz view
 }
 
 export interface Bookmark {

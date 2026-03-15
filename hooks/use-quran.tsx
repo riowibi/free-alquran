@@ -11,9 +11,10 @@ interface QuranContextType {
   isInitialized: boolean;
   error: string | null;
   initializeQuran: () => Promise<void>;
-  updateReadingProgress: (surahNumber: number, verseNumber: number) => Promise<void>;
+  updateReadingProgress: (surahNumber: number, verseNumber: number, readType?: 'surah' | 'juz', juzNumber?: number, scrollPosition?: number) => Promise<void>;
   addBookmark: (surahNumber: number, verseNumber: number, text: string, note?: string) => Promise<void>;
   removeBookmark: (bookmarkId: string) => Promise<void>;
+  toggleBookmark: (surahNumber: number, verseNumber: number, text: string, note?: string) => Promise<boolean>;
   getSurah: (surahNumber: number) => QuranSurah | undefined;
   isVerseBookmarked: (surahNumber: number, verseNumber: number) => boolean;
 }
@@ -67,7 +68,29 @@ export function QuranProvider({ children }: { children: React.ReactNode }) {
 
       // Load reading progress and bookmarks
       const progress = await QuranStorage.getReadingProgress();
-      const savedBookmarks = await QuranStorage.getBookmarks();
+      let savedBookmarks = await QuranStorage.getBookmarks();
+      
+      // Deduplicate bookmarks (keep only the first one for each surah/verse combination)
+      const uniqueBookmarks = new Map<string, Bookmark>();
+      const duplicatesFound: string[] = [];
+      
+      savedBookmarks.forEach(bookmark => {
+        const key = `${bookmark.surahNumber}-${bookmark.verseNumber}`;
+        if (!uniqueBookmarks.has(key)) {
+          uniqueBookmarks.set(key, bookmark);
+        } else {
+          duplicatesFound.push(bookmark.id);
+        }
+      });
+
+      // If duplicates were found, save the cleaned list
+      if (duplicatesFound.length > 0) {
+        console.warn(`🧹 Found ${duplicatesFound.length} duplicate bookmarks, removing...`);
+        const cleanedBookmarks = Array.from(uniqueBookmarks.values());
+        await QuranStorage.setBookmarks(cleanedBookmarks);
+        savedBookmarks = cleanedBookmarks;
+        console.log(`✅ Bookmarks cleaned - ${cleanedBookmarks.length} unique bookmarks remain`);
+      }
       
       setLastReadProgress(progress);
       setBookmarks(savedBookmarks);
@@ -85,16 +108,24 @@ export function QuranProvider({ children }: { children: React.ReactNode }) {
   /**
    * Update reading progress
    */
-  const updateReadingProgress = useCallback(async (surahNumber: number, verseNumber: number) => {
+  const updateReadingProgress = useCallback(async (surahNumber: number, verseNumber: number, readType?: 'surah' | 'juz', juzNumber?: number, scrollPosition?: number) => {
     try {
-      await QuranStorage.saveReadingProgress(surahNumber, verseNumber);
+      console.log('[QURAN_CONTEXT] Updating reading progress - Surah:', surahNumber, 'Verse:', verseNumber, 'ReadType:', readType, 'Juz:', juzNumber, 'ScrollPos:', scrollPosition);
+      // Save to storage with all parameters
+      await QuranStorage.saveReadingProgress(surahNumber, verseNumber, readType, juzNumber, scrollPosition);
+      
+      // Update context state
       setLastReadProgress({
         surahNumber,
         verseNumber,
         timestamp: new Date(),
+        readType: readType || 'surah',
+        juzNumber: juzNumber,
+        scrollPosition: scrollPosition,
       });
+      console.log('[QURAN_CONTEXT] Reading progress updated successfully');
     } catch (err) {
-      console.error('Error updating reading progress:', err);
+      console.error('[QURAN_CONTEXT] Error updating reading progress:', err);
     }
   }, []);
 
@@ -103,10 +134,41 @@ export function QuranProvider({ children }: { children: React.ReactNode }) {
    */
   const addBookmark = useCallback(async (surahNumber: number, verseNumber: number, text: string, note?: string) => {
     try {
+      console.log('[QURAN_CONTEXT] Adding bookmark - Surah:', surahNumber, 'Verse:', verseNumber, 'Has Note:', !!note);
       const bookmark = await QuranStorage.addBookmark(surahNumber, verseNumber, text, note);
-      setBookmarks(prev => [...prev, bookmark]);
+      if (bookmark) {
+        setBookmarks(prev => [...prev, bookmark]);
+        console.log('[QURAN_CONTEXT] Bookmark added - ID:', bookmark.id);
+      } else {
+        console.log('[QURAN_CONTEXT] Bookmark already exists, not adding duplicate');
+      }
     } catch (err) {
-      console.error('Error adding bookmark:', err);
+      console.error('[QURAN_CONTEXT] Error adding bookmark:', err);
+    }
+  }, []);
+
+  /**
+   * Toggle bookmark (add if not exists, remove if exists)
+   */
+  const toggleBookmark = useCallback(async (surahNumber: number, verseNumber: number, text: string, note?: string) => {
+    try {
+      console.log('[QURAN_CONTEXT] Toggling bookmark - Surah:', surahNumber, 'Verse:', verseNumber);
+      const { isBookmarked, bookmark } = await QuranStorage.toggleBookmark(surahNumber, verseNumber, text, note);
+      
+      if (isBookmarked && bookmark) {
+        // Bookmark was added
+        setBookmarks(prev => [...prev, bookmark]);
+        console.log('[QURAN_CONTEXT] Bookmark added - ID:', bookmark.id);
+      } else {
+        // Bookmark was removed
+        setBookmarks(prev => prev.filter(b => b.surahNumber !== surahNumber || b.verseNumber !== verseNumber));
+        console.log('[QURAN_CONTEXT] Bookmark removed');
+      }
+      
+      return isBookmarked;
+    } catch (err) {
+      console.error('[QURAN_CONTEXT] Error toggling bookmark:', err);
+      return false;
     }
   }, []);
 
@@ -115,10 +177,12 @@ export function QuranProvider({ children }: { children: React.ReactNode }) {
    */
   const removeBookmark = useCallback(async (bookmarkId: string) => {
     try {
+      console.log('[QURAN_CONTEXT] Removing bookmark - ID:', bookmarkId);
       await QuranStorage.deleteBookmark(bookmarkId);
       setBookmarks(prev => prev.filter(b => b.id !== bookmarkId));
+      console.log('[QURAN_CONTEXT] Bookmark removed successfully');
     } catch (err) {
-      console.error('Error removing bookmark:', err);
+      console.error('[QURAN_CONTEXT] Error removing bookmark:', err);
     }
   }, []);
 
@@ -147,6 +211,7 @@ export function QuranProvider({ children }: { children: React.ReactNode }) {
     updateReadingProgress,
     addBookmark,
     removeBookmark,
+    toggleBookmark,
     getSurah,
     isVerseBookmarked,
   };

@@ -174,20 +174,33 @@ export class QuranStorage {
    */
   static async saveReadingProgress(
     surahNumber: number,
-    verseNumber: number
+    verseNumber: number,
+    readType?: 'surah' | 'juz',
+    juzNumber?: number,
+    scrollPosition?: number
   ): Promise<void> {
     try {
       const progress: ReadingProgress = {
         surahNumber,
         verseNumber,
         timestamp: new Date(),
+        readType: readType || 'surah',
+        juzNumber: juzNumber,
+        scrollPosition: scrollPosition,
       };
       
       await this.setItem(STORAGE_KEYS.LAST_READ, JSON.stringify(progress));
       
-      console.log(`✅ Reading progress saved: Surah ${surahNumber}, Verse ${verseNumber}`);
+      console.log('[STORAGE] ✅ Reading progress saved - Data:', {
+        surahNumber,
+        verseNumber,
+        readType: readType || 'surah',
+        juzNumber: juzNumber || null,
+        scrollPosition: scrollPosition || null,
+        timestamp: new Date().toISOString(),
+      });
     } catch (error) {
-      console.error('Error saving reading progress:', error);
+      console.error('[STORAGE] ❌ Error saving reading progress:', error);
       throw error;
     }
   }
@@ -201,27 +214,68 @@ export class QuranStorage {
       
       if (data) {
         const progress = JSON.parse(data) as ReadingProgress;
-        console.log(`✅ Reading progress loaded: Surah ${progress.surahNumber}`);
+        console.log('[STORAGE] ✅ Reading progress loaded - Data:', {
+          surahNumber: progress.surahNumber,
+          verseNumber: progress.verseNumber,
+          readType: progress.readType,
+          juzNumber: progress.juzNumber || null,
+          scrollPosition: progress.scrollPosition || null,
+        });
         return progress;
       }
       
+      console.log('[STORAGE] ℹ️ No reading progress found in storage');
       return null;
     } catch (error) {
-      console.error('Error retrieving reading progress:', error);
+      console.error('[STORAGE] ❌ Error retrieving reading progress:', error);
       return null;
     }
   }
 
   /**
-   * Add a bookmark
+   * Set all bookmarks (for cleanup/deduplication)
+   */
+  static async setBookmarks(bookmarks: Bookmark[]): Promise<void> {
+    try {
+      await this.setItem(STORAGE_KEYS.BOOKMARKS, JSON.stringify(bookmarks));
+      console.log(`✅ Bookmarks updated - Total: ${bookmarks.length}`);
+    } catch (error) {
+      console.error('Error updating bookmarks:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Check if a bookmark exists for a specific surah and verse
+   */
+  static async getBookmarkForVerse(surahNumber: number, verseNumber: number): Promise<Bookmark | null> {
+    try {
+      const bookmarks = await this.getBookmarks();
+      const existing = bookmarks.find(b => b.surahNumber === surahNumber && b.verseNumber === verseNumber);
+      return existing || null;
+    } catch (error) {
+      console.error(`Error checking bookmark for Surah ${surahNumber} Verse ${verseNumber}:`, error);
+      return null;
+    }
+  }
+
+  /**
+   * Add a bookmark (prevent duplicates)
    */
   static async addBookmark(
     surahNumber: number,
     verseNumber: number,
     text: string,
     note?: string
-  ): Promise<Bookmark> {
+  ): Promise<Bookmark | null> {
     try {
+      // Check if bookmark already exists
+      const existing = await this.getBookmarkForVerse(surahNumber, verseNumber);
+      if (existing) {
+        console.log(`⚠️ Bookmark already exists for Surah ${surahNumber} Verse ${verseNumber}`);
+        return null; // Return null to indicate it already exists
+      }
+
       const bookmark: Bookmark = {
         id: `${surahNumber}-${verseNumber}-${Date.now()}`,
         surahNumber,
@@ -235,9 +289,51 @@ export class QuranStorage {
       bookmarks.push(bookmark);
       await this.setItem(STORAGE_KEYS.BOOKMARKS, JSON.stringify(bookmarks));
 
+      console.log(`✅ Bookmark added - Surah ${surahNumber} Verse ${verseNumber}`);
       return bookmark;
     } catch (error) {
       console.error('Error adding bookmark:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Toggle bookmark (add if not exists, remove if exists)
+   */
+  static async toggleBookmark(
+    surahNumber: number,
+    verseNumber: number,
+    text: string,
+    note?: string
+  ): Promise<{ isBookmarked: boolean; bookmark: Bookmark | null }> {
+    try {
+      // Check if bookmark already exists
+      const existing = await this.getBookmarkForVerse(surahNumber, verseNumber);
+
+      if (existing) {
+        // Remove the bookmark
+        await this.deleteBookmark(existing.id);
+        console.log(`✅ Bookmark removed - Surah ${surahNumber} Verse ${verseNumber}`);
+        return { isBookmarked: false, bookmark: null };
+      } else {
+        // Add a new bookmark
+        const bookmark: Bookmark = {
+          id: `${surahNumber}-${verseNumber}-${Date.now()}`,
+          surahNumber,
+          verseNumber,
+          text,
+          timestamp: new Date(),
+          note,
+        };
+
+        const bookmarks = await this.getBookmarks();
+        bookmarks.push(bookmark);
+        await this.setItem(STORAGE_KEYS.BOOKMARKS, JSON.stringify(bookmarks));
+        console.log(`✅ Bookmark added - Surah ${surahNumber} Verse ${verseNumber}`);
+        return { isBookmarked: true, bookmark };
+      }
+    } catch (error) {
+      console.error(`Error toggling bookmark for Surah ${surahNumber} Verse ${verseNumber}:`, error);
       throw error;
     }
   }

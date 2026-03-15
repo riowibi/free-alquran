@@ -13,7 +13,7 @@ interface VerseSeparatorProps {
   lastReadProgress: ReadingProgress | null;
   isLastVerse: boolean;
   onQuickButtonPress: (surahNum: number, verseNum: number) => void;
-  onBookmarkPress: (surahNum: number, verseNum: number, text: string) => void;
+  onBookmarkPress: (surahNum: number, verseNum: number, text: string) => Promise<void>;
   isBookmarked: boolean;
   tintColor: string;
   textColor: string;
@@ -33,8 +33,6 @@ export function VerseSeparator({
   textColor,
   backgroundColor,
 }: VerseSeparatorProps) {
-  if (isLastVerse) return null;
-
   return (
     <ThemedView
       style={{
@@ -44,21 +42,27 @@ export function VerseSeparator({
         marginTop: 16,
         gap: 12,
       }}>
-      <ThemedView
-        style={{ flex: 1, height: 1, backgroundColor: tintColor, opacity: 0.15 }}
-      />
+      {/* Left line - only for non-last verses */}
+      {!isLastVerse && (
+        <ThemedView
+          style={{ flex: 1, height: 1, backgroundColor: tintColor, opacity: 0.15 }}
+        />
+      )}
 
-      {/* Last Read Button */}
+      {/* Last Read Button - always show */}
       <QuickButtonLastRead
         surahNumber={surahNumber}
         verseNumber={verseNumber}
         lastReadProgress={lastReadProgress}
-        onPress={() => onQuickButtonPress(surahNumber, verseNumber)}
+        onPress={() => {
+          console.log('[VERSE_SEPARATOR] Quick button (Last Read) pressed - Surah:', surahNumber, 'Verse:', verseNumber);
+          onQuickButtonPress(surahNumber, verseNumber);
+        }}
         tintColor={tintColor}
         textColor={textColor}
       />
 
-      {/* Verse Number */}
+      {/* Verse Number - always show */}
       <ThemedView
         style={{
           width: 32,
@@ -74,11 +78,12 @@ export function VerseSeparator({
         </ThemedText>
       </ThemedView>
 
-      {/* Bookmark Button */}
+      {/* Bookmark Button - always show */}
       <TouchableOpacity
-        onPress={() => {
-          onBookmarkPress(surahNumber, verseNumber, text);
-          Alert.alert('Success', 'Verse bookmarked successfully');
+        onPress={async () => {
+          console.log('[VERSE_SEPARATOR] Bookmark button pressed - Surah:', surahNumber, 'Verse:', verseNumber, 'Is Bookmarked:', isBookmarked);
+          await onBookmarkPress(surahNumber, verseNumber, text);
+          Alert.alert('Success', isBookmarked ? 'Bookmark removed' : 'Verse bookmarked successfully');
         }}
         style={{ padding: 6, opacity: 0.7 }}
         hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
@@ -89,9 +94,12 @@ export function VerseSeparator({
         />
       </TouchableOpacity>
 
-      <ThemedView
-        style={{ flex: 1, height: 1, backgroundColor: tintColor, opacity: 0.15 }}
-      />
+      {/* Right line - only for non-last verses */}
+      {!isLastVerse && (
+        <ThemedView
+          style={{ flex: 1, height: 1, backgroundColor: tintColor, opacity: 0.15 }}
+        />
+      )}
     </ThemedView>
   );
 }

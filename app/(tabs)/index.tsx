@@ -17,6 +17,7 @@ export default function HomeScreen() {
   const colors = Colors[colorScheme ?? 'light'];
 
   useEffect(() => {
+    console.log('[HOME] Component loaded - Initializing Quran');
     initializeQuran();
   }, [initializeQuran]);
 
@@ -27,11 +28,13 @@ export default function HomeScreen() {
   }, [error]);
 
   const handleMenuPress = (route: string) => {
+    console.log('[HOME] Menu button pressed - Route:', route);
     if (isLoading) return;
     router.push(route as any);
   };
-
+    
   const handleRetry = () => {
+    console.log('[HOME] Retry button pressed - Re-initializing Quran');
     setShowError(false);
     initializeQuran();
   };
@@ -95,7 +98,10 @@ export default function HomeScreen() {
             {/* Baca Alquran */}
             <TouchableOpacity
               style={[styles.menuCard, { borderColor: colors.tint }]}
-              onPress={() => handleMenuPress('/(tabs)/read')}
+              onPress={() => {
+                console.log('[HOME] Baca Alquran button pressed');
+                handleMenuPress('/(tabs)/read');
+              }}
               activeOpacity={0.7}>
               <ThemedView style={styles.menuCardHeader}>
                 <IconSymbol
@@ -117,11 +123,36 @@ export default function HomeScreen() {
             <TouchableOpacity
               style={[styles.menuCard, { borderColor: colors.tint }]}
               onPress={() => {
+                console.log('[HOME] Terakhir Baca button pressed');
                 if (lastReadProgress) {
-                  handleMenuPress(
-                    `/(tabs)/read?surah=${lastReadProgress.surahNumber}&verse=${lastReadProgress.verseNumber}`
-                  );
+                  // Build URL with all parameters needed for read.tsx
+                  const readType = lastReadProgress.readType || 'surah';
+                  const params = [
+                    `surah=${lastReadProgress.surahNumber}`,
+                    `verse=${lastReadProgress.verseNumber}`,
+                    `readType=${readType}`,
+                  ];
+                  
+                  // If reading from Juz view, also pass juzNumber
+                  if (lastReadProgress.juzNumber) {
+                    params.push(`juz=${lastReadProgress.juzNumber}`);
+                  }
+                  
+                  // Include scrollPosition if available
+                  if (lastReadProgress.scrollPosition && lastReadProgress.scrollPosition > 0) {
+                    params.push(`scrollPosition=${lastReadProgress.scrollPosition}`);
+                  }
+                  
+                  console.log('[HOME] Terakhir Baca params:', {
+                    surahNumber: lastReadProgress.surahNumber,
+                    verseNumber: lastReadProgress.verseNumber,
+                    readType: readType,
+                    juzNumber: lastReadProgress.juzNumber,
+                    scrollPosition: lastReadProgress.scrollPosition,
+                  });
+                  handleMenuPress(`/(tabs)/read?${params.join('&')}`);
                 } else {
+                  console.log('[HOME] Terakhir Baca - No reading history found');
                   Alert.alert(
                     'No History',
                     'You have not read anything yet. Start reading to track your progress.'

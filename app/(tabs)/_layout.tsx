@@ -24,17 +24,17 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="read"
-        options={{
-          title: 'Read',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="book.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
         name="bookmark"
         options={{
           title: 'Bookmark',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="bookmark.fill" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="read"
+        options={{
+          title: 'read',
+          href: null, // Hide from tab bar
         }}
       />
     </Tabs>

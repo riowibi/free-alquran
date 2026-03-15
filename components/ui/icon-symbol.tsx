@@ -21,6 +21,7 @@ const MAPPING = {
   'bookmark': 'bookmark-outline',
   'bookmark.fill': 'bookmark',
   'clock.fill': 'access-time',
+  'book.fill': 'book',
 } as IconMapping;
 
 /**

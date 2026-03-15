@@ -23,7 +23,7 @@ export default function ReadScreen() {
     surahs,
     isLoading,
     updateReadingProgress,
-    addBookmark,
+    toggleBookmark,
     isVerseBookmarked,
     lastReadProgress,
   } = useQuran();
@@ -34,22 +34,111 @@ export default function ReadScreen() {
   const [selectedSurah, setSelectedSurah] = useState<QuranSurah | null>(null);
   const [selectedJuz, setSelectedJuz] = useState<JuzGroup | null>(null);
   const [isFromExternalNav, setIsFromExternalNav] = useState(false);
+  const [externalScrollPosition, setExternalScrollPosition] = useState<number | undefined>();
 
   // Generate juz groups
   const juzGroups = useJuzGroups(surahs);
 
-  // Handle external navigation
+  // Reset state when screen comes into focus (to handle external navigation properly)
+  useFocusEffect(
+    useCallback(() => {
+      console.log('[READ] Screen focused - Checking for external navigation params');
+      
+      if (params.surah && surahs.length > 0 && juzGroups.length > 0) {
+        const surahNum = parseInt(params.surah as string);
+        const readType = (params.readType as string) || 'surah';
+        const juzNum = params.juz ? parseInt(params.juz as string) : undefined;
+        const scrollPosition = params.scrollPosition ? parseInt(params.scrollPosition as string) : undefined;
+        
+        console.log('[READ] Focus - External navigation detected - Params:', {
+          surahNum,
+          readType,
+          juzNum,
+          scrollPosition,
+        });
+        
+        // Store external scroll position
+        setExternalScrollPosition(scrollPosition);
+        console.log('[READ] Focus - External scroll position set:', scrollPosition);
+        
+        // Handle Juz view navigation
+        if (readType === 'juz' && juzNum && juzNum > 0) {
+          const juzGroup = juzGroups.find((j) => j.juzNumber === juzNum);
+          if (juzGroup) {
+            console.log('[READ] Focus - Loading Juz view - Juz:', juzNum);
+            setSelectedJuz(juzGroup);
+            setSelectedSurah(null);
+            setIsFromExternalNav(true);
+            setView('juz');
+            return;
+          }
+        }
+        
+        // Handle Surah view navigation (default)
+        const surah = surahs.find((s) => s.number === surahNum);
+        if (surah) {
+          console.log('[READ] Focus - Loading Surah view - Surah:', surahNum);
+          setSelectedSurah(surah);
+          setSelectedJuz(null);
+          setIsFromExternalNav(true);
+          setView('verses');
+        }
+      } else if (!params.surah) {
+        // No params - reset to surahs selection view
+        console.log('[READ] Focus - No params detected, resetting to surahs view');
+        setView('surahs');
+        setListView('surahs');
+        setSelectedSurah(null);
+        setSelectedJuz(null);
+        setIsFromExternalNav(false);
+        setExternalScrollPosition(undefined);
+      }
+    }, [params.surah, params.readType, params.juz, params.scrollPosition, surahs, juzGroups])
+  );
+
+  // Handle external navigation from Home menu (on mount)
   useEffect(() => {
-    if (params.surah && surahs.length > 0) {
+    if (params.surah && surahs.length > 0 && juzGroups.length > 0) {
       const surahNum = parseInt(params.surah as string);
+      const readType = (params.readType as string) || 'surah';
+      const juzNum = params.juz ? parseInt(params.juz as string) : undefined;
+      const scrollPosition = params.scrollPosition ? parseInt(params.scrollPosition as string) : undefined;
+      
+      console.log('[READ] Mount - External navigation detected - Params:', {
+        surahNum,
+        readType,
+        juzNum,
+        scrollPosition,
+      });
+      
+      // Store external scroll position
+      setExternalScrollPosition(scrollPosition);
+      console.log('[READ] Mount - External scroll position set:', scrollPosition);
+      
+      // Handle Juz view navigation
+      if (readType === 'juz' && juzNum && juzNum > 0) {
+        const juzGroup = juzGroups.find((j) => j.juzNumber === juzNum);
+        if (juzGroup) {
+          console.log('[READ] Mount - Loading Juz view - Juz:', juzNum);
+          setSelectedJuz(juzGroup);
+          setSelectedSurah(null);
+          setIsFromExternalNav(true);
+          setView('juz');
+          return;
+        }
+      }
+      
+      // Handle Surah view navigation (default)
       const surah = surahs.find((s) => s.number === surahNum);
       if (surah) {
+        console.log('[READ] Mount - Loading Surah view - Surah:', surahNum);
         setSelectedSurah(surah);
+        setSelectedJuz(null);
         setIsFromExternalNav(true);
         setView('verses');
       }
     }
-  }, [params.surah, surahs]);
+  }, [params.surah, params.readType, params.juz, params.scrollPosition, surahs, juzGroups]);
 
   // Handle Android back button
   useFocusEffect(
@@ -78,30 +167,47 @@ export default function ReadScreen() {
   }, []);
 
   const handleJuzSelect = useCallback((juz: JuzGroup) => {
+    console.log('[READ] Juz selected - Juz Number:', juz.juzNumber, 'Surahs:', juz.surahs);
     setSelectedJuz(juz);
     setIsFromExternalNav(false);
     setView('juz');
   }, []);
 
   const handleVersePress = useCallback(
-    (surahNum: number, verseNum: number) => {
-      updateReadingProgress(surahNum, verseNum);
+    (surahNum: number, verseNum: number, scrollPosition?: number) => {
+      // Determine read type based on current view
+      const readType = view === 'juz' ? 'juz' : 'surah';
+      const juzNum = view === 'juz' ? selectedJuz?.juzNumber : undefined;
+      console.log('[READ] Verse pressed - Data:', {
+        surahNum,
+        verseNum,
+        readType,
+        juzNum,
+        scrollPosition,
+      });
+      updateReadingProgress(surahNum, verseNum, readType, juzNum, scrollPosition);
     },
-    [updateReadingProgress]
+    [updateReadingProgress, view, selectedJuz]
   );
 
   const handleVerseLongPress = useCallback(
     (verseNumber: number, text: string, surahNum: number) => {
       // Handle long press - can be used for context menu or copy
+      console.log('[READ] Verse long pressed - Verse:', verseNumber, 'Surah:', surahNum);
     },
     []
   );
 
   const handleBookmarkPress = useCallback(
-    (surahNum: number, verseNum: number, text: string) => {
-      addBookmark(surahNum, verseNum, text);
+    async (surahNum: number, verseNum: number, text: string) => {
+      console.log('[READ] Bookmark button pressed - Data:', {
+        surahNum,
+        verseNum,
+        textLength: text.length,
+      });
+      await toggleBookmark(surahNum, verseNum, text);
     },
-    [addBookmark]
+    [toggleBookmark]
   );
 
   if (isLoading) {
@@ -161,6 +267,7 @@ export default function ReadScreen() {
           tintColor={colors.tint}
           textColor={colors.text}
           backgroundColor={colors.background}
+          externalScrollPosition={externalScrollPosition}
         />
       </ThemedView>
     );
@@ -180,6 +287,7 @@ export default function ReadScreen() {
           tintColor={colors.tint}
           textColor={colors.text}
           backgroundColor={colors.background}
+          externalScrollPosition={externalScrollPosition}
         />
       </ThemedView>
     );

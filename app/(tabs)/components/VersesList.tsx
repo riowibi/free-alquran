@@ -13,10 +13,11 @@ interface VersesListProps {
   isVerseBookmarked: (surahNum: number, verseNum: number) => boolean;
   onVersePress: (surahNum: number, verseNum: number) => void;
   onVerseLongPress: (verseNum: number, text: string, surahNum: number) => void;
-  onBookmarkPress: (surahNum: number, verseNum: number, text: string) => void;
+  onBookmarkPress: (surahNum: number, verseNum: number, text: string) => Promise<void>;
   tintColor: string;
   textColor: string;
   backgroundColor: string;
+  externalScrollPosition?: number; // scrollPosition from URL params
 }
 
 export function VersesList({
@@ -31,11 +32,13 @@ export function VersesList({
   tintColor,
   textColor,
   backgroundColor,
+  externalScrollPosition,
 }: VersesListProps) {
   const { scrollRef, storeVersePosition, checkAndScroll } = useVerseScroll({
     isFromExternalNav,
     lastReadProgress,
     selectedId: surah.number,
+    externalScrollPosition,
   });
 
   return (

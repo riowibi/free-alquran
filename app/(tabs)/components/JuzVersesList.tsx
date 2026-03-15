@@ -12,10 +12,11 @@ interface JuzVersesListProps {
   isVerseBookmarked: (surahNum: number, verseNum: number) => boolean;
   onVersePress: (surahNum: number, verseNum: number) => void;
   onVerseLongPress: (verseNum: number, text: string, surahNum: number) => void;
-  onBookmarkPress: (surahNum: number, verseNum: number, text: string) => void;
+  onBookmarkPress: (surahNum: number, verseNum: number, text: string) => Promise<void>;
   tintColor: string;
   textColor: string;
   backgroundColor: string;
+  externalScrollPosition?: number; // scrollPosition from URL params
 }
 
 export function JuzVersesList({
@@ -29,11 +30,13 @@ export function JuzVersesList({
   tintColor,
   textColor,
   backgroundColor,
+  externalScrollPosition,
 }: JuzVersesListProps) {
   const { scrollRef, storeVersePosition, checkAndScroll } = useVerseScroll({
     isFromExternalNav,
     lastReadProgress,
     selectedId: juzGroup.juzNumber,
+    externalScrollPosition,
   });
 
   return (
