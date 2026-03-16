@@ -1,9 +1,10 @@
-import { ScrollView, Alert } from 'react-native';
+import { FlatList, Alert, View } from 'react-native';
+import { useEffect, useMemo } from 'react';
 import { ThemedView } from '@/components/themed-view';
 import { ThemedText } from '@/components/themed-text';
-import { QuranSurah, ReadingProgress } from '@/types/quran';
+import { QuranSurah, ReadingProgress, QuranVerse } from '@/types/quran';
 import { VerseCard } from './VerseCard';
-import { useVerseScroll } from '../hooks/useVerseScroll';
+import { useVirtualizedVerseList, VERSE_LIST_CONFIG } from '../hooks/useVirtualizedVerseList';
 
 interface VersesListProps {
   surah: QuranSurah;
@@ -34,87 +35,110 @@ export function VersesList({
   backgroundColor,
   externalScrollPosition,
 }: VersesListProps) {
-  const { scrollRef, storeVersePosition, checkAndScroll } = useVerseScroll({
+  const { flatListRef, scrollToVerse, handleViewableItemsChanged, viewabilityConfig, loadedRange } = useVirtualizedVerseList({
     isFromExternalNav,
     lastReadProgress,
     selectedId: surah.number,
     externalScrollPosition,
+    totalItems: surah.verses.length,
   });
 
-  return (
-    <ScrollView ref={scrollRef} style={{ flex: 1 }} scrollEventThrottle={16}>
-      {/* Header */}
-      <ThemedView
-        style={{
-          backgroundColor,
-          paddingHorizontal: 16,
-          paddingTop: 16,
-          paddingBottom: 12,
-          paddingVertical: 0,
-          marginTop: 56,
-        }}>
-        <ThemedText
-          type="title"
-          style={{
-            fontWeight: '700',
-            textAlign: 'left',
-            color: textColor,
-          }}>
-          {surah.englishName}
-        </ThemedText>
-        <ThemedText
-          style={{
-            fontSize: 18,
-            textAlign: 'left',
-            color: textColor,
-            marginTop: 4,
-            fontWeight: '600',
-          }}>
-          {surah.englishNameTranslation}
-        </ThemedText>
-        <ThemedText
-          style={{
-            fontSize: 14,
-            textAlign: 'left',
-            color: textColor,
-            fontStyle: 'italic',
-            opacity: 0.8,
-            marginTop: 4,
-          }}>
-          Juz {juzGroups[0]?.juzNumber} • Surat {surah.number} • {surah.numberOfAyahs}{' '}
-          Ayat • {surah.revelationType === 'Meccan' ? 'Makkiyah' : 'Madaniyah'}
-        </ThemedText>
-      </ThemedView>
+  // Filter verses based on loaded range (range-based lazy loading)
+  const visibleVerses = useMemo(() => {
+    return surah.verses.slice(loadedRange.start, loadedRange.end);
+  }, [surah.verses, loadedRange]);
 
-      {/* Verses Container */}
-      <ThemedView
+  // Scroll to last read verse after content renders
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      scrollToVerse();
+    }, 200);
+    return () => clearTimeout(timer);
+  }, [scrollToVerse]);
+
+  // Render header
+  const renderHeader = () => (
+    <ThemedView
+      style={{
+        backgroundColor,
+        paddingHorizontal: 16,
+        paddingTop: 16,
+        paddingBottom: 12,
+        marginTop: 56,
+      }}>
+      <ThemedText
+        type="title"
         style={{
-          paddingHorizontal: 16,
-          paddingVertical: 20,
-          paddingBottom: 32,
+          fontWeight: '700',
+          textAlign: 'left',
+          color: textColor,
         }}>
-        {surah.verses.map((verse, idx) => (
-          <VerseCard
-            key={verse.number}
-            verse={verse}
-            surahNumber={surah.number}
-            isLastVerse={idx === surah.verses.length - 1}
-            lastReadProgress={lastReadProgress}
-            isBookmarked={isVerseBookmarked(surah.number, verse.numberInSurah)}
-            onVersePress={onVersePress}
-            onVerseLongPress={onVerseLongPress}
-            onLayout={(verseNumber, y, height) => {
-              storeVersePosition(verseNumber, y, height);
-              checkAndScroll();
-            }}
-            onQuickButtonPress={onVersePress}
-            onBookmarkPress={onBookmarkPress}
-            tintColor={tintColor}
-            textColor={textColor}
-            backgroundColor={backgroundColor}
-          />
-        ))}
-      </ThemedView>
-    </ScrollView>
+        {surah.englishName}
+      </ThemedText>
+      <ThemedText
+        style={{
+          fontSize: 18,
+          textAlign: 'left',
+          color: textColor,
+          marginTop: 4,
+          fontWeight: '600',
+        }}>
+        {surah.englishNameTranslation}
+      </ThemedText>
+      <ThemedText
+        style={{
+          fontSize: 14,
+          textAlign: 'left',
+          color: textColor,
+          fontStyle: 'italic',
+          opacity: 0.8,
+          marginTop: 4,
+        }}>
+        Juz {juzGroups[0]?.juzNumber} • Surat {surah.number} • {surah.numberOfAyahs}{' '}
+        Ayat • {surah.revelationType === 'Meccan' ? 'Makkiyah' : 'Madaniyah'}
+      </ThemedText>
+    </ThemedView>
+  );
+
+  // Render verse card
+  const renderVerseCard = ({ item, index }: { item: QuranVerse; index: number }) => (
+    <View style={{ paddingHorizontal: 16, paddingVertical: 10 }}>
+      <VerseCard
+        verse={item}
+        surahNumber={surah.number}
+        isLastVerse={loadedRange.end === surah.verses.length && index === visibleVerses.length - 1}
+        lastReadProgress={lastReadProgress}
+        isBookmarked={isVerseBookmarked(surah.number, item.numberInSurah)}
+        onVersePress={onVersePress}
+        onVerseLongPress={onVerseLongPress}
+        onQuickButtonPress={onVersePress}
+        onBookmarkPress={onBookmarkPress}
+        tintColor={tintColor}
+        textColor={textColor}
+        backgroundColor={backgroundColor}
+      />
+    </View>
+  );
+
+  return (
+    <FlatList
+      ref={flatListRef}
+      data={visibleVerses}
+      renderItem={renderVerseCard}
+      keyExtractor={(item) => `verse-${item.number}`}
+      ListHeaderComponent={renderHeader}
+      ListFooterComponent={<View style={{ height: 32 }} />}
+      scrollEventThrottle={16}
+      onViewableItemsChanged={handleViewableItemsChanged}
+      viewabilityConfig={viewabilityConfig}
+      initialNumToRender={VERSE_LIST_CONFIG.initialNumToRender}
+      maxToRenderPerBatch={VERSE_LIST_CONFIG.maxToRenderPerBatch}
+      windowSize={VERSE_LIST_CONFIG.windowSize}
+      updateCellsBatchingPeriod={VERSE_LIST_CONFIG.updateCellsBatchingPeriod}
+      removeClippedSubviews={VERSE_LIST_CONFIG.removeClippedSubviews}
+      contentContainerStyle={{
+        flexGrow: 1,
+      }}
+    />
   );
 }

@@ -15,7 +15,7 @@ interface VerseCardProps {
   isBookmarked: boolean;
   onVersePress: (surahNum: number, verseNum: number) => void;
   onVerseLongPress: (verseNum: number, text: string, surahNum: number) => void;
-  onLayout: (verseNumber: number, y: number, height: number) => void;
+  onLayout?: (verseNumber: number, y: number, height: number) => void; // Made optional for FlatList compatibility
   onQuickButtonPress: (surahNum: number, verseNum: number, scrollPosition?: number) => void;
   onBookmarkPress: (surahNum: number, verseNum: number, text: string) => Promise<void>;
   tintColor: string;
@@ -56,7 +56,7 @@ export function VerseCard({
         const { y, height } = event.nativeEvent.layout;
         verseYRef.current = y; // Store Y position
         console.log('[VERSE_CARD] Layout calculated - Verse:', verse.numberInSurah, 'Y Position:', y, 'Height:', height);
-        onLayout(verse.numberInSurah, y, height);
+        onLayout?.(verse.numberInSurah, y, height);
       }}
       style={[
         {

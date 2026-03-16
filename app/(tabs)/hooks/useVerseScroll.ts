@@ -77,7 +77,7 @@ export function useVerseScroll(props: UseVerseScrollProps) {
           y: Math.max(0, lastReadProgress.scrollPosition! - 100),
           animated: false,
         });
-        console.log('[VERSE_SCROLL] STORED scroll executed - Y:', lastReadProgress.scrollPosition - 100);
+        console.log('[VERSE_SCROLL] STORED scroll executed - Y:', (lastReadProgress.scrollPosition ?? 0) - 100);
       }, 300);
       return;
     }
