@@ -1,5 +1,6 @@
 import { Platform } from 'react-native';
 import { QuranSurah, ReadingProgress, Bookmark } from '@/types/quran';
+import { logDebug } from './utils';
 
 // Storage keys for both file system and web storage
 const STORAGE_KEYS = {
@@ -24,6 +25,10 @@ if (Platform.OS !== 'web') {
 
 // In-memory fallback storage for web and when FileSystem is unavailable
 const memoryStorage: { [key: string]: string } = {};
+
+// Add simple caching to avoid repeated file reads
+let cachedBookmarks: Bookmark[] | null = null;
+let cachedProgress: ReadingProgress | null | undefined;
 
 export class QuranStorage {
   /**
@@ -113,21 +118,14 @@ export class QuranStorage {
     }
   }
 
-
   /**
    * Save all surahs data to local storage
    */
   static async saveSurahs(surahs: QuranSurah[]): Promise<void> {
     try {
-      console.log(`📝 Saving ${surahs.length} surahs to storage...`);
-      const jsonString = JSON.stringify(surahs);
-      const sizeInKB = new Blob([jsonString]).size / 1024;
-      console.log(`📊 Data size: ${sizeInKB.toFixed(2)} KB`);
-      
-      await this.setItem(STORAGE_KEYS.QURAN_DATA, jsonString);
+      logDebug('STORAGE', `📝 Saving ${surahs.length} surahs...`);
+      await this.setItem(STORAGE_KEYS.QURAN_DATA, JSON.stringify(surahs));
       await this.setItem(STORAGE_KEYS.SYNC_TIMESTAMP, JSON.stringify(new Date().toISOString()));
-      
-      console.log(`✅ Successfully saved ${surahs.length} surahs to storage`);
     } catch (error) {
       console.error('❌ Error saving Quran data to storage:', error);
       throw error;
@@ -139,17 +137,9 @@ export class QuranStorage {
    */
   static async getSurahs(): Promise<QuranSurah[]> {
     try {
-      console.log('📖 Retrieving surahs from storage...');
+      logDebug('STORAGE', '📖 Retrieving surahs...');
       const data = await this.getItem(STORAGE_KEYS.QURAN_DATA);
-      
-      if (data) {
-        const surahs = JSON.parse(data) as QuranSurah[];
-        console.log(`✅ Retrieved ${surahs.length} surahs from storage`);
-        return surahs;
-      }
-      
-      console.log('⚠️ No surahs found in storage');
-      return [];
+      return data ? (JSON.parse(data) as QuranSurah[]) : [];
     } catch (error) {
       console.error('❌ Error retrieving Quran data from storage:', error);
       return [];
@@ -164,7 +154,7 @@ export class QuranStorage {
       const surahs = await this.getSurahs();
       return surahs.find(s => s.number === surahNumber) || null;
     } catch (error) {
-      console.error(`Error retrieving Surah ${surahNumber}:`, error);
+      console.error(`❌ Error retrieving Surah ${surahNumber}:`, error);
       return null;
     }
   }
@@ -190,44 +180,31 @@ export class QuranStorage {
       };
       
       await this.setItem(STORAGE_KEYS.LAST_READ, JSON.stringify(progress));
-      
-      console.log('[STORAGE] ✅ Reading progress saved - Data:', {
-        surahNumber,
-        verseNumber,
-        readType: readType || 'surah',
-        juzNumber: juzNumber || null,
-        scrollPosition: scrollPosition || null,
-        timestamp: new Date().toISOString(),
-      });
+      cachedProgress = progress; // Update cache
+      logDebug('STORAGE', `📍 Progress saved: ${surahNumber}:${verseNumber}`);
     } catch (error) {
-      console.error('[STORAGE] ❌ Error saving reading progress:', error);
+      console.error('❌ Error saving reading progress:', error);
       throw error;
     }
   }
 
   /**
-   * Get last reading progress
+   * Get last reading progress - with caching
    */
   static async getReadingProgress(): Promise<ReadingProgress | null> {
     try {
-      const data = await this.getItem(STORAGE_KEYS.LAST_READ);
-      
-      if (data) {
-        const progress = JSON.parse(data) as ReadingProgress;
-        console.log('[STORAGE] ✅ Reading progress loaded - Data:', {
-          surahNumber: progress.surahNumber,
-          verseNumber: progress.verseNumber,
-          readType: progress.readType,
-          juzNumber: progress.juzNumber || null,
-          scrollPosition: progress.scrollPosition || null,
-        });
-        return progress;
+      // Return cached value if available
+      if (cachedProgress !== undefined) {
+        return cachedProgress;
       }
-      
-      console.log('[STORAGE] ℹ️ No reading progress found in storage');
-      return null;
+
+      const data = await this.getItem(STORAGE_KEYS.LAST_READ);
+      cachedProgress = data ? (JSON.parse(data) as ReadingProgress) : null;
+      logDebug('STORAGE', `📖 Progress loaded`);
+      return cachedProgress;
     } catch (error) {
-      console.error('[STORAGE] ❌ Error retrieving reading progress:', error);
+      console.error('❌ Error retrieving reading progress:', error);
+      cachedProgress = null;
       return null;
     }
   }
@@ -238,25 +215,20 @@ export class QuranStorage {
   static async setBookmarks(bookmarks: Bookmark[]): Promise<void> {
     try {
       await this.setItem(STORAGE_KEYS.BOOKMARKS, JSON.stringify(bookmarks));
-      console.log(`✅ Bookmarks updated - Total: ${bookmarks.length}`);
+      cachedBookmarks = bookmarks; // Update cache
+      logDebug('STORAGE', `📌 Bookmarks updated: ${bookmarks.length} items`);
     } catch (error) {
-      console.error('Error updating bookmarks:', error);
+      console.error('❌ Error updating bookmarks:', error);
       throw error;
     }
   }
 
   /**
-   * Check if a bookmark exists for a specific surah and verse
+   * Get bookmark for a specific surah/verse - optimized with caching
    */
-  static async getBookmarkForVerse(surahNumber: number, verseNumber: number): Promise<Bookmark | null> {
-    try {
-      const bookmarks = await this.getBookmarks();
-      const existing = bookmarks.find(b => b.surahNumber === surahNumber && b.verseNumber === verseNumber);
-      return existing || null;
-    } catch (error) {
-      console.error(`Error checking bookmark for Surah ${surahNumber} Verse ${verseNumber}:`, error);
-      return null;
-    }
+  private static async getBookmarkForVerse(surahNumber: number, verseNumber: number): Promise<Bookmark | null> {
+    const bookmarks = await this.getBookmarks();
+    return bookmarks.find(b => b.surahNumber === surahNumber && b.verseNumber === verseNumber) || null;
   }
 
   /**
@@ -269,11 +241,10 @@ export class QuranStorage {
     note?: string
   ): Promise<Bookmark | null> {
     try {
-      // Check if bookmark already exists
       const existing = await this.getBookmarkForVerse(surahNumber, verseNumber);
       if (existing) {
-        console.log(`⚠️ Bookmark already exists for Surah ${surahNumber} Verse ${verseNumber}`);
-        return null; // Return null to indicate it already exists
+        logDebug('STORAGE', `⚠️ Bookmark already exists: ${surahNumber}:${verseNumber}`);
+        return null;
       }
 
       const bookmark: Bookmark = {
@@ -287,12 +258,11 @@ export class QuranStorage {
 
       const bookmarks = await this.getBookmarks();
       bookmarks.push(bookmark);
-      await this.setItem(STORAGE_KEYS.BOOKMARKS, JSON.stringify(bookmarks));
-
-      console.log(`✅ Bookmark added - Surah ${surahNumber} Verse ${verseNumber}`);
+      await this.setBookmarks(bookmarks);
+      logDebug('STORAGE', `✅ Bookmark added: ${surahNumber}:${verseNumber}`);
       return bookmark;
     } catch (error) {
-      console.error('Error adding bookmark:', error);
+      console.error('❌ Error adding bookmark:', error);
       throw error;
     }
   }
@@ -307,16 +277,13 @@ export class QuranStorage {
     note?: string
   ): Promise<{ isBookmarked: boolean; bookmark: Bookmark | null }> {
     try {
-      // Check if bookmark already exists
       const existing = await this.getBookmarkForVerse(surahNumber, verseNumber);
 
       if (existing) {
-        // Remove the bookmark
         await this.deleteBookmark(existing.id);
-        console.log(`✅ Bookmark removed - Surah ${surahNumber} Verse ${verseNumber}`);
+        logDebug('STORAGE', `🗑️ Bookmark removed: ${surahNumber}:${verseNumber}`);
         return { isBookmarked: false, bookmark: null };
       } else {
-        // Add a new bookmark
         const bookmark: Bookmark = {
           id: `${surahNumber}-${verseNumber}-${Date.now()}`,
           surahNumber,
@@ -328,33 +295,31 @@ export class QuranStorage {
 
         const bookmarks = await this.getBookmarks();
         bookmarks.push(bookmark);
-        await this.setItem(STORAGE_KEYS.BOOKMARKS, JSON.stringify(bookmarks));
-        console.log(`✅ Bookmark added - Surah ${surahNumber} Verse ${verseNumber}`);
+        await this.setBookmarks(bookmarks);
+        logDebug('STORAGE', `✅ Bookmark added: ${surahNumber}:${verseNumber}`);
         return { isBookmarked: true, bookmark };
       }
     } catch (error) {
-      console.error(`Error toggling bookmark for Surah ${surahNumber} Verse ${verseNumber}:`, error);
+      console.error('❌ Error toggling bookmark:', error);
       throw error;
     }
   }
 
   /**
-   * Get all bookmarks
+   * Get all bookmarks - with caching
    */
   static async getBookmarks(): Promise<Bookmark[]> {
     try {
-      const data = await this.getItem(STORAGE_KEYS.BOOKMARKS);
-      
-      if (data) {
-        const bookmarks = JSON.parse(data) as Bookmark[];
-        console.log(`✅ Retrieved ${bookmarks.length} bookmarks`);
-        return bookmarks;
+      // Return cached bookmarks if available
+      if (cachedBookmarks !== null) {
+        return cachedBookmarks;
       }
-      
-      console.log('ℹ️ No bookmarks found');
-      return [];
+
+      const data = await this.getItem(STORAGE_KEYS.BOOKMARKS);
+      cachedBookmarks = data ? (JSON.parse(data) as Bookmark[]) : [];
+      return cachedBookmarks;
     } catch (error) {
-      console.error('Error retrieving bookmarks:', error);
+      console.error('❌ Error retrieving bookmarks:', error);
       return [];
     }
   }
@@ -367,7 +332,7 @@ export class QuranStorage {
       const bookmarks = await this.getBookmarks();
       return bookmarks.filter(b => b.surahNumber === surahNumber);
     } catch (error) {
-      console.error(`Error retrieving bookmarks for Surah ${surahNumber}:`, error);
+      console.error(`❌ Error retrieving bookmarks for Surah ${surahNumber}:`, error);
       return [];
     }
   }
@@ -379,47 +344,43 @@ export class QuranStorage {
     try {
       const bookmarks = await this.getBookmarks();
       const filtered = bookmarks.filter(b => b.id !== bookmarkId);
-      await this.setItem(STORAGE_KEYS.BOOKMARKS, JSON.stringify(filtered));
+      await this.setBookmarks(filtered);
+      logDebug('STORAGE', `🗑️ Bookmark deleted: ${bookmarkId}`);
     } catch (error) {
-      console.error('Error deleting bookmark:', error);
+      console.error('❌ Error deleting bookmark:', error);
       throw error;
     }
   }
 
   /**
-   * Check if Quran data is already synced (to avoid unnecessary downloads)
+   * Get last sync time
    */
   static async getLastSyncTime(): Promise<Date | null> {
     try {
       const data = await this.getItem(STORAGE_KEYS.SYNC_TIMESTAMP);
-      
-      if (data) {
-        const timestamp = JSON.parse(data) as string;
-        return new Date(timestamp);
-      }
-      
-      return null;
+      return data ? new Date(JSON.parse(data)) : null;
     } catch (error) {
-      console.error('Error retrieving sync timestamp:', error);
+      console.error('❌ Error retrieving sync timestamp:', error);
       return null;
     }
   }
 
   /**
-   * Clear all data
+   * Clear all data and cache
    */
   static async clearAllData(): Promise<void> {
     try {
-      console.log('🗑️ Clearing all stored data...');
-      
+      logDebug('STORAGE', '🗑️ Clearing all data...');
       const keys = Object.values(STORAGE_KEYS);
       for (const key of keys) {
         await this.removeItem(key);
       }
-      
-      console.log('✅ All data cleared');
+      // Clear caches
+      cachedBookmarks = null;
+      cachedProgress = undefined;
+      logDebug('STORAGE', '✅ All data cleared');
     } catch (error) {
-      console.error('Error clearing data:', error);
+      console.error('❌ Error clearing data:', error);
       throw error;
     }
   }

@@ -1,10 +1,11 @@
-import { FlatList, Alert, View } from 'react-native';
+import { FlatList, Alert, View, Animated } from 'react-native';
 import { useEffect, useMemo, useState, useRef, useCallback } from 'react';
 import { ThemedView } from '@/components/themed-view';
 import { ThemedText } from '@/components/themed-text';
 import { JuzGroup, ReadingProgress, QuranVerse, QuranSurah } from '@/types/quran';
 import { VerseCard } from './VerseCard';
-import { ContinueReadingCarousel } from './ContinueReadingCarousel';
+// import { ContinueReadingCarousel } from './ContinueReadingCarousel';
+import { SurahMinimalHeader } from './SurahMinimalHeader';
 import { useVirtualizedVerseList, VERSE_LIST_CONFIG } from '../hooks/useVirtualizedVerseList';
 
 interface JuzVersesListProps {
@@ -53,6 +54,49 @@ export function JuzVersesList({
 }: JuzVersesListProps) {
   const [showContinueReading, setShowContinueReading] = useState(false);
   const [currentViewableIndex, setCurrentViewableIndex] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Navigate to previous juz
+  const handlePreviousJuz = useCallback(() => {
+    if (allJuzGroups && juzGroup.juzNumber > 1) {
+      const previousJuz = allJuzGroups.find((j) => j.juzNumber === juzGroup.juzNumber - 1);
+      if (previousJuz && onJuzChange) {
+        console.log('[JUZ] Previous juz pressed - Juz:', previousJuz.juzNumber);
+        // Scroll to top
+        flatListRef.current?.scrollToOffset({ offset: 0, animated: true });
+        onJuzChange(previousJuz);
+      }
+    }
+  }, [juzGroup.juzNumber, allJuzGroups, onJuzChange]);
+
+  // Navigate to next juz
+  const handleNextJuz = useCallback(() => {
+    if (allJuzGroups && juzGroup.juzNumber < 30) {
+      const nextJuz = allJuzGroups.find((j) => j.juzNumber === juzGroup.juzNumber + 1);
+      if (nextJuz && onJuzChange) {
+        console.log('[JUZ] Next juz pressed - Juz:', nextJuz.juzNumber);
+        // Scroll to top
+        flatListRef.current?.scrollToOffset({ offset: 0, animated: true });
+        onJuzChange(nextJuz);
+      }
+    }
+  }, [juzGroup.juzNumber, allJuzGroups, onJuzChange]);
+
+  // Wrapper for carousel surah selection - scroll to top
+  const handleCarouselSurahChange = useCallback((selectedSurah: QuranSurah) => {
+    flatListRef.current?.scrollToOffset({ offset: 0, animated: true });
+    if (onSurahChange) {
+      onSurahChange(selectedSurah);
+    }
+  }, [onSurahChange]);
+
+  // Wrapper for carousel juz selection - scroll to top
+  const handleCarouselJuzChange = useCallback((selectedJuz: JuzGroup) => {
+    flatListRef.current?.scrollToOffset({ offset: 0, animated: true });
+    if (onJuzChange) {
+      onJuzChange(selectedJuz);
+    }
+  }, [onJuzChange]);
 
   // Flatten data structure for FlatList
   const flatData = useMemo(() => {
@@ -97,18 +141,13 @@ export function JuzVersesList({
 
   // Filter data based on loaded range
   const visibleData = useMemo(() => {
-    return flatData.slice(loadedRange.start, loadedRange.end);
-  }, [flatData, loadedRange]);
-
-  // Keep ref in sync with current loaded range
-  useEffect(() => {
-    loadedRangeRef.current = loadedRange;
-  }, [loadedRange]);
+    // Show ALL verses - FlatList virtualization will handle rendering only visible ones
+    return flatData;
+  }, [flatData]);
 
   // Detect if viewing the last verse
   useEffect(() => {
-    const isLastVerseVisible =
-      loadedRange.end === flatData.length && currentViewableIndex >= flatData.length - 3;
+    const isLastVerseVisible = currentViewableIndex >= flatData.length - 3;
 
     if (isLastVerseVisible && juzGroup.juzNumber < 30) {
       // Don't show for Juz 30 (last juz)
@@ -116,7 +155,7 @@ export function JuzVersesList({
     } else {
       setShowContinueReading(false);
     }
-  }, [loadedRange, currentViewableIndex, juzGroup.juzNumber, flatData.length]);
+  }, [currentViewableIndex, juzGroup.juzNumber, flatData.length]);
 
   // Scroll to last read verse after content renders
   useEffect(() => {
@@ -128,34 +167,48 @@ export function JuzVersesList({
 
   // Render header
   const renderHeader = () => (
-    <ThemedView
-      style={{
-        backgroundColor,
-        paddingHorizontal: 16,
-        paddingTop: 16,
-        paddingBottom: 12,
-        marginTop: 56,
-      }}>
-      <ThemedText
-        type="title"
-        style={{ fontWeight: '700', textAlign: 'left', color: textColor }}>
-        Juz {juzGroup.juzNumber}
-      </ThemedText>
-      <ThemedText
+    <View>
+      {/* Minimal Sticky Header */}
+      <SurahMinimalHeader
+        surahName={`Juz ${juzGroup.juzNumber}`}
+        surahNumber={juzGroup.juzNumber}
+        totalSurahs={30}
+        onPreviousSurah={handlePreviousJuz}
+        onNextSurah={handleNextJuz}
+        tintColor={tintColor}
+        textColor={textColor}
+        backgroundColor={backgroundColor}
+      />
+
+      {/* Full Header */}
+      <ThemedView
         style={{
-          fontSize: 14,
-          textAlign: 'left',
-          color: textColor,
-          fontStyle: 'italic',
-          opacity: 0.8,
-          marginTop: 4,
+          backgroundColor,
+          paddingHorizontal: 16,
+          paddingTop: 16,
+          paddingBottom: 12,
         }}>
-        {juzGroup.surahs.length} Surah{juzGroup.surahs.length > 1 ? 's' : ''} •{' '}
-        {juzGroup.surahs[0]?.surahName}
-        {juzGroup.surahs.length > 1 &&
-          ` - ${juzGroup.surahs[juzGroup.surahs.length - 1]?.surahName}`}
-      </ThemedText>
-    </ThemedView>
+        <ThemedText
+          type="title"
+          style={{ fontWeight: '700', textAlign: 'left', color: textColor }}>
+          Juz {juzGroup.juzNumber}
+        </ThemedText>
+        <ThemedText
+          style={{
+            fontSize: 14,
+            textAlign: 'left',
+            color: textColor,
+            fontStyle: 'italic',
+            opacity: 0.8,
+            marginTop: 4,
+          }}>
+          {juzGroup.surahs.length} Surah{juzGroup.surahs.length > 1 ? 's' : ''} •{' '}
+          {juzGroup.surahs[0]?.surahName}
+          {juzGroup.surahs.length > 1 &&
+            ` - ${juzGroup.surahs[juzGroup.surahs.length - 1]?.surahName}`}
+        </ThemedText>
+      </ThemedView>
+    </View>
   );
 
   // Render surah separator
@@ -224,26 +277,26 @@ export function JuzVersesList({
   };
 
   // Render footer with continue reading carousel
-  const renderFooter = () => {
-    if (!showContinueReading || !onJuzChange || !allJuzGroups) {
-      return <View style={{ height: 32 }} />;
-    }
+  // const renderFooter = () => {
+  //   if (!showContinueReading || !onJuzChange || !allJuzGroups) {
+  //     return <View style={{ height: 32 }} />;
+  //   }
 
-    return (
-      <ContinueReadingCarousel
-        currentSurah={null}
-        currentJuz={juzGroup}
-        readMode="juz"
-        allSurahs={allSurahs || []}
-        allJuzGroups={allJuzGroups}
-        onSelectSurah={onSurahChange || (() => {})}
-        onSelectJuz={onJuzChange}
-        tintColor={tintColor}
-        textColor={textColor}
-        backgroundColor={backgroundColor}
-      />
-    );
-  };
+  //   return (
+  //     <ContinueReadingCarousel
+  //       currentSurah={null}
+  //       currentJuz={juzGroup}
+  //       readMode="juz"
+  //       allSurahs={allSurahs || []}
+  //       allJuzGroups={allJuzGroups}
+  //       onSelectSurah={handleCarouselSurahChange}
+  //       onSelectJuz={handleCarouselJuzChange}
+  //       tintColor={tintColor}
+  //       textColor={textColor}
+  //       backgroundColor={backgroundColor}
+  //     />
+  //   );
+  // };
 
   // Track viewable items to detect when viewing last verses - FULLY STABLE CALLBACK
   const handleViewableItemsChangedWithTracking = useCallback(
@@ -257,30 +310,57 @@ export function JuzVersesList({
     [handleViewableItemsChanged]
   );
 
+  // Handle scroll for sticky header
+  const scrollOffsetY = useRef(new Animated.Value(0)).current;
+  
+  const handleScroll = (event: any) => {
+    const offsetY = event.nativeEvent.contentOffset.y;
+    scrollOffsetY.setValue(offsetY);
+    setIsScrolled(offsetY > 60);
+  };
+
   return (
-    <FlatList
-      ref={flatListRef}
-      data={visibleData}
-      renderItem={renderItem}
-      keyExtractor={(item, index) => {
-        if (item.type === 'separator') {
-          return `separator-${item.surahNumber}`;
-        }
-        return `verse-${item.verseData?.number}`;
-      }}
-      ListHeaderComponent={renderHeader}
-      ListFooterComponent={renderFooter}
-      scrollEventThrottle={16}
-      onViewableItemsChanged={handleViewableItemsChangedWithTracking}
-      viewabilityConfig={viewabilityConfig}
-      initialNumToRender={VERSE_LIST_CONFIG.initialNumToRender}
-      maxToRenderPerBatch={VERSE_LIST_CONFIG.maxToRenderPerBatch}
-      windowSize={VERSE_LIST_CONFIG.windowSize}
-      updateCellsBatchingPeriod={VERSE_LIST_CONFIG.updateCellsBatchingPeriod}
-      removeClippedSubviews={VERSE_LIST_CONFIG.removeClippedSubviews}
-      contentContainerStyle={{
-        flexGrow: 1,
-      }}
-    />
+    <ThemedView style={{ flex: 1, backgroundColor }}>
+      {/* Sticky Minimal Header Overlay */}
+      {isScrolled && (
+        <SurahMinimalHeader
+          surahName={`Juz ${juzGroup.juzNumber}`}
+          surahNumber={juzGroup.juzNumber}
+          totalSurahs={30}
+          onPreviousSurah={handlePreviousJuz}
+          onNextSurah={handleNextJuz}
+          tintColor={tintColor}
+          textColor={textColor}
+          backgroundColor={backgroundColor}
+        />
+      )}
+
+      {/* Main List */}
+      <FlatList
+        ref={flatListRef}
+        data={visibleData}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => {
+          if (item.type === 'separator') {
+            return `separator-${item.surahNumber}`;
+          }
+          return `verse-${item.verseData?.number}`;
+        }}
+        ListHeaderComponent={renderHeader}
+        // ListFooterComponent={renderFooter}
+        scrollEventThrottle={16}
+        onViewableItemsChanged={handleViewableItemsChangedWithTracking}
+        viewabilityConfig={viewabilityConfig}
+        initialNumToRender={VERSE_LIST_CONFIG.initialNumToRender}
+        maxToRenderPerBatch={VERSE_LIST_CONFIG.maxToRenderPerBatch}
+        windowSize={VERSE_LIST_CONFIG.windowSize}
+        updateCellsBatchingPeriod={VERSE_LIST_CONFIG.updateCellsBatchingPeriod}
+        removeClippedSubviews={VERSE_LIST_CONFIG.removeClippedSubviews}
+        onScroll={handleScroll}
+        contentContainerStyle={{
+          flexGrow: 1,
+        }}
+      />
+    </ThemedView>
   );
 }

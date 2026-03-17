@@ -1,11 +1,14 @@
 import { View, TouchableOpacity, Alert, Platform } from 'react-native';
-import { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, memo } from 'react';
 import { ThemedView } from '@/components/themed-view';
 import { ThemedText } from '@/components/themed-text';
 import { TajwidDisplay } from '@/components/tajweed-display';
 import { TransliterationService } from '@/services/transliteration';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Bookmark } from '@/types/quran';
+
+// Debug flag
+const DEBUG_BOOKMARK_CARD = false;
 
 interface BookmarkCardProps {
   bookmark: Bookmark;
@@ -19,7 +22,22 @@ interface BookmarkCardProps {
   backgroundColor: string;
 }
 
-export function BookmarkCard({
+/**
+ * Memo comparison for BookmarkCard optimization
+ */
+const arePropsEqual = (prevProps: BookmarkCardProps, nextProps: BookmarkCardProps) => {
+  return (
+    prevProps.bookmark.id === nextProps.bookmark.id &&
+    prevProps.bookmark.verseNumber === nextProps.bookmark.verseNumber &&
+    prevProps.surahName === nextProps.surahName &&
+    prevProps.isLastBookmark === nextProps.isLastBookmark &&
+    prevProps.tintColor === nextProps.tintColor &&
+    prevProps.textColor === nextProps.textColor &&
+    prevProps.backgroundColor === nextProps.backgroundColor
+  );
+};
+
+function BookmarkCardComponent({
   bookmark,
   surahName,
   transliteration,
@@ -38,6 +56,7 @@ export function BookmarkCard({
     const performDelete = async () => {
       isProcessing.current = true;
       try {
+        DEBUG_BOOKMARK_CARD && console.log('🗑️ Removing bookmark:', bookmark.id);
         await onBookmarkPress(bookmark.id);
         if (Platform.OS !== 'web') {
           Alert.alert('Berhasil', 'Bookmark berhasil dihapus');
@@ -49,27 +68,17 @@ export function BookmarkCard({
 
     // Cross-platform confirmation
     if (Platform.OS === 'web') {
-      // For web, use window.confirm
       const confirmed = window.confirm('Apakah Anda yakin ingin menghapus bookmark ini?');
       if (confirmed) {
         await performDelete();
       }
     } else {
-      // For iOS and Android, use Alert.alert
       Alert.alert(
         'Konfirmasi Hapus',
         'Apakah Anda yakin ingin menghapus bookmark ini?',
         [
-          {
-            text: 'Tidak',
-            onPress: () => {},
-            style: 'cancel',
-          },
-          {
-            text: 'Ya',
-            onPress: performDelete,
-            style: 'destructive',
-          },
+          { text: 'Tidak', onPress: () => {}, style: 'cancel' },
+          { text: 'Ya', onPress: performDelete, style: 'destructive' },
         ]
       );
     }
@@ -200,3 +209,6 @@ export function BookmarkCard({
     </ThemedView>
   );
 }
+
+// Export memoized component for better performance
+export const BookmarkCard = memo(BookmarkCardComponent, arePropsEqual);

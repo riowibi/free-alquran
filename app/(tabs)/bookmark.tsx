@@ -81,7 +81,7 @@ export default function BookmarkScreen() {
         <ThemedView style={styles.emptyContainer}>
           <IconSymbol name="bookmark" size={48} color={colors.icon} />
           <ThemedText type="subtitle" style={{ marginTop: 16, textAlign: 'center' }}>
-            Belum ada bookmark
+            Simpan ayat untuk dibaca dan dipahami kembali nanti
           </ThemedText>
           <ThemedText style={{ marginTop: 8, opacity: 0.7, textAlign: 'center' }}>
             Bookmark ayat saat membaca untuk disimpan di sini

@@ -1,7 +1,10 @@
-import { createContext, useCallback, useContext, useState } from 'react';
+import { createContext, useCallback, useContext, useState, useMemo } from 'react';
 import { QuranSurah, Bookmark, ReadingProgress } from '@/types/quran';
 import { QuranAPI } from '@/services/quran-api';
 import { QuranStorage } from '@/services/quran-storage';
+import { deduplicateBookmarks, logDebug, measurePerformance } from '@/services/utils';
+
+const MODULE_NAME = 'QuranContext';
 
 interface QuranContextType {
   surahs: QuranSurah[];
@@ -30,38 +33,38 @@ export function QuranProvider({ children }: { children: React.ReactNode }) {
   const [error, setError] = useState<string | null>(null);
 
   /**
-   * Initialize Quran data
+   * Initialize Quran data - optimized with less verbose logging
    */
   const initializeQuran = useCallback(async () => {
     try {
-      console.log('📱 Initializing Quran data...');
+      logDebug(MODULE_NAME, '📱 Initializing Quran data...');
       setIsLoading(true);
       setError(null);
 
       // Try to get data from local storage first
-      console.log('💾 Checking local storage...');
-      const savedSurahs = await QuranStorage.getSurahs();
+      const savedSurahs = await measurePerformance(MODULE_NAME, 'Load from storage', () =>
+        QuranStorage.getSurahs()
+      );
       
       if (savedSurahs.length > 0) {
-        // Data already synced
-        console.log(`✅ Found ${savedSurahs.length} surahs in local storage`);
+        logDebug(MODULE_NAME, `✅ Found ${savedSurahs.length} surahs in local storage`);
         setSurahs(savedSurahs);
         setIsInitialized(true);
       } else {
         // Fetch from API and save to storage
-        console.log('🌐 Local storage empty, fetching from API...');
-        const fetchedSurahs = await QuranAPI.fetchAllSurahs();
+        logDebug(MODULE_NAME, '🌐 Local storage empty, fetching from API...');
+        const fetchedSurahs = await measurePerformance(MODULE_NAME, 'Fetch from API', () =>
+          QuranAPI.fetchAllSurahs()
+        );
         
         if (fetchedSurahs.length > 0) {
-          console.log(`✅ API fetch successful: ${fetchedSurahs.length} surahs`);
-          console.log('💾 Saving to local storage...');
+          logDebug(MODULE_NAME, `✅ API fetch successful: ${fetchedSurahs.length} surahs`);
           await QuranStorage.saveSurahs(fetchedSurahs);
           setSurahs(fetchedSurahs);
           setIsInitialized(true);
-          console.log('✅ Data saved to local storage');
         } else {
           const errorMsg = 'Unable to load Quran data. Please check your internet connection.';
-          console.error('❌ ' + errorMsg);
+          console.error(`❌ [${MODULE_NAME}] ${errorMsg}`);
           setError(errorMsg);
         }
       }
@@ -70,51 +73,37 @@ export function QuranProvider({ children }: { children: React.ReactNode }) {
       const progress = await QuranStorage.getReadingProgress();
       let savedBookmarks = await QuranStorage.getBookmarks();
       
-      // Deduplicate bookmarks (keep only the first one for each surah/verse combination)
-      const uniqueBookmarks = new Map<string, Bookmark>();
-      const duplicatesFound: string[] = [];
+      // Deduplicate bookmarks efficiently
+      const { unique: uniqueBookmarks, duplicates } = deduplicateBookmarks(savedBookmarks);
       
-      savedBookmarks.forEach(bookmark => {
-        const key = `${bookmark.surahNumber}-${bookmark.verseNumber}`;
-        if (!uniqueBookmarks.has(key)) {
-          uniqueBookmarks.set(key, bookmark);
-        } else {
-          duplicatesFound.push(bookmark.id);
-        }
-      });
-
-      // If duplicates were found, save the cleaned list
-      if (duplicatesFound.length > 0) {
-        console.warn(`🧹 Found ${duplicatesFound.length} duplicate bookmarks, removing...`);
-        const cleanedBookmarks = Array.from(uniqueBookmarks.values());
-        await QuranStorage.setBookmarks(cleanedBookmarks);
-        savedBookmarks = cleanedBookmarks;
-        console.log(`✅ Bookmarks cleaned - ${cleanedBookmarks.length} unique bookmarks remain`);
+      if (duplicates.length > 0) {
+        console.warn(`🧹 [${MODULE_NAME}] Found ${duplicates.length} duplicate bookmarks, removing...`);
+        await QuranStorage.setBookmarks(uniqueBookmarks);
+        savedBookmarks = uniqueBookmarks;
       }
       
       setLastReadProgress(progress);
       setBookmarks(savedBookmarks);
-      console.log(`📊 Loaded: ${savedBookmarks.length} bookmarks, last read progress: ${progress ? 'Yes' : 'No'}`);
+      logDebug(MODULE_NAME, `📊 Loaded: ${savedBookmarks.length} bookmarks`);
       
     } catch (err) {
       const errorMsg = err instanceof Error ? err.message : 'Unknown error occurred';
       setError(errorMsg);
-      console.error('❌ Error initializing Quran:', err);
+      console.error(`❌ [${MODULE_NAME}] Error initializing Quran:`, err);
     } finally {
       setIsLoading(false);
     }
   }, []);
 
   /**
-   * Update reading progress
+   * Update reading progress - optimized
    */
   const updateReadingProgress = useCallback(async (surahNumber: number, verseNumber: number, readType?: 'surah' | 'juz', juzNumber?: number, scrollPosition?: number) => {
     try {
-      console.log('[QURAN_CONTEXT] Updating reading progress - Surah:', surahNumber, 'Verse:', verseNumber, 'ReadType:', readType, 'Juz:', juzNumber, 'ScrollPos:', scrollPosition);
-      // Save to storage with all parameters
+      logDebug(MODULE_NAME, `📍 Updating progress: ${surahNumber}:${verseNumber}`);
+      
       await QuranStorage.saveReadingProgress(surahNumber, verseNumber, readType, juzNumber, scrollPosition);
       
-      // Update context state
       setLastReadProgress({
         surahNumber,
         verseNumber,
@@ -123,9 +112,8 @@ export function QuranProvider({ children }: { children: React.ReactNode }) {
         juzNumber: juzNumber,
         scrollPosition: scrollPosition,
       });
-      console.log('[QURAN_CONTEXT] Reading progress updated successfully');
     } catch (err) {
-      console.error('[QURAN_CONTEXT] Error updating reading progress:', err);
+      console.error(`❌ [${MODULE_NAME}] Error updating reading progress:`, err);
     }
   }, []);
 
@@ -134,16 +122,13 @@ export function QuranProvider({ children }: { children: React.ReactNode }) {
    */
   const addBookmark = useCallback(async (surahNumber: number, verseNumber: number, text: string, note?: string) => {
     try {
-      console.log('[QURAN_CONTEXT] Adding bookmark - Surah:', surahNumber, 'Verse:', verseNumber, 'Has Note:', !!note);
+      logDebug(MODULE_NAME, `🔖 Adding bookmark: ${surahNumber}:${verseNumber}`);
       const bookmark = await QuranStorage.addBookmark(surahNumber, verseNumber, text, note);
       if (bookmark) {
         setBookmarks(prev => [...prev, bookmark]);
-        console.log('[QURAN_CONTEXT] Bookmark added - ID:', bookmark.id);
-      } else {
-        console.log('[QURAN_CONTEXT] Bookmark already exists, not adding duplicate');
       }
     } catch (err) {
-      console.error('[QURAN_CONTEXT] Error adding bookmark:', err);
+      console.error(`❌ [${MODULE_NAME}] Error adding bookmark:`, err);
     }
   }, []);
 
@@ -152,22 +137,18 @@ export function QuranProvider({ children }: { children: React.ReactNode }) {
    */
   const toggleBookmark = useCallback(async (surahNumber: number, verseNumber: number, text: string, note?: string) => {
     try {
-      console.log('[QURAN_CONTEXT] Toggling bookmark - Surah:', surahNumber, 'Verse:', verseNumber);
+      logDebug(MODULE_NAME, `🔀 Toggling bookmark: ${surahNumber}:${verseNumber}`);
       const { isBookmarked, bookmark } = await QuranStorage.toggleBookmark(surahNumber, verseNumber, text, note);
       
       if (isBookmarked && bookmark) {
-        // Bookmark was added
         setBookmarks(prev => [...prev, bookmark]);
-        console.log('[QURAN_CONTEXT] Bookmark added - ID:', bookmark.id);
       } else {
-        // Bookmark was removed
         setBookmarks(prev => prev.filter(b => b.surahNumber !== surahNumber || b.verseNumber !== verseNumber));
-        console.log('[QURAN_CONTEXT] Bookmark removed');
       }
       
       return isBookmarked;
     } catch (err) {
-      console.error('[QURAN_CONTEXT] Error toggling bookmark:', err);
+      console.error(`❌ [${MODULE_NAME}] Error toggling bookmark:`, err);
       return false;
     }
   }, []);
@@ -177,24 +158,23 @@ export function QuranProvider({ children }: { children: React.ReactNode }) {
    */
   const removeBookmark = useCallback(async (bookmarkId: string) => {
     try {
-      console.log('[QURAN_CONTEXT] Removing bookmark - ID:', bookmarkId);
+      logDebug(MODULE_NAME, `🗑️ Removing bookmark: ${bookmarkId}`);
       await QuranStorage.deleteBookmark(bookmarkId);
       setBookmarks(prev => prev.filter(b => b.id !== bookmarkId));
-      console.log('[QURAN_CONTEXT] Bookmark removed successfully');
     } catch (err) {
-      console.error('[QURAN_CONTEXT] Error removing bookmark:', err);
+      console.error(`❌ [${MODULE_NAME}] Error removing bookmark:`, err);
     }
   }, []);
 
   /**
-   * Get surah by number
+   * Get surah by number - memoized for performance
    */
   const getSurah = useCallback((surahNumber: number) => {
     return surahs.find(s => s.number === surahNumber);
   }, [surahs]);
 
   /**
-   * Check if a verse is bookmarked
+   * Check if a verse is bookmarked - memoized lookup
    */
   const isVerseBookmarked = useCallback((surahNumber: number, verseNumber: number) => {
     return bookmarks.some(b => b.surahNumber === surahNumber && b.verseNumber === verseNumber);

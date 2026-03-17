@@ -1,11 +1,14 @@
-import { TouchableOpacity, View } from 'react-native';
-import { useRef } from 'react';
+import React, { TouchableOpacity, View } from 'react-native';
+import { useRef, useCallback, memo } from 'react';
 import { ThemedView } from '@/components/themed-view';
 import { ThemedText } from '@/components/themed-text';
 import { TajwidDisplay } from '@/components/tajweed-display';
 import { TransliterationService } from '@/services/transliteration';
 import { VerseSeparator } from './VerseSeparator';
 import { QuranVerse, ReadingProgress } from '@/types/quran';
+
+// Debug flag for performance logging
+const DEBUG_VERSE_CARD = false;
 
 interface VerseCardProps {
   verse: QuranVerse;
@@ -15,7 +18,7 @@ interface VerseCardProps {
   isBookmarked: boolean;
   onVersePress: (surahNum: number, verseNum: number) => void;
   onVerseLongPress: (verseNum: number, text: string, surahNum: number) => void;
-  onLayout?: (verseNumber: number, y: number, height: number) => void; // Made optional for FlatList compatibility
+  onLayout?: (verseNumber: number, y: number, height: number) => void;
   onQuickButtonPress: (surahNum: number, verseNum: number, scrollPosition?: number) => void;
   onBookmarkPress: (surahNum: number, verseNum: number, text: string) => Promise<void>;
   tintColor: string;
@@ -23,7 +26,25 @@ interface VerseCardProps {
   backgroundColor: string;
 }
 
-export function VerseCard({
+/**
+ * Custom comparison for memo optimization
+ * Compares only data that affects rendering, ignoring function references
+ */
+const arePropsEqual = (prevProps: VerseCardProps, nextProps: VerseCardProps) => {
+  return (
+    prevProps.verse.number === nextProps.verse.number &&
+    prevProps.surahNumber === nextProps.surahNumber &&
+    prevProps.isBookmarked === nextProps.isBookmarked &&
+    prevProps.isLastVerse === nextProps.isLastVerse &&
+    prevProps.tintColor === nextProps.tintColor &&
+    prevProps.textColor === nextProps.textColor &&
+    prevProps.backgroundColor === nextProps.backgroundColor &&
+    prevProps.lastReadProgress?.verseNumber === nextProps.lastReadProgress?.verseNumber &&
+    prevProps.lastReadProgress?.surahNumber === nextProps.lastReadProgress?.surahNumber
+  );
+};
+
+function VerseCardComponent({
   verse,
   surahNumber,
   isLastVerse,
@@ -41,23 +62,30 @@ export function VerseCard({
   // Track Y position for scroll location
   const verseYRef = useRef<number>(0);
 
+  // Memoize callbacks to prevent unnecessary child re-renders
+  const handlePress = useCallback(() => {
+    DEBUG_VERSE_CARD && console.log('📍 Verse pressed:', `${surahNumber}:${verse.numberInSurah}`);
+    onVersePress(surahNumber, verse.numberInSurah);
+  }, [surahNumber, verse.numberInSurah, onVersePress]);
+
+  const handleLongPress = useCallback(() => {
+    DEBUG_VERSE_CARD && console.log('📍 Verse long pressed:', `${surahNumber}:${verse.numberInSurah}`);
+    onVerseLongPress(verse.numberInSurah, verse.text, surahNumber);
+  }, [surahNumber, verse.numberInSurah, verse.text, onVerseLongPress]);
+
+  const handleLayout = useCallback((event: any) => {
+    const { y, height } = event.nativeEvent.layout;
+    verseYRef.current = y;
+    DEBUG_VERSE_CARD && console.log('📐 Layout:', `Verse ${verse.numberInSurah} at Y: ${y}`);
+    onLayout?.(verse.numberInSurah, y, height);
+  }, [verse.numberInSurah, onLayout]);
+
   return (
     <TouchableOpacity
-      onPress={() => {
-        console.log('[VERSE_CARD] Verse card pressed - Surah:', surahNumber, 'Verse:', verse.numberInSurah);
-        onVersePress(surahNumber, verse.numberInSurah);
-      }}
-      onLongPress={() => {
-        console.log('[VERSE_CARD] Verse card long pressed - Surah:', surahNumber, 'Verse:', verse.numberInSurah);
-        onVerseLongPress(verse.numberInSurah, verse.text, surahNumber);
-      }}
+      onPress={handlePress}
+      onLongPress={handleLongPress}
       activeOpacity={0.7}
-      onLayout={(event) => {
-        const { y, height } = event.nativeEvent.layout;
-        verseYRef.current = y; // Store Y position
-        console.log('[VERSE_CARD] Layout calculated - Verse:', verse.numberInSurah, 'Y Position:', y, 'Height:', height);
-        onLayout?.(verse.numberInSurah, y, height);
-      }}
+      onLayout={handleLayout}
       style={[
         {
           padding: 20,
@@ -139,3 +167,6 @@ export function VerseCard({
     </TouchableOpacity>
   );
 }
+
+// Export memoized component for better performance
+export const VerseCard = memo(VerseCardComponent, arePropsEqual);

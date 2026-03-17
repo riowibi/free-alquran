@@ -197,7 +197,7 @@ export default function HomeScreen() {
               <ThemedText style={{ marginTop: 6, opacity: 0.7, fontSize: 13 }}>
                 {bookmarks.length > 0
                   ? `Anda memiliki ${bookmarks.length} bookmark`
-                  : 'Belum ada bookmark'}
+                  : 'Simpan ayat untuk dibaca dan dipahami kembali nanti'}
               </ThemedText>
             </TouchableOpacity>
           </ThemedView>

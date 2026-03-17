@@ -12,6 +12,7 @@ import { SurahsList } from './components/SurahsList';
 import { JuzList } from './components/JuzList';
 import { VersesList } from './components/VersesList';
 import { JuzVersesList } from './components/JuzVersesList';
+import { ReadingMenuHeader } from './components/ReadingMenuHeader';
 import { useJuzGroups } from './hooks/useJuzGroups';
 
 export default function ReadScreen() {
@@ -228,6 +229,47 @@ export default function ReadScreen() {
     setView('juz');
   }, []);
 
+  // Handle Baca Quran menu - Go back to surahs list
+  const handleBacaQuran = useCallback(() => {
+    console.log('[READ] Baca Quran menu pressed - Returning to surahs list');
+    setView('surahs');
+    setListView('surahs');
+    setSelectedSurah(null);
+    setSelectedJuz(null);
+    setIsFromExternalNav(false);
+  }, []);
+
+  // Handle Terakhir Baca menu - Navigate to last read progress
+  const handleTerakhirBaca = useCallback(() => {
+    console.log('[READ] Terakhir Baca menu pressed - Navigating to last read');
+    if (lastReadProgress) {
+      const readType = lastReadProgress.readType || 'surah';
+      
+      if (readType === 'juz' && lastReadProgress.juzNumber) {
+        // Navigate to last read juz
+        const juzGroup = juzGroups.find((j) => j.juzNumber === lastReadProgress.juzNumber);
+        if (juzGroup) {
+          console.log('[READ] Loading Juz view - Juz:', lastReadProgress.juzNumber);
+          setSelectedJuz(juzGroup);
+          setSelectedSurah(null);
+          setIsFromExternalNav(true); // Enable scroll to saved position
+          setView('juz');
+          return;
+        }
+      }
+      
+      // Navigate to last read surah (default)
+      const surah = surahs.find((s) => s.number === lastReadProgress.surahNumber);
+      if (surah) {
+        console.log('[READ] Loading Surah view - Surah:', lastReadProgress.surahNumber);
+        setSelectedSurah(surah);
+        setSelectedJuz(null);
+        setIsFromExternalNav(true); // Enable scroll to saved position
+        setView('verses');
+      }
+    }
+  }, [lastReadProgress, surahs, juzGroups]);
+
   if (isLoading) {
     return (
       <ThemedView style={styles.loadingContainer}>
@@ -273,6 +315,14 @@ export default function ReadScreen() {
   if (view === 'verses' && selectedSurah) {
     return (
       <ThemedView style={styles.container}>
+        <ReadingMenuHeader
+          onBacaQuran={handleBacaQuran}
+          onTerakhirBaca={handleTerakhirBaca}
+          hasReadingHistory={!!lastReadProgress}
+          tintColor={colors.tint}
+          textColor={colors.text}
+          backgroundColor={colors.background}
+        />
         <VersesList
           surah={selectedSurah}
           juzGroups={juzGroups}
@@ -297,6 +347,14 @@ export default function ReadScreen() {
   if (view === 'juz' && selectedJuz) {
     return (
       <ThemedView style={styles.container}>
+        <ReadingMenuHeader
+          onBacaQuran={handleBacaQuran}
+          onTerakhirBaca={handleTerakhirBaca}
+          hasReadingHistory={!!lastReadProgress}
+          tintColor={colors.tint}
+          textColor={colors.text}
+          backgroundColor={colors.background}
+        />
         <JuzVersesList
           juzGroup={selectedJuz}
           isFromExternalNav={isFromExternalNav}

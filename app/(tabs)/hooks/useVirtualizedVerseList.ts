@@ -17,9 +17,9 @@ interface LoadedRange {
 
 // Estimated item height (header + verse card + padding)
 const ESTIMATED_ITEM_HEIGHT = 180; // pixels
-const INITIAL_RANGE_SIZE = 20; // Load 20 items around target
-const PRELOAD_THRESHOLD = 5; // Preload when 5 items away from boundary
-const LOAD_MORE_SIZE = 10; // Load 10 more items per direction
+const INITIAL_RANGE_SIZE = 50; // Load 50 items around target (increased from 20)
+const PRELOAD_THRESHOLD = 10; // Preload when 10 items away from boundary (increased from 5)
+const LOAD_MORE_SIZE = 30; // Load 30 more items per direction (increased from 10)
 
 export function useVirtualizedVerseList(props: UseVirtualizedVerseListProps) {
   const { isFromExternalNav, lastReadProgress, selectedId, externalScrollPosition, totalItems } = props;
@@ -207,8 +207,8 @@ export function useVirtualizedVerseList(props: UseVirtualizedVerseListProps) {
 
 // FlatList optimization config (for range-based lazy loading)
 export const VERSE_LIST_CONFIG = {
-  initialNumToRender: 15, // Render 15 items from loaded range
-  maxToRenderPerBatch: 5, // Max 5 per batch
+  initialNumToRender: 25, // Render 25 items from loaded range (increased from 15)
+  maxToRenderPerBatch: 10, // Max 10 per batch (increased from 5)
   windowSize: 10, // Keep 10 screens worth buffered
   updateCellsBatchingPeriod: 50, // Update every 50ms
   removeClippedSubviews: true, // Remove views outside viewport
