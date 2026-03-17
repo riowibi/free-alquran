@@ -1,5 +1,5 @@
-import { View, TouchableOpacity } from 'react-native';
-import { useRef } from 'react';
+import { View, TouchableOpacity, Alert, Platform } from 'react-native';
+import { useRef, useCallback } from 'react';
 import { ThemedView } from '@/components/themed-view';
 import { ThemedText } from '@/components/themed-text';
 import { TajwidDisplay } from '@/components/tajweed-display';
@@ -32,15 +32,48 @@ export function BookmarkCard({
 }: BookmarkCardProps) {
   const isProcessing = useRef(false);
 
-  const handleRemoveBookmark = async () => {
+  const handleRemoveBookmark = useCallback(async () => {
     if (isProcessing.current) return;
-    isProcessing.current = true;
-    try {
-      await onBookmarkPress(bookmark.id);
-    } finally {
-      isProcessing.current = false;
+
+    const performDelete = async () => {
+      isProcessing.current = true;
+      try {
+        await onBookmarkPress(bookmark.id);
+        if (Platform.OS !== 'web') {
+          Alert.alert('Berhasil', 'Bookmark berhasil dihapus');
+        }
+      } finally {
+        isProcessing.current = false;
+      }
+    };
+
+    // Cross-platform confirmation
+    if (Platform.OS === 'web') {
+      // For web, use window.confirm
+      const confirmed = window.confirm('Apakah Anda yakin ingin menghapus bookmark ini?');
+      if (confirmed) {
+        await performDelete();
+      }
+    } else {
+      // For iOS and Android, use Alert.alert
+      Alert.alert(
+        'Konfirmasi Hapus',
+        'Apakah Anda yakin ingin menghapus bookmark ini?',
+        [
+          {
+            text: 'Tidak',
+            onPress: () => {},
+            style: 'cancel',
+          },
+          {
+            text: 'Ya',
+            onPress: performDelete,
+            style: 'destructive',
+          },
+        ]
+      );
     }
-  };
+  }, [bookmark.id, onBookmarkPress]);
 
   return (
     <ThemedView
@@ -57,36 +90,80 @@ export function BookmarkCard({
         shadowRadius: 4,
         elevation: 3,
       }}>
-      {/* Verse Number */}
-      <ThemedText style={{ fontSize: 12, opacity: 0.7 }}>
-        {surahName} - Ayat {bookmark.verseNumber}
-      </ThemedText>
+      {/* Header with Verse Number Badge and Controls */}
+      <ThemedView
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginBottom: 16,
+          gap: 12,
+        }}>
+        {/* Surah Name */}
+        <ThemedText
+          style={{
+            flex: 1,
+            fontSize: 12,
+            opacity: 0.7,
+            textAlign: 'right',
+          }}>
+          Ayat
+        </ThemedText>
 
-      {/* Arabic Text */}
-      <View style={{ marginVertical: 12 }}>
-        <TajwidDisplay text={bookmark.text} fontSize={26} lineHeight={40} />
-      </View>
+        {/* Verse Number Badge - circular */}
+        <ThemedView
+          style={{
+            width: 32,
+            height: 32,
+            borderRadius: 16,
+            backgroundColor: tintColor,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <ThemedText
+            style={{
+              color: backgroundColor,
+              fontSize: 12,
+              fontWeight: '600',
+            }}>
+            {bookmark.verseNumber}
+          </ThemedText>
+        </ThemedView>
+
+        {/* Remove Bookmark Button */}
+        <TouchableOpacity
+          onPress={handleRemoveBookmark}
+          style={{ padding: 6, opacity: 0.7 }}
+          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+          <IconSymbol name="bookmark.fill" size={16} color={textColor} />
+        </TouchableOpacity>
+      </ThemedView>
 
       {/* Decorative line */}
       <ThemedView
         style={{
           height: 1,
           backgroundColor: tintColor,
-          opacity: 0.2,
-          marginVertical: 8,
+          opacity: 0.15,
+          marginBottom: 16,
         }}
       />
+
+      {/* Arabic Text */}
+      <View style={{ marginBottom: 12 }}>
+        <TajwidDisplay text={bookmark.text} fontSize={26} lineHeight={40} />
+      </View>
 
       {/* Transliteration */}
       <ThemedText
         style={{
           fontSize: 14,
-          marginTop: 8,
           lineHeight: 22,
           textAlign: 'left',
           fontStyle: 'italic',
           opacity: 0.9,
           color: tintColor,
+          marginBottom: 12,
         }}>
         {transliteration && transliteration.length > 0
           ? TransliterationService.toSimpleIndonesian(transliteration)
@@ -97,12 +174,12 @@ export function BookmarkCard({
       <ThemedText
         style={{
           fontSize: 14,
-          marginTop: 12,
           lineHeight: 24,
           textAlign: 'left',
           opacity: 0.9,
           fontWeight: '500',
           color: textColor,
+          marginBottom: 12,
         }}>
         {translation && translation.length > 0
           ? translation
@@ -111,7 +188,7 @@ export function BookmarkCard({
 
       {/* Note if exists */}
       {bookmark.note && (
-        <ThemedView style={{ marginTop: 12, paddingTop: 12, borderTopWidth: 1, borderTopColor: tintColor }}>
+        <ThemedView style={{ marginBottom: 12, paddingTop: 12, borderTopWidth: 1, borderTopColor: tintColor, opacity: 0.8 }}>
           <ThemedText style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>
             Catatan:
           </ThemedText>
@@ -120,33 +197,6 @@ export function BookmarkCard({
           </ThemedText>
         </ThemedView>
       )}
-
-      {/* Bookmark timestamp */}
-      <ThemedText style={{ fontSize: 11, marginTop: 8, opacity: 0.5 }}>
-        {new Date(bookmark.timestamp).toLocaleDateString('id-ID', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
-        })}
-      </ThemedText>
-
-      {/* Remove Bookmark Button */}
-      <ThemedView
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: 16,
-        }}>
-        <TouchableOpacity
-          onPress={handleRemoveBookmark}
-          style={{ padding: 8 }}
-          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
-          <IconSymbol name="bookmark.fill" size={16} color={textColor} />
-        </TouchableOpacity>
-      </ThemedView>
     </ThemedView>
   );
 }

@@ -74,7 +74,7 @@ export default function HomeScreen() {
             Al-Quran Saku
           </ThemedText>
           <ThemedText type="subtitle" style={{ marginTop: 8, opacity: 0.7 }}>
-            Baca dan pelajari Al-Quran dengan tajweed
+            Baca Al-Quran dengan tajweed
           </ThemedText>
         </ThemedView>
 

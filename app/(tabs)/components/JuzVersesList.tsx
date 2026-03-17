@@ -1,9 +1,10 @@
 import { FlatList, Alert, View } from 'react-native';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState, useRef, useCallback } from 'react';
 import { ThemedView } from '@/components/themed-view';
 import { ThemedText } from '@/components/themed-text';
-import { JuzGroup, ReadingProgress, QuranVerse } from '@/types/quran';
+import { JuzGroup, ReadingProgress, QuranVerse, QuranSurah } from '@/types/quran';
 import { VerseCard } from './VerseCard';
+import { ContinueReadingCarousel } from './ContinueReadingCarousel';
 import { useVirtualizedVerseList, VERSE_LIST_CONFIG } from '../hooks/useVirtualizedVerseList';
 
 interface JuzVersesListProps {
@@ -14,6 +15,10 @@ interface JuzVersesListProps {
   onVersePress: (surahNum: number, verseNum: number) => void;
   onVerseLongPress: (verseNum: number, text: string, surahNum: number) => void;
   onBookmarkPress: (surahNum: number, verseNum: number, text: string) => Promise<void>;
+  onSurahChange?: (surah: QuranSurah) => void;
+  onJuzChange?: (juz: JuzGroup) => void;
+  allSurahs?: QuranSurah[];
+  allJuzGroups?: JuzGroup[];
   tintColor: string;
   textColor: string;
   backgroundColor: string;
@@ -37,11 +42,18 @@ export function JuzVersesList({
   onVersePress,
   onVerseLongPress,
   onBookmarkPress,
+  onSurahChange,
+  onJuzChange,
+  allSurahs,
+  allJuzGroups,
   tintColor,
   textColor,
   backgroundColor,
   externalScrollPosition,
 }: JuzVersesListProps) {
+  const [showContinueReading, setShowContinueReading] = useState(false);
+  const [currentViewableIndex, setCurrentViewableIndex] = useState(0);
+
   // Flatten data structure for FlatList
   const flatData = useMemo(() => {
     const items: VerseItem[] = [];
@@ -81,10 +93,30 @@ export function JuzVersesList({
     totalItems: flatData.filter((item) => item.type === 'verse').length,
   });
 
+  const loadedRangeRef = useRef(loadedRange);
+
   // Filter data based on loaded range
   const visibleData = useMemo(() => {
     return flatData.slice(loadedRange.start, loadedRange.end);
   }, [flatData, loadedRange]);
+
+  // Keep ref in sync with current loaded range
+  useEffect(() => {
+    loadedRangeRef.current = loadedRange;
+  }, [loadedRange]);
+
+  // Detect if viewing the last verse
+  useEffect(() => {
+    const isLastVerseVisible =
+      loadedRange.end === flatData.length && currentViewableIndex >= flatData.length - 3;
+
+    if (isLastVerseVisible && juzGroup.juzNumber < 30) {
+      // Don't show for Juz 30 (last juz)
+      setShowContinueReading(true);
+    } else {
+      setShowContinueReading(false);
+    }
+  }, [loadedRange, currentViewableIndex, juzGroup.juzNumber, flatData.length]);
 
   // Scroll to last read verse after content renders
   useEffect(() => {
@@ -191,6 +223,40 @@ export function JuzVersesList({
     );
   };
 
+  // Render footer with continue reading carousel
+  const renderFooter = () => {
+    if (!showContinueReading || !onJuzChange || !allJuzGroups) {
+      return <View style={{ height: 32 }} />;
+    }
+
+    return (
+      <ContinueReadingCarousel
+        currentSurah={null}
+        currentJuz={juzGroup}
+        readMode="juz"
+        allSurahs={allSurahs || []}
+        allJuzGroups={allJuzGroups}
+        onSelectSurah={onSurahChange || (() => {})}
+        onSelectJuz={onJuzChange}
+        tintColor={tintColor}
+        textColor={textColor}
+        backgroundColor={backgroundColor}
+      />
+    );
+  };
+
+  // Track viewable items to detect when viewing last verses - FULLY STABLE CALLBACK
+  const handleViewableItemsChangedWithTracking = useCallback(
+    (info: any) => {
+      if (info.viewableItems.length > 0) {
+        const lastViewableIndex = info.viewableItems[info.viewableItems.length - 1].index || 0;
+        setCurrentViewableIndex(lastViewableIndex + loadedRangeRef.current.start);
+      }
+      handleViewableItemsChanged(info);
+    },
+    [handleViewableItemsChanged]
+  );
+
   return (
     <FlatList
       ref={flatListRef}
@@ -203,9 +269,9 @@ export function JuzVersesList({
         return `verse-${item.verseData?.number}`;
       }}
       ListHeaderComponent={renderHeader}
-      ListFooterComponent={<View style={{ height: 32 }} />}
+      ListFooterComponent={renderFooter}
       scrollEventThrottle={16}
-      onViewableItemsChanged={handleViewableItemsChanged}
+      onViewableItemsChanged={handleViewableItemsChangedWithTracking}
       viewabilityConfig={viewabilityConfig}
       initialNumToRender={VERSE_LIST_CONFIG.initialNumToRender}
       maxToRenderPerBatch={VERSE_LIST_CONFIG.maxToRenderPerBatch}

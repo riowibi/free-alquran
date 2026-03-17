@@ -210,6 +210,24 @@ export default function ReadScreen() {
     [toggleBookmark]
   );
 
+  // Handle surah selection from continue reading carousel
+  const handleSurahChange = useCallback((surah: QuranSurah) => {
+    console.log('[READ] Surah changed from carousel - Surah:', surah.number);
+    setSelectedSurah(surah);
+    setSelectedJuz(null);
+    setIsFromExternalNav(false);
+    setView('verses');
+  }, []);
+
+  // Handle juz selection from continue reading carousel
+  const handleJuzChange = useCallback((juz: JuzGroup) => {
+    console.log('[READ] Juz changed from carousel - Juz:', juz.juzNumber);
+    setSelectedJuz(juz);
+    setSelectedSurah(null);
+    setIsFromExternalNav(false);
+    setView('juz');
+  }, []);
+
   if (isLoading) {
     return (
       <ThemedView style={styles.loadingContainer}>
@@ -264,6 +282,9 @@ export default function ReadScreen() {
           onVersePress={handleVersePress}
           onVerseLongPress={handleVerseLongPress}
           onBookmarkPress={handleBookmarkPress}
+          onSurahChange={handleSurahChange}
+          onJuzChange={handleJuzChange}
+          allSurahs={surahs}
           tintColor={colors.tint}
           textColor={colors.text}
           backgroundColor={colors.background}
@@ -284,6 +305,10 @@ export default function ReadScreen() {
           onVersePress={handleVersePress}
           onVerseLongPress={handleVerseLongPress}
           onBookmarkPress={handleBookmarkPress}
+          onSurahChange={handleSurahChange}
+          onJuzChange={handleJuzChange}
+          allSurahs={surahs}
+          allJuzGroups={juzGroups}
           tintColor={colors.tint}
           textColor={colors.text}
           backgroundColor={colors.background}

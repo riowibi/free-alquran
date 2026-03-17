@@ -1,9 +1,10 @@
 import { FlatList, Alert, View } from 'react-native';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState, useRef, useCallback } from 'react';
 import { ThemedView } from '@/components/themed-view';
 import { ThemedText } from '@/components/themed-text';
-import { QuranSurah, ReadingProgress, QuranVerse } from '@/types/quran';
+import { QuranSurah, ReadingProgress, QuranVerse, JuzGroup } from '@/types/quran';
 import { VerseCard } from './VerseCard';
+import { ContinueReadingCarousel } from './ContinueReadingCarousel';
 import { useVirtualizedVerseList, VERSE_LIST_CONFIG } from '../hooks/useVirtualizedVerseList';
 
 interface VersesListProps {
@@ -15,6 +16,9 @@ interface VersesListProps {
   onVersePress: (surahNum: number, verseNum: number) => void;
   onVerseLongPress: (verseNum: number, text: string, surahNum: number) => void;
   onBookmarkPress: (surahNum: number, verseNum: number, text: string) => Promise<void>;
+  onSurahChange?: (surah: QuranSurah) => void;
+  onJuzChange?: (juz: JuzGroup) => void;
+  allSurahs?: QuranSurah[];
   tintColor: string;
   textColor: string;
   backgroundColor: string;
@@ -30,6 +34,9 @@ export function VersesList({
   onVersePress,
   onVerseLongPress,
   onBookmarkPress,
+  onSurahChange,
+  onJuzChange,
+  allSurahs,
   tintColor,
   textColor,
   backgroundColor,
@@ -43,10 +50,32 @@ export function VersesList({
     totalItems: surah.verses.length,
   });
 
+  const [showContinueReading, setShowContinueReading] = useState(false);
+  const [currentViewableIndex, setCurrentViewableIndex] = useState(0);
+  const loadedRangeRef = useRef(loadedRange);
+
   // Filter verses based on loaded range (range-based lazy loading)
   const visibleVerses = useMemo(() => {
     return surah.verses.slice(loadedRange.start, loadedRange.end);
   }, [surah.verses, loadedRange]);
+
+  // Keep ref in sync with current loaded range
+  useEffect(() => {
+    loadedRangeRef.current = loadedRange;
+  }, [loadedRange]);
+
+  // Detect if viewing the last verse
+  useEffect(() => {
+    const isLastVerseVisible =
+      loadedRange.end === surah.verses.length && currentViewableIndex >= surah.verses.length - 3;
+
+    if (isLastVerseVisible && surah.number < 114) {
+      // Don't show for Surah 114 (last surah)
+      setShowContinueReading(true);
+    } else {
+      setShowContinueReading(false);
+    }
+  }, [loadedRange, currentViewableIndex, surah.number, surah.verses.length]);
 
   // Scroll to last read verse after content renders
   useEffect(() => {
@@ -120,6 +149,40 @@ export function VersesList({
     </View>
   );
 
+  // Render footer with continue reading carousel
+  const renderFooter = () => {
+    if (!showContinueReading || !onSurahChange || !allSurahs) {
+      return <View style={{ height: 32 }} />;
+    }
+
+    return (
+      <ContinueReadingCarousel
+        currentSurah={surah}
+        currentJuz={juzGroups[0] || null}
+        readMode="surah"
+        allSurahs={allSurahs}
+        allJuzGroups={juzGroups}
+        onSelectSurah={onSurahChange}
+        onSelectJuz={onJuzChange || (() => {})}
+        tintColor={tintColor}
+        textColor={textColor}
+        backgroundColor={backgroundColor}
+      />
+    );
+  };
+
+  // Track viewable items to detect when viewing last verses - FULLY STABLE CALLBACK
+  const handleViewableItemsChangedWithTracking = useCallback(
+    (info: any) => {
+      if (info.viewableItems.length > 0) {
+        const lastViewableIndex = info.viewableItems[info.viewableItems.length - 1].index || 0;
+        setCurrentViewableIndex(lastViewableIndex + loadedRangeRef.current.start);
+      }
+      handleViewableItemsChanged(info);
+    },
+    [handleViewableItemsChanged]
+  );
+
   return (
     <FlatList
       ref={flatListRef}
@@ -127,9 +190,9 @@ export function VersesList({
       renderItem={renderVerseCard}
       keyExtractor={(item) => `verse-${item.number}`}
       ListHeaderComponent={renderHeader}
-      ListFooterComponent={<View style={{ height: 32 }} />}
+      ListFooterComponent={renderFooter}
       scrollEventThrottle={16}
-      onViewableItemsChanged={handleViewableItemsChanged}
+      onViewableItemsChanged={handleViewableItemsChangedWithTracking}
       viewabilityConfig={viewabilityConfig}
       initialNumToRender={VERSE_LIST_CONFIG.initialNumToRender}
       maxToRenderPerBatch={VERSE_LIST_CONFIG.maxToRenderPerBatch}

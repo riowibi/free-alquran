@@ -106,7 +106,7 @@ export default function BookmarkScreen() {
                 {/* Surah Header */}
                 <ThemedView style={[styles.surahHeader, { backgroundColor: colors.tint }]}>
                   <ThemedText style={{ color: colors.background, fontWeight: '700', fontSize: 16 }}>
-                    {group.surah?.name || `Surah ${group.surahNumber}`}
+                    {group.surah?.englishName || `Surah ${group.surahNumber}`}
                   </ThemedText>
                   <ThemedText style={{ color: colors.background, fontSize: 12, marginTop: 2, opacity: 0.8 }}>
                     {group.bookmarks.length} {group.bookmarks.length === 1 ? 'bookmark' : 'bookmarks'}
@@ -121,7 +121,7 @@ export default function BookmarkScreen() {
                       <BookmarkCard
                         key={bookmark.id}
                         bookmark={bookmark}
-                        surahName={group.surah?.name || `Surah ${group.surahNumber}`}
+                        surahName={group.surah?.englishName || `Surah ${group.surahNumber}`}
                         transliteration={verseData.transliteration}
                         translation={verseData.translation}
                         isLastBookmark={idx === group.bookmarks.length - 1}
